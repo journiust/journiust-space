@@ -92,7 +92,9 @@
       }
 
       .title-container {
-        display: inline-flex;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         align-items: center;
         gap: 24px;
       }
@@ -109,7 +111,7 @@
       }
 
       .main-title-group {
-        text-align: left;
+        text-align: center;
       }
 
       h1 {
@@ -135,7 +137,6 @@
         animation: fadeUp 1.8s ease forwards 0.3s;
       }
 
-      /* ===== Subtitle + Bio appear together ===== */
       .subtitle,
       .bio-section .bio {
         font-size: 22px;
@@ -149,7 +150,6 @@
       }
 
       .subtitle {
-        color: #4e4e4e;
         letter-spacing: 1px;
       }
 
@@ -161,9 +161,9 @@
       /* ===== Gallery ===== */
       .gallery {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 60px;
-        padding: 0 10%;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+        padding: 0 5%;
         margin-top: 50px;
         margin-bottom: 120px;
       }
@@ -189,26 +189,33 @@
         filter: brightness(1.07) saturate(1.05);
       }
 
+      /* ===== Stunning Caption Box ===== */
       .caption {
         margin-top: 22px;
-        font-size: 21px;
+        font-size: 18px;
         line-height: 1.5;
-        color: #3b3b3b;
+        color: #fff;
         font-weight: 400;
         width: 90%;
         margin-left: auto;
         margin-right: auto;
+        padding: 12px 16px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        text-align: center;
         opacity: 0.9;
-        transition: opacity 0.6s ease;
+        transition: all 0.6s ease;
+        backdrop-filter: blur(4px);
       }
 
       .post:hover .caption {
         opacity: 1;
+        transform: translateY(-5px);
       }
 
       /* ===== Footer ===== */
       footer {
-        margin-top: 30px; /* Reduced spacing */
+        margin-top: 30px;
         margin-bottom: 20px;
         font-size: 15px;
         color: #7a7366;
@@ -274,8 +281,8 @@
           font-size: 18px;
         }
         .gallery {
-          padding: 0 6%;
-          gap: 40px;
+          padding: 0 4%;
+          gap: 30px;
         }
         footer {
           font-size: 14px;
@@ -321,7 +328,7 @@
     <!-- Gallery -->
     <section class="gallery">
       <div class="post">
-        <img src="images/post2.jpg" alt="Post 1" />
+        <img src="images/post3.jpg" alt="Post 1" />
         <div class="caption">Sawasdee Craft, I own a lab here ;)</div>
       </div>
       <div class="post">
@@ -329,7 +336,7 @@
         <div class="caption">I am a weirdo, love being w/ a weirdo.</div>
       </div>
       <div class="post">
-        <img src="images/post3.jpg" alt="Post 3" />
+        <img src="images/post2.jpg" alt="Post 3" />
         <div class="caption">Notre vie, notre décision, notre choix :P</div>
       </div>
     </section>
@@ -337,7 +344,7 @@
     <!-- Footer -->
     <footer>© 2025 Pinkklish. All rights reserved.</footer>
 
-    <!-- Scroll Reveal Script -->
+    <!-- Scroll Reveal Script with fallback -->
     <script>
       const elements = document.querySelectorAll(".post, footer");
 
@@ -353,6 +360,11 @@
       );
 
       elements.forEach((el) => observer.observe(el));
+
+      // Fallback for iOS Safari: show everything after 1s if not triggered
+      setTimeout(() => {
+        elements.forEach((el) => el.classList.add("visible"));
+      }, 1000);
     </script>
   </body>
 </html>
