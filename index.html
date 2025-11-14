@@ -1,361 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pinkklish | Whatever</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinkklish I Journiust I Whatever</title>
 
-    <!-- Luxury Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Playfair+Display:wght@600&display=swap"
-      rel="stylesheet"
-    />
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
 
-    <style>
-      /* ===== Reset ===== */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<style>
+:root {
+  --bg-space-start: #0a0a0a;
+  --bg-space-end: #000010;
+  --rocket-metal-light: #ffffff;
+  --rocket-metal-dark: #555555;
+  --rocket-body-shadow: rgba(0,0,0,0.5);
+  --rocket-window: rgba(255,255,255,0.6);
+  --fin-color: linear-gradient(to top, #444, #111);
+  --flame-core: #ff7700;
+  --flame-outer: #ffd500;
+  --star-color: #ffffff;
+  --branding-text: #000000;
+  --branding-highlight: #ffff00;
+}
 
-      html {
-        scroll-behavior: smooth;
-      }
+* { box-sizing: border-box; margin:0; padding:0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Roboto Condensed', sans-serif; }
+body {
+  background: linear-gradient(to bottom, var(--bg-space-start), var(--bg-space-end));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
 
-      body {
-        background-color: #f9f2de;
-        font-family: "Cormorant Garamond", serif;
-        color: #1d1d1d;
-        overflow-x: hidden;
-      }
+.stars {
+  position: absolute;
+  top:0; left:0; width:100%; height:100%; z-index:-1;
+}
+.star {
+  position: absolute;
+  background: var(--star-color);
+  border-radius: 50%;
+  animation: twinkle 2s infinite ease-in-out alternate;
+}
+@keyframes twinkle {
+  from { opacity: 0.2; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
 
-      img {
-        max-width: 100%;
-        display: block;
-      }
+.hero {
+  position: absolute;
+  top: 5%;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+  color: white;
+}
 
-      /* ===== Top-left PINKKLISH ===== */
-      .top-left-logo {
-        position: fixed;
-        top: 16px;
-        left: 8%;
-        font-family: "Cormorant Garamond", serif;
-        font-size: 16px;
-        font-weight: normal;
-        color: #4e4e4e;
-        z-index: 101;
-      }
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4em;
+  text-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
 
-      /* ===== Navbar ===== */
-      nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(249, 242, 222, 0.85);
-        backdrop-filter: blur(8px);
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding: 12px 8%;
-        z-index: 100;
-      }
+.hero .subtitle {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8em;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 10px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.4),
+               0 0 20px rgba(255,255,255,0.3);
+  letter-spacing: 1px;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
 
-      nav .nav-links {
-        display: flex;
-        gap: 28px;
-      }
+#launch-button {
+  position: absolute;
+  left: 10%;
+  bottom: -600px;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: 700;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: var(--rocket-metal-dark);
+  background: var(--rocket-metal-light);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+#launch-button:hover {
+  background: var(--branding-highlight);
+  color: var(--rocket-metal-dark);
+  box-shadow: 0 12px 30px rgba(255,0,0,0.5);
+  transform: translateY(-5px);
+}
 
-      nav .nav-links a {
-        font-size: 16px;
-        text-decoration: none;
-        color: #4e4e4e;
-        transition: all 0.3s ease;
-      }
+.rocket-container {
+  position: absolute;
+  bottom: 80px;
+  width: 180px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 5s ease-out;
+  transform-origin: bottom center;
+  z-index: 5;
+}
+.rocket {
+  width: 180px;
+  height: 700px;
+  background: var(--rocket-metal-light);
+  border-radius: 90px / 18px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 30px 80px var(--rocket-body-shadow);
+}
+.rocket-nose {
+  position: absolute;
+  top: -120px;
+  width: 180px;
+  height: 120px;
+  background: linear-gradient(to bottom, var(--rocket-metal-light), var(--rocket-metal-dark));
+  clip-path: polygon(50% 0%, 90% 100%, 10% 100%);
+  border-radius: 50% 50% 0 0;
+  box-shadow: inset -2px -2px 8px rgba(0,0,0,0.2);
+}
+.branding {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--branding-text);
+  text-shadow: 0 0 5px var(--branding-highlight);
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+.cockpit {
+  position: absolute;
+  top: 110px;
+  width: 50px;
+  height: 18px;
+  background: var(--rocket-window);
+  border-radius: 50% / 70% 70% 30% 30%;
+  filter: blur(1px);
+}
+.fin-left, .fin-right {
+  position: absolute;
+  bottom: 0;
+  width: 45px;
+  height: 120px;
+  background: var(--fin-color);
+  clip-path: polygon(50% 0, 0 100%, 100% 100%);
+}
+.fin-left { left: -30px; transform: rotate(-15deg); }
+.fin-right { right: -30px; transform: rotate(15deg); }
 
-      nav .nav-links a:hover {
-        color: #000;
-        letter-spacing: 0.5px;
-      }
+.exhaust {
+  position: absolute;
+  bottom: -80px;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.flame {
+  position: absolute;
+  bottom: 0;
+  width: 50px;
+  height: 150px;
+  background: radial-gradient(ellipse at bottom, var(--flame-core), var(--flame-outer));
+  border-radius: 50%;
+  filter: blur(15px);
+  animation: flicker 0.5s infinite alternate ease-in-out;
+}
+@keyframes flicker {
+  0% { transform: scaleY(0.9) scaleX(1); opacity: 0.7; }
+  100% { transform: scaleY(1.2) scaleX(1.1); opacity: 1; }
+}
+.rocket-container.launching {
+  animation: liftoff 5s forwards ease-out;
+}
+@keyframes liftoff {
+  0% { transform: translateY(0); }
+  20% { transform: translateY(-10px); }
+  100% { transform: translateY(-150vh); }
+}
+.fade-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+  z-index: 60;
+}
+#passwordOverlay {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.9);
+  display:flex; justify-content:center; align-items:center;
+  flex-direction:column;
+  color:white;
+  font-family:'Roboto Condensed', sans-serif;
+  z-index: 1000;
+  display:none;
+}
+#passwordOverlay .panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  padding:28px;border-radius:12px;backdrop-filter: blur(6px);
+  box-shadow:0 12px 36px rgba(0,0,0,0.6); text-align:center; width:320px; max-width:90%;
+}
+#passwordOverlay input {
+  padding: 10px;
+  font-size: 18px;
+  margin-top: 15px;
+  border-radius: 5px;
+  border: none;
+  text-align:center;
+}
+#passwordOverlay button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  background-color:#ff7700;
+  color:white;
+  font-weight:bold;
+}
+#pinkklishContent { display:none; }
 
-      nav .nav-links a.active {
-        color: #000;
-        border-bottom: 1.5px solid #000;
-        padding-bottom: 4px;
-      }
+@media (max-width: 768px) {
+  .rocket-container { width: 140px; height: 350px; bottom: 60px; }
+  .rocket { width: 140px; height: 550px; }
+  .rocket-nose { width: 140px; height: 100px; }
+  .cockpit { width: 40px; height: 14px; top: 90px; }
+  .fin-left, .fin-right { width: 35px; height: 100px; }
+  .exhaust { width: 140px; height: 140px; }
+  .flame { width: 40px; height: 120px; }
+}
 
-      /* ===== Header ===== */
-      header {
-        margin-top: 100px;
-        text-align: center;
-      }
+@media (max-width: 480px) {
+  .rocket-container { width: 100px; height: 300px; bottom: 40px; }
+  .rocket { width: 100px; height: 400px; }
+  .rocket-nose { width: 100px; height: 70px; }
+  .cockpit { width: 30px; height: 10px; top: 60px; }
+  .fin-left, .fin-right { width: 25px; height: 70px; }
+  .exhaust { width: 100px; height: 120px; }
+  .flame { width: 30px; height: 100px; }
+}
+</style>
+</head>
 
-      .title-container {
-        display: inline-flex; /* restore horizontal alignment */
-        align-items: center;
-        gap: 24px;
-      }
+<body>
 
-      .logo {
-        width: 120px;
-        height: auto;
-        border: none;
-        box-shadow: none;
-        filter: none;
-        opacity: 0;
-        transform: translateY(10px);
-        animation: logoFloatIn 1.8s ease forwards, floatLogo 6s ease-in-out infinite alternate;
-      }
+<div class="stars"></div>
 
-      .main-title-group {
-        text-align: left; /* keep "Whatever" aligned horizontally */
-      }
+<div class="hero">
+  <h1>Pinkklish I Journiust I Whatever</h1>
+  <p class="subtitle">Mr. Weirdo2574</p>
+  <button id="launch-button">Rocket Launch</button>
+</div>
 
-      h1 {
-        font-family: "Playfair Display", serif;
-        font-size: 64px;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        font-weight: 600;
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeUp 1.8s ease forwards 0.3s;
-      }
+<div class="rocket-container" id="rocket">
+  <div class="rocket">
+    <div class="rocket-nose"></div>
+    <div class="branding">PINKKLISH</div>
+    <div class="cockpit"></div>
+    <div class="fin-left"></div>
+    <div class="fin-right"></div>
+  </div>
+  <div class="exhaust">
+    <div class="flame"></div>
+  </div>
+</div>
 
-      .brand-subtitle {
-        display: block;
-        font-size: 20px;
-        color: #7b7260;
-        margin-top: 6px;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeUp 1.8s ease forwards 0.3s;
-      }
+<div class="fade-overlay" id="fadeOverlay"></div>
 
-      /* ===== Subtitle + Bio ===== */
-      .subtitle,
-      .bio-section .bio {
-        font-size: 22px;
-        color: #4e4e4e;
-        font-style: italic;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeUp 1.8s cubic-bezier(0.6,0.05,0.1,0.9) forwards 1s;
-        margin-top: 12px;
-        line-height: 1.3;
-      }
+<div id="passwordOverlay" role="dialog" aria-modal="true">
+  <div class="panel">
+    <div style="font-family:'Playfair Display',serif;font-size:20px;color:#fff;margin-bottom:8px">Boarding Entrance — Enter Code</div>
+    <input type="password" id="passwordInput" placeholder="Enter 4-digit code"/>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:12px">
+      <button id="submitPassword">Enter</button>
+      <button id="demoBtn" title="Demo open (for testing)">Demo</button>
+    </div>
+    <div style="margin-top:8px;color:rgba(255,220,220,0.9);font-size:13px">Tip: demo code is <strong>2274</strong></div>
+  </div>
+</div>
 
-      .subtitle {
-        letter-spacing: 1px;
-      }
+<script>
+const rocketContainer = document.getElementById('rocket');
+const launchButton = document.getElementById('launch-button');
 
-      .bio-section {
-        text-align: center;
-        margin-top: 8px;
-      }
+const starsContainer = document.querySelector('.stars');
+for(let i=0; i<150; i++){
+  const star = document.createElement('div');
+  star.className = 'star';
+  star.style.top = Math.random()*100 + '%';
+  star.style.left = Math.random()*100 + '%';
+  star.style.width = star.style.height = Math.random()*2 + 1 + 'px';
+  star.style.animationDuration = (Math.random()*2 + 1) + 's';
+  starsContainer.appendChild(star);
+}
 
-      /* ===== Gallery ===== */
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 40px;
-        padding: 0 5%;
-        margin-top: 50px;
-        margin-bottom: 120px;
-      }
+const fadeOverlay = document.getElementById('fadeOverlay');
+const passwordOverlay = document.getElementById('passwordOverlay');
+const passwordInput = document.getElementById('passwordInput');
+const submitPassword = document.getElementById('submitPassword');
+const demoBtn = document.getElementById('demoBtn');
 
-      .post {
-        opacity: 0;
-        transform: translateY(40px) scale(0.98);
-        transition: all 1.2s ease;
-      }
+// ✅ Password is now 2574
+const PASS = "2574";
 
-      .post img {
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        border-radius: 16px;
-        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.8s ease, box-shadow 0.6s ease, filter 0.6s ease;
-        cursor: pointer;
-      }
+launchButton.addEventListener('click', () => {
+  rocketContainer.classList.add('launching');
+  setTimeout(() => { fadeOverlay.style.opacity = '1'; }, 2300);
+  setTimeout(() => {
+    fadeOverlay.style.opacity = '0';
+    passwordOverlay.style.display = 'flex';
+    passwordInput.focus();
+    document.body.style.overflow = 'auto';
+  }, 3300);
+});
 
-      .post:hover img {
-        transform: scale(1.05) translateY(-2px);
-        box-shadow: 0px 14px 40px rgba(0, 0, 0, 0.15);
-        filter: brightness(1.07) saturate(1.05);
-      }
+submitPassword.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (passwordInput.value.trim() === PASS) {
+    // ✅ Redirect to second page
+    window.location.href = "pinkklish_full.html"; 
+  } else {
+    alert('❌ Incorrect code. Try again.');
+    passwordInput.value = '';
+    passwordInput.focus();
+  }
+});
 
-      /* ===== Elegant Light Caption Box ===== */
-      .caption {
-        margin-top: 22px;
-        font-size: 18px;
-        line-height: 1.5;
-        color: #333;
-        font-weight: 400;
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 12px 16px;
-        background: rgba(249, 242, 222, 0.85); /* light, similar to bg */
-        border-radius: 16px;
-        text-align: center;
-        opacity: 0.95;
-        transition: all 0.5s ease;
-        box-shadow: 0px 6px 20px rgba(0,0,0,0.08);
-        backdrop-filter: blur(4px);
-      }
+demoBtn.addEventListener('click', () => {
+  passwordOverlay.style.display = 'none';
+  alert('Demo open — (placeholder).');
+});
 
-      .post:hover .caption {
-        transform: translateY(-5px);
-        box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
-      }
+passwordInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') submitPassword.click();
+});
 
-      /* ===== Footer ===== */
-      footer {
-        margin-top: 30px;
-        margin-bottom: 20px;
-        font-size: 15px;
-        color: #7a7366;
-        font-weight: 400;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 1.2s ease;
-        text-align: center;
-      }
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { passwordOverlay.style.display = 'none'; }
+});
+</script>
 
-      /* ===== Animations ===== */
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes logoFloatIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px) scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-
-      @keyframes floatLogo {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-4px);
-        }
-      }
-
-      .visible {
-        opacity: 1 !important;
-        transform: translateY(0) scale(1) !important;
-      }
-
-      /* ===== Responsive ===== */
-      @media (max-width: 768px) {
-        nav { padding: 10px 6%; }
-        h1 { font-size: 44px; }
-        .brand-subtitle { font-size: 16px; letter-spacing: 3px; }
-        .subtitle, .bio-section .bio { font-size: 18px; }
-        .gallery { padding: 0 4%; gap: 30px; }
-        footer { font-size: 14px; margin-top: 20px; }
-      }
-
-      @media (max-width: 480px) {
-        .title-container {
-          flex-direction: column; /* stack on very small screens */
-          gap: 12px;
-        }
-        .main-title-group { text-align: center; }
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- Top-left logo text -->
-    <div class="top-left-logo">PINKKLISH</div>
-
-    <!-- Navigation Bar -->
-    <nav>
-      <div class="nav-links">
-        <a href="#" class="active">Home</a>
-        <a href="#">Gallery</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-      </div>
-    </nav>
-
-    <!-- Header -->
-    <header>
-      <div class="title-container">
-        <img src="images/logo.png" alt="Pinkklish Logo" class="logo" />
-        <div class="main-title-group">
-          <h1>Journiust</h1>
-          <span class="brand-subtitle">Whatever</span>
-        </div>
-      </div>
-      <p class="subtitle">Hello Whatever — Space for a Weirdo.</p>
-    </header>
-
-    <!-- Bio -->
-    <section class="bio-section">
-      <div class="bio">
-        Just vibe 🍃🇹🇭🤙 w/ young boring dumb broke high school kid 🌻)))))
-      </div>
-    </section>
-
-    <!-- Gallery -->
-    <section class="gallery">
-      <div class="post">
-        <img src="images/post2.jpg" alt="Post 1" />
-        <div class="caption">Sawasdee Craft, I own a lab here ;)</div>
-      </div>
-      <div class="post">
-        <img src="images/post1.jpg" alt="Post 2" />
-        <div class="caption">I am a weirdo, love being w/ a weirdo.</div>
-      </div>
-      <div class="post">
-        <img src="images/post3.jpg" alt="Post 3" />
-        <div class="caption">Notre vie, notre décision, notre choix :P</div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>© 2025 Pinkklish. All rights reserved.</footer>
-
-    <!-- Scroll Reveal Script with fallback -->
-    <script>
-      const elements = document.querySelectorAll(".post, footer");
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-            }
-          });
-        },
-        { threshold: 0.2 }
-      );
-
-      elements.forEach((el) => observer.observe(el));
-
-      // Fallback for iOS Safari: show everything after 1s if not triggered
-      setTimeout(() => {
-        elements.forEach((el) => el.classList.add("visible"));
-      }, 1000);
-    </script>
-  </body>
+</body>
 </html>
