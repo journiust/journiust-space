@@ -9,74 +9,45 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --bg-space-start: #0a0a0a;
-  --bg-space-end: #000010;
-  --rocket-metal-light: #ffffff;
-  --rocket-metal-dark: #555555;
-  --rocket-body-shadow: rgba(0,0,0,0.5);
-  --rocket-window: rgba(255,255,255,0.6);
-  --fin-color: linear-gradient(to top, #444, #111);
-  --flame-core: #ff7700;
-  --flame-outer: #ffd500;
-  --star-color: #ffffff;
-  --branding-text: #000000;
-  --branding-highlight: #ffff00;
-}
+:root{ 
+--bg-space-start:#0a0a0a; 
+--bg-space-end:#000010; 
+--star-color:#ffffff; 
 
-* { box-sizing: border-box; margin:0; padding:0; }
-html, body { height: 100%; overflow: hidden; font-family: 'Roboto Condensed', sans-serif; }
-body {
-  background: linear-gradient(to bottom, var(--bg-space-start), var(--bg-space-end));
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-}
+/* Ferrari-like palette */ 
+--ferrari-red-1: #fdf0f0; 
+--ferrari-red-2: #ece2e3; 
+--ferrari-shadow: rgba(0,0,0,0.45); 
+--paint-clear: rgba(255,255,255,0.32); 
+--paint-gloss: rgba(255,255,255,0.08); 
+--carbon-dark: #8e8a8a; 
+--carbon-light: #161616; 
+--cockpit-tint: rgba(8,8,10,0.8); 
+--branding-color: #ffffff; 
+--flame-core: #ffb84d; 
+--flame-outer: #ff2b00; 
+} 
 
-.stars {
-  position: absolute;
-  top:0; left:0; width:100%; height:100%; z-index:-1;
-}
-.star {
-  position: absolute;
-  background: var(--star-color);
-  border-radius: 50%;
-  animation: twinkle 2s infinite ease-in-out alternate;
-}
-@keyframes twinkle {
-  from { opacity: 0.2; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1.2); }
-}
+/* --- Reset & Body --- */ 
+*{box-sizing:border-box;margin:0;padding:0} 
+html,body{height:100%;overflow:hidden;font-family:'Roboto Condensed',sans-serif} 
 
-.hero {
-  position: absolute;
-  top: 5%;
-  width: 100%;
-  text-align: center;
-  z-index: 10;
-  color: white;
-}
+body{ 
+background: linear-gradient(to bottom,var(--bg-space-start),var(--bg-space-end)); 
+display:flex;justify-content:center;align-items:center;flex-direction:column;position:relative; 
+} 
 
-.hero h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 4em;
-  text-shadow: 0 0 20px rgba(255,255,255,0.5);
-}
+/* --- Stars --- */ 
+.stars{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1} 
+.star{position:absolute;background:var(--star-color);border-radius:50%;animation:twinkle 2s infinite ease-in-out alternate} 
+@keyframes twinkle{from{opacity:.2;transform:scale(.8)}to{opacity:1;transform:scale(1.2)}} 
 
-.hero .subtitle {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.8em;
-  color: rgba(255, 255, 255, 0.85);
-  margin-top: 10px;
-  text-shadow: 0 0 10px rgba(255,255,255,0.4),
-               0 0 20px rgba(255,255,255,0.3);
-  letter-spacing: 1px;
-  font-weight: 400;
-  transition: all 0.3s ease;
-}
+/* --- Hero --- */ 
+.hero{position:absolute;top:5%;width:100%;text-align:center;z-index:10;color:white} 
+.hero h1{font-family:'Orbitron',sans-serif;font-size:4em;text-shadow:0 0 20px rgba(255,255,255,.5)} 
+.hero .subtitle{font-family:'Orbitron',sans-serif;font-size:1.8em;color:rgba(255,255,255,.85);margin-top:10px;text-shadow:0 0 10px rgba(255,255,255,.4);letter-spacing:1px;font-weight:400;transition:all .3s ease} 
 
+/* --- Launch button (yellow style) --- */
 #launch-button {
   position: absolute;
   left: 10%;
@@ -85,184 +56,177 @@ body {
   font-size: 1.2em;
   font-weight: 700;
   font-family: 'Roboto Condensed', sans-serif;
-  color: var(--rocket-metal-dark);
-  background: var(--rocket-metal-light);
+  color: #222222; /* Dark text */
+  background: #ffff00; /* Bright yellow */
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+  box-shadow: 0 8px 20px rgba(255,255,0,0.4);
   z-index: 10;
   transition: all 0.3s ease;
 }
+
 #launch-button:hover {
-  background: var(--branding-highlight);
-  color: var(--rocket-metal-dark);
-  box-shadow: 0 12px 30px rgba(255,0,0,0.5);
+  background: #ffea00; /* Lighter yellow on hover */
+  box-shadow: 0 12px 30px rgba(255,255,0,0.7);
   transform: translateY(-5px);
 }
 
-.rocket-container {
-  position: absolute;
-  bottom: 80px;
-  width: 180px;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all 5s ease-out;
-  transform-origin: bottom center;
-  z-index: 5;
-}
-.rocket {
-  width: 180px;
-  height: 700px;
-  background: var(--rocket-metal-light);
-  border-radius: 90px / 18px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 30px 80px var(--rocket-body-shadow);
-}
-.rocket-nose {
-  position: absolute;
-  top: -120px;
-  width: 180px;
-  height: 120px;
-  background: linear-gradient(to bottom, var(--rocket-metal-light), var(--rocket-metal-dark));
-  clip-path: polygon(50% 0%, 90% 100%, 10% 100%);
-  border-radius: 50% 50% 0 0;
-  box-shadow: inset -2px -2px 8px rgba(0,0,0,0.2);
-}
-.branding {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 25px;
-  font-weight: 700;
-  color: var(--branding-text);
-  text-shadow: 0 0 5px var(--branding-highlight);
-  letter-spacing: 2px;
-  opacity: 0.8;
-}
-.cockpit {
-  position: absolute;
-  top: 110px;
-  width: 50px;
-  height: 18px;
-  background: var(--rocket-window);
-  border-radius: 50% / 70% 70% 30% 30%;
-  filter: blur(1px);
-}
-.fin-left, .fin-right {
-  position: absolute;
-  bottom: 0;
-  width: 45px;
-  height: 120px;
-  background: var(--fin-color);
-  clip-path: polygon(50% 0, 0 100%, 100% 100%);
-}
-.fin-left { left: -30px; transform: rotate(-15deg); }
-.fin-right { right: -30px; transform: rotate(15deg); }
+/* --- Rocket container --- */ 
+.rocket-container{position:absolute;bottom:80px;width:180px;height:400px;display:flex;flex-direction:column;align-items:center;transition:all 5s ease-out;transform-origin:bottom center;z-index:5} 
 
-.exhaust {
-  position: absolute;
-  bottom: -80px;
-  width: 180px;
-  height: 180px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-.flame {
-  position: absolute;
-  bottom: 0;
-  width: 50px;
-  height: 150px;
-  background: radial-gradient(ellipse at bottom, var(--flame-core), var(--flame-outer));
-  border-radius: 50%;
-  filter: blur(15px);
-  animation: flicker 0.5s infinite alternate ease-in-out;
-}
-@keyframes flicker {
-  0% { transform: scaleY(0.9) scaleX(1); opacity: 0.7; }
-  100% { transform: scaleY(1.2) scaleX(1.1); opacity: 1; }
-}
-.rocket-container.launching {
-  animation: liftoff 5s forwards ease-out;
-}
-@keyframes liftoff {
-  0% { transform: translateY(0); }
-  20% { transform: translateY(-10px); }
-  100% { transform: translateY(-150vh); }
-}
-.fade-overlay {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 1s ease;
-  z-index: 60;
-}
-#passwordOverlay {
-  position: fixed;
-  top:0; left:0; width:100%; height:100%;
-  background: rgba(0,0,0,0.9);
-  display:flex; justify-content:center; align-items:center;
-  flex-direction:column;
-  color:white;
-  font-family:'Roboto Condensed', sans-serif;
-  z-index: 1000;
-  display:none;
-}
-#passwordOverlay .panel {
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-  padding:28px;border-radius:12px;backdrop-filter: blur(6px);
-  box-shadow:0 12px 36px rgba(0,0,0,0.6); text-align:center; width:320px; max-width:90%;
-}
-#passwordOverlay input {
-  padding: 10px;
-  font-size: 18px;
-  margin-top: 15px;
-  border-radius: 5px;
-  border: none;
-  text-align:center;
-}
+/* --- Rocket body --- */ 
+.rocket{ 
+width:180px;height:700px; 
+position:relative;display:flex;align-items:center;justify-content:center;border-radius:90px/18px; 
+background: 
+linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.06)), 
+linear-gradient(180deg, var(--ferrari-red-1), var(--ferrari-red-2)); 
+box-shadow:0 28px 72px var(--ferrari-shadow), inset 0 -8px 20px rgba(0,0,0,0.25); 
+overflow:visible;border:2px solid rgba(0,0,0,0.18); 
+} 
+
+.rocket::before{ 
+content:""; position:absolute;left:6%;right:6%;top:12%;height:60%; 
+background: linear-gradient(120deg, rgba(255,255,255,0.02), rgba(255,255,255,0.06) 12%, transparent 40%, rgba(0,0,0,0.06) 90%); 
+transform:translateZ(0) skewX(-4deg); border-radius:80px/18px; pointer-events:none; 
+mix-blend-mode:screen; filter:blur(6px); opacity:.95; 
+} 
+
+.rocket::after{ 
+content:""; position:absolute;left:40%;top:8%;width:8%;height:72%; 
+background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.12)); 
+border-radius:6px; transform: rotate(-8deg); filter:blur(3px); opacity:.9; pointer-events:none; 
+} 
+
+/* --- Nose --- */ 
+.rocket-nose{ 
+position:absolute;top:-120px;width:180px;height:120px; 
+background: linear-gradient(180deg, #9e1216 0%, #7a0f12 60%, #2b0a0a 100%); 
+clip-path: polygon(50% 0%, 90% 100%, 10% 100%); border-radius:50% 50% 0 0; 
+box-shadow: inset -2px -2px 10px rgba(0,0,0,0.45); 
+border-top:2px solid rgba(255,255,255,0.03); 
+} 
+
+/* --- Cockpit --- */ 
+.cockpit{ 
+position:absolute; top:90px; width:58px; height:22px; 
+background:linear-gradient(to bottom, rgba(30,30,30,0.9), rgba(40,38,38,0.6)); 
+border-radius:40% 40% 70% 70%; filter:blur(0.6px); 
+box-shadow: inset -2px -3px 6px rgba(0,0,0,0.5), inset 3px 5px 10px rgba(255,252,252,0.6); 
+} 
+
+/* --- Branding --- */ 
+.branding{ 
+position:absolute; top:50%; left:50%; 
+transform:translate(-50%, -50%) rotate(-90deg); 
+font-family:'Orbitron',sans-serif;font-size:25px;font-weight:700;color:#000000; 
+text-shadow:0 0 5px #ffff00; letter-spacing:2px; opacity:0.8; 
+} 
+
+/* --- Fins --- */ 
+.fin-left,.fin-right{ 
+position:absolute;bottom:0;width:58px;height:120px;border-radius:6px; 
+background: repeating-linear-gradient(45deg, rgba(180,3,3,0.87) 0 2px, rgba(20,20,20,0.92) 2px 6px), 
+linear-gradient(180deg, rgba(0,0,0,0.6), rgba(10,10,10,0.9)); 
+clip-path: polygon(50% 0, 0 100%, 100% 100%); 
+box-shadow:0 18px 40px rgba(0,0,0,0.45), inset 0 2px 6px rgba(255,255,255,0.02); 
+transform-origin:bottom center; 
+} 
+
+.fin-left{left:-36px; transform: rotate(-18deg) translateY(6px); border-left:3px solid rgba(255,255,255,0.03)} 
+.fin-right{right:-36px; transform: rotate(18deg) translateY(6px); border-right:3px solid rgba(255,255,255,0.03)} 
+
+.fin-left::after,.fin-right::after{ 
+content:"";position:absolute;bottom:6px;left:8px;right:8px;height:10px; 
+border-radius:4px;background:linear-gradient(90deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); 
+filter:blur(2px);opacity:.6; 
+} 
+
+/* --- Exhaust --- */ 
+.exhaust{position:absolute;bottom:-92px;width:180px;height:180px;display:flex;justify-content:center;align-items:flex-end;pointer-events:none} 
+.flame{ 
+position:absolute;bottom:0;width:70px;height:180px;border-radius:50%; 
+background: radial-gradient(ellipse at bottom, var(--flame-core) 0%, #ff7a1a 30%, var(--flame-outer) 60%, rgba(255,200,80,0) 100%); 
+filter: blur(14px) saturate(1.2); animation: flameFlick 0.45s infinite alternate ease-in-out; 
+box-shadow:0 12px 60px rgba(255,120,30,0.18), 0 6px 20px rgba(255,80,10,0.12); 
+} 
+
+@keyframes flameFlick{from{transform:scaleY(.9) scaleX(1)}to{transform:scaleY(1.25) scaleX(1.1)}} 
+
+/* --- Liftoff --- */ 
+.rocket-container.launching{animation:liftoff 5s forwards ease-out} 
+@keyframes liftoff{0%{transform:translateY(0)}20%{transform:translateY(-10px)}100%{transform:translateY(-150vh)}} 
+
+/* --- Fade overlay + Password overlay --- */ 
+.fade-overlay{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity 1s ease;z-index:60} 
+
+#passwordOverlay{ 
+position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9); 
+display:flex;justify-content:center;align-items:center;flex-direction:column;color:white; 
+font-family:'Roboto Condensed',sans-serif;z-index:1000;display:none 
+} 
+
+#passwordOverlay .panel{ 
+background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); 
+padding:28px;border-radius:12px;backdrop-filter:blur(6px); 
+box-shadow:0 12px 36px rgba(0,0,0,0.6);text-align:center;width:320px;max-width:90% 
+} 
+
+#passwordOverlay input{padding:10px;font-size:18px;margin-top:15px;border-radius:5px;border:none;text-align:center} 
+
+/* --- Updated buttons (yellow) --- */
 #passwordOverlay button {
   margin-top: 10px;
   padding: 10px 20px;
   font-size: 18px;
-  border:none;
-  border-radius:5px;
-  cursor:pointer;
-  background-color:#ff7700;
-  color:white;
-  font-weight:bold;
-}
-#pinkklishContent { display:none; }
-
-@media (max-width: 768px) {
-  .rocket-container { width: 140px; height: 350px; bottom: 60px; }
-  .rocket { width: 140px; height: 550px; }
-  .rocket-nose { width: 140px; height: 100px; }
-  .cockpit { width: 40px; height: 14px; top: 90px; }
-  .fin-left, .fin-right { width: 35px; height: 100px; }
-  .exhaust { width: 140px; height: 140px; }
-  .flame { width: 40px; height: 120px; }
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #ffff00; /* yellow */
+  color: #222222;
+  font-weight: bold;
+  font-family: 'Roboto Condensed', sans-serif;
+  box-shadow: 0 8px 20px rgba(255,255,0,0.4);
+  transition: all 0.3s ease;
 }
 
-@media (max-width: 480px) {
-  .rocket-container { width: 100px; height: 300px; bottom: 40px; }
-  .rocket { width: 100px; height: 400px; }
-  .rocket-nose { width: 100px; height: 70px; }
-  .cockpit { width: 30px; height: 10px; top: 60px; }
-  .fin-left, .fin-right { width: 25px; height: 70px; }
-  .exhaust { width: 100px; height: 120px; }
-  .flame { width: 30px; height: 100px; }
+#passwordOverlay button:hover {
+  background: #ffea00;
+  box-shadow: 0 12px 30px rgba(255,255,0,0.7);
+  transform: translateY(-2px);
 }
+
+/* --- Tip font --- */
+#passwordOverlay .tip {
+  margin-top:8px;
+  color: #ffea00;
+  font-size:13px;
+  font-family:'Orbitron',sans-serif;
+}
+
+#pinkklishContent{display:none} 
+
+/* --- Responsive --- */ 
+@media (max-width:768px){ 
+.rocket-container{width:140px;height:350px;bottom:60px} 
+.rocket{width:140px;height:550px} 
+.rocket-nose{width:140px;height:100px} 
+.cockpit{width:40px;height:14px;top:90px} 
+.fin-left,.fin-right{width:35px;height:100px} 
+.exhaust{width:140px;height:140px} 
+.flame{width:52px;height:140px} 
+} 
+
+@media (max-width:480px){ 
+.rocket-container{width:100px;height:300px;bottom:40px} 
+.rocket{width:100px;height:400px} 
+.rocket-nose{width:100px;height:70px} 
+.cockpit{width:30px;height:10px;top:60px} 
+.fin-left,.fin-right{width:25px;height:70px} 
+.exhaust{width:100px;height:120px} 
+.flame{width:40px;height:100px} 
+} 
 </style>
 </head>
 
@@ -272,7 +236,7 @@ body {
 
 <div class="hero">
   <h1>Pinkklish I Journiust I Whatever</h1>
-  <p class="subtitle">Mr. Weirdo2574</p>
+  <p class="subtitle">(acr.) I'm exactly who you think I am :P</p>
   <button id="launch-button">Rocket Launch</button>
 </div>
 
@@ -293,13 +257,15 @@ body {
 
 <div id="passwordOverlay" role="dialog" aria-modal="true">
   <div class="panel">
-    <div style="font-family:'Playfair Display',serif;font-size:20px;color:#fff;margin-bottom:8px">Boarding Entrance — Enter Code</div>
+    <div style="font-family:'Playfair Display',serif;font-size:20px;color:#fff;margin-bottom:8px">
+      Boarding Entrance — Warp Zone
+    </div>
     <input type="password" id="passwordInput" placeholder="Enter 4-digit code"/>
     <div style="display:flex;gap:10px;justify-content:center;margin-top:12px">
       <button id="submitPassword">Enter</button>
-      <button id="demoBtn" title="Demo open (for testing)">Cancle</button>
+      <button id="demoBtn" title="Demo open (for testing)">Cancel</button>
     </div>
-    <div style="margin-top:8px;color:rgba(255,220,220,0.9);font-size:13px">Tip: code is <strong>2574</strong></div>
+    <div class="tip">Cheat Code: <strong>2574</strong></div>
   </div>
 </div>
 
@@ -324,7 +290,6 @@ const passwordInput = document.getElementById('passwordInput');
 const submitPassword = document.getElementById('submitPassword');
 const demoBtn = document.getElementById('demoBtn');
 
-// ✅ Password is now 2574
 const PASS = "2574";
 
 launchButton.addEventListener('click', () => {
@@ -341,7 +306,6 @@ launchButton.addEventListener('click', () => {
 submitPassword.addEventListener('click', (e) => {
   e.preventDefault();
   if (passwordInput.value.trim() === PASS) {
-    // ✅ Redirect to second page
     window.location.href = "pinkklish_full.html"; 
   } else {
     alert('❌ Incorrect code. Try again.');
