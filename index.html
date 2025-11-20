@@ -41,7 +41,7 @@ body{
 #launch-button {
   position: absolute;
   left: 10%;
-  bottom: -600px; /* original position */
+  bottom: -600px; 
   padding: 15px 30px;
   font-size: 1.2em;
   font-weight: 700;
@@ -69,7 +69,7 @@ body{
 
 .cockpit {
   position: absolute;
-  top: 70px; /* moved up from 125px */
+  top: 70px; 
   width: 82px;
   height: 38px;
   border-radius: 50px / 20px;
@@ -84,7 +84,7 @@ body{
     inset -3px -4px 8px rgba(0,0,0,0.75),
     inset 2px 3px 6px rgba(120,120,255,0.4),
     0 0 22px rgba(40,80,255,0.25);
-} 
+}
 
 .branding{ position:absolute; top:50%; left:50%; transform:translate(-50%, -50%) rotate(-90deg); font-family:'Orbitron',sans-serif;font-size:25px;font-weight:700;color:#000; text-shadow:0 0 5px #ffff00; letter-spacing:2px; opacity:0.8; } 
 
@@ -99,15 +99,34 @@ body{
 .rocket-container.launching{animation:liftoff 5s forwards ease-out} 
 @keyframes liftoff{0%{transform:translateY(0)}100%{transform:translateY(-150vh)}}
 
-/* Password Overlay */
-.fade-overlay{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity 1s ease;z-index:60} 
+/* Map container (hidden initially) */
+#mapContainer{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  background:#0e1525;
+  display:none;
+  z-index:20;
+  opacity:0;
+  transition: opacity 1s ease;
+}
+#mapContainer.show{
+  opacity:1;
+}
+#mapContainer img{width:100%;height:100%;object-fit:cover;}
+.label{position:absolute;font-size:clamp(18px,2vw,30px);color:#ffffffdd;font-weight:700;letter-spacing:2px;text-shadow:0 0 8px rgba(0,180,255,0.8),0 0 15px rgba(0,180,255,0.5);user-select:none;pointer-events:none;}
+.p-stella{position:absolute;top:37%;left:64%;width:8%;height:13%;border-radius:50%;cursor:pointer;background:linear-gradient(to bottom,#ff0000 0%,#ff0000 20%,#ffffff 20%,#ffffff 40%,#0000ff 40%,#0000ff 60%,#ffffff 60%,#ffffff 80%,#ff0000 80%,#ff0000 100%);animation:pulseGlow 1.8s infinite;box-shadow:0 0 25px 10px rgba(0,180,255,0.6);}
+@keyframes pulseGlow{0%{transform:scale(1);box-shadow:0 0 25px 10px rgba(0,180,255,0.6);}50%{transform:scale(1.15);box-shadow:0 0 45px 20px rgba(0,180,255,0.9);}100%{transform:scale(1);box-shadow:0 0 25px 10px rgba(0,180,255,0.6);}}
 
-#passwordOverlay{ position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9); display:flex;justify-content:center;align-items:center;flex-direction:column;color:white; font-family:'Roboto Condensed',sans-serif;z-index:1000;display:none } 
+/* Password overlay */
+#passwordOverlay{ position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;justify-content:center;align-items:center;flex-direction:column;color:white; font-family:'Orbitron',sans-serif;z-index:1000;display:none } 
 #passwordOverlay .panel{ background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); padding:28px;border-radius:12px;backdrop-filter:blur(6px); box-shadow:0 12px 36px rgba(0,0,0,0.6);text-align:center;width:320px;max-width:90% } 
 #passwordOverlay input{padding:10px;font-size:18px;margin-top:15px;border-radius:5px;border:none;text-align:center} 
 #passwordOverlay button { margin-top: 10px; padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer; background: #ffff00; color: #222; font-weight: bold; font-family: 'Roboto Condensed',sans-serif; box-shadow: 0 8px 20px rgba(255,255,0,0.4); transition: all 0.3s ease; } 
 #passwordOverlay button:hover { background: #ffea00; box-shadow: 0 12px 30px rgba(255,255,0,0.7); transform: translateY(-2px); } 
 #passwordOverlay .tip { margin-top:8px; color: #ffea00; font-size:13px; font-family:'Orbitron',sans-serif; } 
+
 </style>
 </head>
 <body>
@@ -133,20 +152,32 @@ body{
   </div>
 </div>
 
-<div class="fade-overlay" id="fadeOverlay"></div>
+<!-- Map container -->
+<div id="mapContainer">
+    <img src="map.png" alt="World Map">
+    <div class="label" style="top: 29%; left: 62%;">P STELLA</div>
+    <div class="label" style="top: 27%; left: 45%;">EUROPE</div>
+    <div class="label" style="top: 44%; left: 47%;">AFRICA</div>
+    <div class="label" style="top: 23%; left: 20%;">N. AMERICA</div>
+    <div class="label" style="top: 55%; left: 27%;">S. AMERICA</div>
+    <div class="label" style="top: 73%; left: 81%;">OCEANIA</div>
+    <div class="label" style="top: 91%; left: 50%;">ANTARCTICA</div>
+    <div class="p-stella" id="pStellaHotspot"></div>
+</div>
 
-<div id="passwordOverlay" role="dialog" aria-modal="true">
-  <div class="panel">
-    <div style="font-family:'Playfair Display',serif;font-size:20px;color:#fff;margin-bottom:8px">
-      Boarding Entrance — Warp Zone
+<!-- Password overlay -->
+<div id="passwordOverlay">
+    <div class="panel">
+        <div style="font-size:20px;margin-bottom:8px">
+            Boarding Entrance — Warp Zone
+        </div>
+        <input type="password" id="passwordInput" placeholder="Enter 4-digit code"/>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:12px">
+            <button id="submitPassword">Enter</button>
+            <button id="cancelBtn">Cancel</button>
+        </div>
+        <div class="tip">Cheat Code: <strong>2574</strong></div>
     </div>
-    <input type="password" id="passwordInput" placeholder="Enter 4-digit code"/>
-    <div style="display:flex;gap:10px;justify-content:center;margin-top:12px">
-      <button id="submitPassword">Enter</button>
-      <button id="demoBtn" title="Demo open (for testing)">Cancel</button>
-    </div>
-    <div class="tip">Cheat Code: <strong>2574</strong></div>
-  </div>
 </div>
 
 <script>
@@ -165,45 +196,64 @@ for(let i=0;i<150;i++){
 // Elements
 const rocketContainer = document.getElementById('rocket');
 const launchButton = document.getElementById('launch-button');
-const fadeOverlay = document.getElementById('fadeOverlay');
 const passwordOverlay = document.getElementById('passwordOverlay');
 const passwordInput = document.getElementById('passwordInput');
 const submitPassword = document.getElementById('submitPassword');
-const demoBtn = document.getElementById('demoBtn');
+const cancelBtn = document.getElementById('cancelBtn');
+const pStella = document.getElementById('pStellaHotspot');
+const mapContainer = document.getElementById('mapContainer');
 const PASS = "2574";
 
 // Launch rocket
 launchButton.addEventListener('click', () => {
+  // Hide hero & button immediately
+  document.querySelector('.hero').style.display = 'none';
+
+  // Start rocket liftoff
   rocketContainer.classList.add('launching');
-  setTimeout(()=>{ fadeOverlay.style.opacity='1'; },2300);
-  setTimeout(()=>{
-    fadeOverlay.style.opacity='0';
-    passwordOverlay.style.display='flex';
+
+  // Show map after 2 seconds with fade-in
+  setTimeout(() => {
+    mapContainer.style.display = 'block';
+    mapContainer.classList.add('show');
+  }, 2000);
+
+  // Hide rocket after it finishes liftoff (5s)
+  setTimeout(() => {
+    rocketContainer.style.display = 'none';
+  }, 5000);
+});
+
+// Clicking P Stella shows password overlay
+pStella.addEventListener('click', () => {
+    passwordOverlay.style.display = 'flex';
     passwordInput.focus();
-    document.body.style.overflow='auto';
-  },3300);
 });
 
 // Password handling
-submitPassword.addEventListener('click',(e)=>{
-  e.preventDefault();
-  if(passwordInput.value.trim()===PASS){
-    window.location.href="pinkklish_full.html";
-  } else {
-    alert('❌ Incorrect code. Try again.');
-    passwordInput.value='';
-    passwordInput.focus();
-  }
+submitPassword.addEventListener('click', () => {
+    if(passwordInput.value.trim() === PASS){
+        window.location.href = "pinkklish_full.html";
+    } else {
+        alert('❌ Incorrect code. Try again.');
+        passwordInput.value = '';
+        passwordInput.focus();
+    }
 });
-demoBtn.addEventListener('click',()=>{
-  passwordOverlay.style.display='none';
-  alert('Demo open — (placeholder).');
+
+// Cancel button hides overlay
+cancelBtn.addEventListener('click', () => {
+    passwordOverlay.style.display = 'none';
 });
-passwordInput.addEventListener('keypress',(e)=>{
-  if(e.key==='Enter') submitPassword.click();
+
+// Enter key submits
+passwordInput.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter') submitPassword.click();
 });
-document.addEventListener('keydown',(e)=>{
-  if(e.key==='Escape') passwordOverlay.style.display='none';
+
+// Escape key closes overlay
+document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') passwordOverlay.style.display = 'none';
 });
 </script>
 
