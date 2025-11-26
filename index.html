@@ -1,105 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Pinkklish I Journiust I Whatever</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
 
 <style>
-:root{ 
-  --bg-space-start:#0a0a0a; 
-  --bg-space-end:#000010; 
-  --star-color:#ffffff; 
-  --ferrari-red-1: #fdf0f0; 
-  --ferrari-red-2: #ece2e3; 
-  --ferrari-shadow: rgba(0,0,0,0.45); 
-  --flame-core: #ffb84d; 
-  --flame-outer: #ff2b00; 
+:root{
+  --bg-space-start:#0a0a0a;
+  --bg-space-end:#000010;
+  --star-color:#ffffff;
+  --ferrari-red-1:#fdf0f0;
+  --ferrari-red-2:#ece2e3;
+  --ferrari-shadow:rgba(0,0,0,0.45);
+  --flame-core:#ffb84d;
+  --flame-outer:#ff2b00;
+  --ui-yellow: #ffff00;
+
+  /* iPhone true viewport height fix */
+  --vh: 1vh;
 }
 
-/* Reset & Body */
-*{box-sizing:border-box;margin:0;padding:0} 
-html,body{height:100%;overflow:hidden;font-family:'Roboto Condensed',sans-serif} 
-body{ 
-  background: linear-gradient(to bottom,var(--bg-space-start),var(--bg-space-end)); 
-  display:flex;justify-content:center;align-items:center;flex-direction:column;position:relative; 
+/* True full-viewport class for iPhone */
+.full-vh {
+  height: calc(var(--vh) * 100);
 }
 
-/* Stars */
-.stars{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1} 
-.star{position:absolute;background:var(--star-color);border-radius:50%;animation:twinkle 2s infinite ease-in-out alternate} 
-@keyframes twinkle{from{opacity:.2;transform:scale(.8)}to{opacity:1;transform:scale(1.2)}}
-
-/* Hero */
-.hero{position:absolute;top:5%;width:100%;text-align:center;z-index:10;color:white} 
-.hero h1{font-family:'Orbitron',sans-serif;font-size:4em;text-shadow:0 0 20px rgba(255,255,255,.5)} 
-.hero .subtitle{font-family:'Orbitron',sans-serif;font-size:1.8em;color:rgba(255,255,255,.85);margin-top:10px;text-shadow:0 0 10px rgba(255,255,255,.4);letter-spacing:1px;font-weight:400;transition:all .3s ease}
-
-/* Launch button */
-#launch-button {
-  position: absolute;
-  left: 10%;
-  bottom: -600px; 
-  padding: 15px 30px;
-  font-size: 1.2em;
-  font-weight: 700;
-  font-family: 'Roboto Condensed',sans-serif;
-  color: #222;
-  background: #ffff00;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(255,255,0,0.4);
-  z-index: 10;
-  transition: all 0.3s ease;
-}
-#launch-button:hover {
-  background: #ffea00;
-  box-shadow: 0 12px 30px rgba(255,255,0,0.7);
-  transform: translateY(-5px);
+/*-------------------------
+  RESET & LAYOUT
+--------------------------*/
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  height:100%;
+  width:100%;
+  font-family:'Roboto Condensed',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-/* Rocket */
-.rocket-container{position:absolute;bottom:80px;width:180px;height:400px;display:flex;flex-direction:column;align-items:center;transition:all 5s ease-out;transform-origin:bottom center;z-index:5} 
-.rocket{ width:180px;height:400px; position:relative;display:flex;align-items:center;justify-content:center;border-radius:90px/18px; background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.06)), linear-gradient(180deg, var(--ferrari-red-1), var(--ferrari-red-2)); box-shadow:0 28px 72px var(--ferrari-shadow), inset 0 -8px 20px rgba(0,0,0,0.25); overflow:visible;border:2px solid rgba(0,0,0,0.18);} 
+body{
+  background: linear-gradient(to bottom,var(--bg-space-start),var(--bg-space-end));
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+}
 
-.rocket-nose{ position:absolute;top:-120px;width:180px;height:120px; background: linear-gradient(180deg, #9e1216 0%, #7a0f12 60%, #2b0a0a 100%); clip-path: polygon(50% 0%, 90% 100%, 10% 100%); border-radius:50% 50% 0 0; box-shadow: inset -2px -2px 10px rgba(0,0,0,0.45); border-top:2px solid rgba(255,255,255,0.03); } 
+/*-------------------------
+  STARS
+--------------------------*/
+.stars{position:absolute;inset:0;z-index:-2;pointer-events:none}
+.star{
+  position:absolute;
+  background:var(--star-color);
+  border-radius:50%;
+  animation:twinkle 2s infinite ease-in-out alternate
+}
+@keyframes twinkle{
+  from{opacity:.15;transform:scale(.8)}
+  to{opacity:1;transform:scale(1.2)}
+}
 
-.cockpit {
-  position: absolute;
-  top: 70px; 
-  width: 82px;
-  height: 38px;
-  border-radius: 50px / 20px;
+/*-------------------------
+  HERO TITLE
+--------------------------*/
+.hero{
+  position:absolute;
+  top:4%;
+  width:100%;
+  text-align:center;
+  z-index:30;
+  color:white;
+  padding:0 16px
+}
+.hero h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(28px,6vw,48px);
+  text-shadow:0 0 20px rgba(255,255,255,.45)
+}
+.hero .subtitle{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(14px,2.5vw,22px);
+  color:rgba(255,255,255,.85);
+  margin-top:8px;
+  text-shadow:0 0 10px rgba(255,255,255,.35);
+  letter-spacing:1px;
+  font-weight:400
+}
+
+/*-------------------------
+  ROCKET LAUNCH BUTTON
+--------------------------*/
+#launch-button{
+  position:fixed;
+  left:18px;
+  bottom:18px;
+  z-index:40;
+  padding:12px 18px;
+  border-radius:10px;
+  border:none;
+  background:var(--ui-yellow);
+  color:#222;
+  font-weight:700;
+  box-shadow:0 8px 20px rgba(255,255,0,0.35);
+  cursor:pointer;
+  font-family:'Roboto Condensed',sans-serif;
+}
+#launch-button:hover{
+  transform:translateY(-4px);
+  background:#ffea00
+}
+
+/*-------------------------
+  ROCKET
+--------------------------*/
+.rocket-container{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:80px;
+  width:180px;
+  height:400px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  transition:all 5s ease-out;
+  transform-origin:bottom center;
+  z-index:25;
+  pointer-events:none;
+}
+.rocket{
+  width:100%;
+  height:100%;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:90px/18px;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.06)),
+    linear-gradient(180deg, var(--ferrari-red-1), var(--ferrari-red-2));
+  box-shadow:0 28px 72px var(--ferrari-shadow), inset 0 -8px 20px rgba(0,0,0,0.25);
+  overflow:visible;
+  border:2px solid rgba(0,0,0,0.18);
+}
+
+.rocket-nose{
+  position:absolute;
+  top:-120px;
+  width:180px;
+  height:120px;
+  background:linear-gradient(180deg,#9e1216 0%,#7a0f12 60%,#2b0a0a 100%);
+  clip-path:polygon(50% 0%, 90% 100%, 10% 100%);
+  border-radius:50% 50% 0 0;
+  box-shadow:inset -2px -2px 10px rgba(0,0,0,0.45);
+  border-top:2px solid rgba(255,255,255,0.03)
+}
+.cockpit{
+  position:absolute;
+  top:70px;
+  width:82px;
+  height:38px;
+  border-radius:50px/20px;
   background:
     radial-gradient(circle at 50% 0%, rgba(255,255,255,0.35), rgba(255,255,255,0) 45%),
-    linear-gradient(180deg,
-      rgba(10,12,22,0.92) 0%,
-      rgba(8,8,18,0.85) 45%,
-      rgba(0,0,0,0.75) 100%
-    );
+    linear-gradient(180deg, rgba(10,12,22,0.92) 0%, rgba(8,8,18,0.85) 45%, rgba(0,0,0,0.75) 100%);
   box-shadow:
     inset -3px -4px 8px rgba(0,0,0,0.75),
     inset 2px 3px 6px rgba(120,120,255,0.4),
-    0 0 22px rgba(40,80,255,0.25);
+    0 0 22px rgba(40,80,255,0.25)
+}
+.branding{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) rotate(-90deg);
+  font-family:'Orbitron',sans-serif;
+  font-size:20px;
+  font-weight:700;
+  color:#000;
+  text-shadow:0 0 5px #ffff00;
+  letter-spacing:2px;
+  opacity:0.9
+}
+.fin-left,.fin-right{
+  position:absolute;
+  bottom:0;
+  width:58px;
+  height:120px;
+  border-radius:6px;
+  background:
+    repeating-linear-gradient(45deg, rgba(180,3,3,0.87) 0 2px, rgba(20,20,20,0.92) 2px 6px),
+    linear-gradient(180deg, rgba(0,0,0,0.6), rgba(10,10,10,0.9));
+  clip-path: polygon(50% 0, 0 100%, 100% 100%);
+  box-shadow:0 18px 40px rgba(0,0,0,0.45), inset 0 2px 6px rgba(255,255,255,0.02)
+}
+.fin-left{left:-36px; transform:rotate(-18deg) translateY(6px)}
+.fin-right{right:-36px; transform:rotate(18deg) translateY(6px)}
+
+.exhaust{
+  position:absolute;
+  bottom:-92px;
+  width:180px;
+  height:180px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  pointer-events:none
+}
+.flame{
+  position:absolute;
+  bottom:0;
+  width:70px;
+  height:180px;
+  border-radius:50%;
+  background: radial-gradient(ellipse at bottom, var(--flame-core) 0%, #ff7a1a 30%, var(--flame-outer) 60%, rgba(255,200,80,0) 100%);
+  filter: blur(14px) saturate(1.2);
+  animation:flameFlick .45s infinite alternate ease-in-out;
+  box-shadow:0 12px 60px rgba(255,120,30,0.18),0 6px 20px rgba(255,80,10,0.12)
+}
+@keyframes flameFlick{
+  from{transform:scaleY(.9) scaleX(1)}
+  to{transform:scaleY(1.25) scaleX(1.1)}
 }
 
-.branding{ position:absolute; top:50%; left:50%; transform:translate(-50%, -50%) rotate(-90deg); font-family:'Orbitron',sans-serif;font-size:25px;font-weight:700;color:#000; text-shadow:0 0 5px #ffff00; letter-spacing:2px; opacity:0.8; } 
+/* Rocket liftoff */
+.rocket-container.launching{
+  animation:liftoff 5s forwards ease-out
+}
+@keyframes liftoff{
+  0%{transform:translateX(-50%) translateY(0)}
+  100%{transform:translateX(-50%) translateY(-150vh)}
+}
 
-.fin-left,.fin-right{ position:absolute;bottom:0;width:58px;height:120px;border-radius:6px; background: repeating-linear-gradient(45deg, rgba(180,3,3,0.87) 0 2px, rgba(20,20,20,0.92) 2px 6px), linear-gradient(180deg, rgba(0,0,0,0.6), rgba(10,10,10,0.9)); clip-path: polygon(50% 0, 0 100%, 100% 100%); box-shadow:0 18px 40px rgba(0,0,0,0.45), inset 0 2px 6px rgba(255,255,255,0.02);} 
-.fin-left{left:-36px; transform: rotate(-18deg) translateY(6px);} 
-.fin-right{right:-36px; transform: rotate(18deg) translateY(6px);} 
+/*-------------------------
+  iPHONE SAFE SCALING
+--------------------------*/
+@media (max-height: 720px) {
+  .rocket-container {
+    transform: translateX(-50%) scale(0.82);
+    bottom: 40px;
+  }
+}
 
-.exhaust{position:absolute;bottom:-92px;width:180px;height:180px;display:flex;justify-content:center;align-items:flex-end;pointer-events:none} 
-.flame{ position:absolute;bottom:0;width:70px;height:180px;border-radius:50%; background: radial-gradient(ellipse at bottom, var(--flame-core) 0%, #ff7a1a 30%, var(--flame-outer) 60%, rgba(255,200,80,0) 100%); filter: blur(14px) saturate(1.2); animation: flameFlick 0.45s infinite alternate ease-in-out; box-shadow:0 12px 60px rgba(255,120,30,0.18), 0 6px 20px rgba(255,80,10,0.12);} 
-@keyframes flameFlick{from{transform:scaleY(.9) scaleX(1)}to{transform:scaleY(1.25) scaleX(1.1)}} 
+@media (max-height: 620px) {
+  .rocket-container {
+    transform: translateX(-50%) scale(0.70);
+    bottom: 30px;
+  }
+}
 
-.rocket-container.launching{animation:liftoff 5s forwards ease-out} 
-@keyframes liftoff{0%{transform:translateY(0)}100%{transform:translateY(-150vh)}}
+@media (max-height: 540px) {
+  .rocket-container {
+    transform: translateX(-50%) scale(0.60);
+    bottom: 20px;
+  }
+}
 
-/* Map container (hidden initially) */
+/*-------------------------
+  FADE OVERLAY
+--------------------------*/
+.fade-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.0);
+  z-index:35;
+  pointer-events:none;
+  transition:background .6s ease
+}
+
+/*-------------------------
+  MAP CONTAINER
+--------------------------*/
 #mapContainer{
   position:fixed;
   inset:0;
@@ -107,153 +283,283 @@ body{
   height:100vh;
   background:#0e1525;
   display:none;
-  z-index:20;
+  z-index:30;
   opacity:0;
-  transition: opacity 1s ease;
+  transition:opacity 600ms ease;
+  overflow:hidden;
 }
 #mapContainer.show{
+  display:block;
   opacity:1;
 }
-#mapContainer img{width:100%;height:100%;object-fit:cover;}
-.label{position:absolute;font-size:clamp(18px,2vw,30px);color:#ffffffdd;font-weight:700;letter-spacing:2px;text-shadow:0 0 8px rgba(0,180,255,0.8),0 0 15px rgba(0,180,255,0.5);user-select:none;pointer-events:none;}
-.p-stella{position:absolute;top:37%;left:64%;width:8%;height:13%;border-radius:50%;cursor:pointer;background:linear-gradient(to bottom,#ff0000 0%,#ff0000 20%,#ffffff 20%,#ffffff 40%,#0000ff 40%,#0000ff 60%,#ffffff 60%,#ffffff 80%,#ff0000 80%,#ff0000 100%);animation:pulseGlow 1.8s infinite;box-shadow:0 0 25px 10px rgba(0,180,255,0.6);}
-@keyframes pulseGlow{0%{transform:scale(1);box-shadow:0 0 25px 10px rgba(0,180,255,0.6);}50%{transform:scale(1.15);box-shadow:0 0 45px 20px rgba(0,180,255,0.9);}100%{transform:scale(1);box-shadow:0 0 25px 10px rgba(0,180,255,0.6);}}
-
-/* Password overlay */
-#passwordOverlay{ position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;justify-content:center;align-items:center;flex-direction:column;color:white; font-family:'Orbitron',sans-serif;z-index:1000;display:none } 
-#passwordOverlay .panel{ background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); padding:28px;border-radius:12px;backdrop-filter:blur(6px); box-shadow:0 12px 36px rgba(0,0,0,0.6);text-align:center;width:320px;max-width:90% } 
-#passwordOverlay input{padding:10px;font-size:18px;margin-top:15px;border-radius:5px;border:none;text-align:center} 
-#passwordOverlay button { margin-top: 10px; padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer; background: #ffff00; color: #222; font-weight: bold; font-family: 'Roboto Condensed',sans-serif; box-shadow: 0 8px 20px rgba(255,255,0,0.4); transition: all 0.3s ease; } 
-#passwordOverlay button:hover { background: #ffea00; box-shadow: 0 12px 30px rgba(255,255,0,0.7); transform: translateY(-2px); } 
-#passwordOverlay .tip { margin-top:8px; color: #ffea00; font-size:13px; font-family:'Orbitron',sans-serif; } 
-
-</style>
-</head>
-<body>
-
-<div class="stars"></div>
-
-<div class="hero">
-  <h1>Pinkklish I Journiust I Whatever</h1>
-  <p class="subtitle">(acr.) I'm exactly who you think I am :P</p>
-  <button id="launch-button">Rocket Launch</button>
-</div>
-
-<div class="rocket-container" id="rocket">
-  <div class="rocket">
-    <div class="rocket-nose"></div>
-    <div class="branding">PINKKLISH</div>
-    <div class="cockpit"></div>
-    <div class="fin-left"></div>
-    <div class="fin-right"></div>
-  </div>
-  <div class="exhaust">
-    <div class="flame"></div>
-  </div>
-</div>
-
-<!-- Map container -->
-<div id="mapContainer">
-    <img src="map.png" alt="World Map">
-    <div class="label" style="top: 29%; left: 62%;">P STELLA</div>
-    <div class="label" style="top: 27%; left: 45%;">SIRIUS</div>
-    <div class="label" style="top: 44%; left: 47%;">RIGEL</div>
-    <div class="label" style="top: 23%; left: 20%;">VEGA</div>
-    <div class="label" style="top: 55%; left: 27%;">ALTAIR</div>
-    <div class="label" style="top: 73%; left: 81%;">BETELGEUSE</div>
-    <div class="label" style="top: 91%; left: 50%;">POLARIS</div>
-    <div class="p-stella" id="pStellaHotspot"></div>
-</div>
-
-<!-- Password overlay -->
-<div id="passwordOverlay">
-    <div class="panel">
-        <div style="font-size:20px;margin-bottom:8px">
-            Boarding Entrance — Warp Zone
-        </div>
-        <input type="password" id="passwordInput" placeholder="Enter 4-digit code"/>
-        <div style="display:flex;gap:10px;justify-content:center;margin-top:12px">
-            <button id="submitPassword">Enter</button>
-            <button id="cancelBtn">Cancel</button>
-        </div>
-        <div class="tip">Cheat Code: <strong>2574</strong></div>
-    </div>
-</div>
-
-<script>
-// Generate stars
-const starsContainer = document.querySelector('.stars');
-for(let i=0;i<150;i++){
-  const star = document.createElement('div');
-  star.className = 'star';
-  star.style.top = Math.random()*100+'%';
-  star.style.left = Math.random()*100+'%';
-  star.style.width = star.style.height = Math.random()*2+1+'px';
-  star.style.animationDuration = (Math.random()*2+1)+'s';
-  starsContainer.appendChild(star);
+#mapContainer img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-// Elements
+/* Map labels */
+.label{
+  position:absolute;
+  font-size:clamp(14px,2vw,28px);
+  color:#ffffffdd;
+  font-weight:700;
+  letter-spacing:2px;
+  text-shadow:
+    0 0 8px rgba(0,180,255,0.8),
+    0 0 15px rgba(0,180,255,0.5);
+  user-select:none;
+  pointer-events:none
+}
+
+/* Hotspot */
+.p-stella{
+  position:absolute;
+  top:37%;
+  left:64%;
+  width:8%;
+  height:13%;
+  border-radius:50%;
+  cursor:pointer;
+  background:
+    linear-gradient(to bottom,#ff0000 0%,#ff0000 20%,#ffffff 20%,#ffffff 40%,#0000ff 40%,#0000ff 60%,#ffffff 60%,#ffffff 80%,#ff0000 80%,#ff0000 100%);
+  animation:pulseGlow 1.8s infinite;
+  box-shadow:0 0 25px 10px rgba(0,180,255,0.6);
+  z-index:31
+}
+@keyframes pulseGlow{
+  0%{transform:scale(1);box-shadow:0 0 25px 10px rgba(0,180,255,0.6)}
+  50%{transform:scale(1.12);box-shadow:0 0 45px 20px rgba(0,180,255,0.9)}
+  100%{transform:scale(1);box-shadow:0 0 25px 10px rgba(0,180,255,0.6)}
+}
+
+/*-------------------------
+  PASSWORD MODAL
+--------------------------*/
+#passwordOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:white;
+  font-family:'Orbitron',sans-serif;
+  z-index:60;
+  padding:20px
+}
+
+#passwordOverlay .panel{
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  padding:22px;
+  border-radius:12px;
+  backdrop-filter:blur(6px);
+  box-shadow:0 12px 36px rgba(0,0,0,0.6);
+  text-align:center;
+  width:360px;
+  max-width:96%
+}
+
+#passwordOverlay input{
+  padding:10px;
+  font-size:18px;
+  margin-top:12px;
+  border-radius:6px;
+  border:none;
+  text-align:center;
+  width:100%
+}
+
+#passwordOverlay .btn{
+  margin-top:12px;
+  padding:10px 16px;
+  font-size:16px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  background:var(--ui-yellow);
+  color:#222;
+  font-weight:700
+}
+
+#passwordOverlay .tip{
+  margin-top:8px;
+  color:var(--ui-yellow);
+  font-size:13px;
+  font-family:'Orbitron',sans-serif
+}
+
+/*-------------------------
+  MOBILE TUNING
+--------------------------*/
+@media (max-width:520px){
+  .rocket-container{bottom:60px;width:140px;height:320px}
+  .rocket-nose{top:-100px;width:140px;height:100px}
+  .cockpit{top:58px;width:66px;height:30px}
+  .fin-left,.fin-right{width:46px;height:96px;left:-26px;right:-26px}
+  .p-stella{width:10vw;height:14vw;top:36%;left:62%}
+}
+</style>
+</head>
+
+<body>
+
+  <!-- Stars -->
+  <div class="stars" aria-hidden="true"></div>
+
+  <!-- Title -->
+  <div class="hero" role="banner">
+    <h1>Pinkklish I Journiust I Whatever</h1>
+    <p class="subtitle">(acr.) I'm exactly who you think I am :P</p>
+  </div>
+
+  <!-- Launch button -->
+  <button id="launch-button" aria-label="Launch rocket">Rocket Launch</button>
+
+  <!-- Rocket -->
+  <div class="rocket-container" id="rocket">
+    <div class="rocket" id="rocketBody">
+      <div class="rocket-nose"></div>
+      <div class="branding">PINKKLISH</div>
+      <div class="cockpit"></div>
+      <div class="fin-left"></div>
+      <div class="fin-right"></div>
+    </div>
+    <div class="exhaust">
+      <div class="flame"></div>
+    </div>
+  </div>
+
+  <!-- Fade overlay -->
+  <div class="fade-overlay" id="fadeOverlay"></div>
+
+  <!-- Map -->
+  <div id="mapContainer" class="full-vh">
+    <img src="map.png" alt="World map / star map">
+
+    <div class="label" style="top:29%;left:62%;">P STELLA</div>
+    <div class="label" style="top:27%;left:45%;">SIRIUS</div>
+    <div class="label" style="top:44%;left:47%;">RIGEL</div>
+    <div class="label" style="top:23%;left:20%;">VEGA</div>
+    <div class="label" style="top:55%;left:27%;">ALTAIR</div>
+    <div class="label" style="top:73%;left:81%;">BETELGEUSE</div>
+    <div class="label" style="top:91%;left:50%;">POLARIS</div>
+
+    <div class="p-stella" id="pStellaHotspot"></div>
+  </div>
+
+  <!-- Password Modal -->
+  <div id="passwordOverlay" role="dialog" aria-modal="true">
+    <div class="panel">
+      <div style="font-size:18px;margin-bottom:8px">Boarding Entrance — Warp Zone</div>
+      <input type="password" id="passwordInput" inputmode="numeric" pattern="[0-9]*" placeholder="Enter 4-digit code" />
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:12px">
+        <button class="btn" id="submitPassword">Enter</button>
+        <button class="btn" id="cancelBtn">Cancel</button>
+      </div>
+      <div class="tip">Cheat Code: <strong>2574</strong></div>
+    </div>
+  </div>
+
+<script>
+/*----------------------------------
+  iPHONE TRUE VIEWPORT HEIGHT
+-----------------------------------*/
+function updateVH(){
+  document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+}
+updateVH();
+window.addEventListener('resize', updateVH);
+window.addEventListener('orientationchange', () => setTimeout(updateVH, 300));
+
+/* Generate stars */
+(function generateStars(){
+  const starsContainer = document.querySelector('.stars');
+  const count = Math.min(180, Math.round(window.innerWidth / 6));
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.top = Math.random()*100+'%';
+    s.style.left = Math.random()*100+'%';
+    const size = (Math.random()*2)+0.8;
+    s.style.width = s.style.height = size + 'px';
+    s.style.animationDuration = (Math.random()*2 + 1) + 's';
+    s.style.opacity = (Math.random()*0.8+0.2).toString();
+    starsContainer.appendChild(s);
+  }
+})();
+
+/* Elements */
 const rocketContainer = document.getElementById('rocket');
 const launchButton = document.getElementById('launch-button');
+const fadeOverlay = document.getElementById('fadeOverlay');
+const mapContainer = document.getElementById('mapContainer');
+const pStella = document.getElementById('pStellaHotspot');
 const passwordOverlay = document.getElementById('passwordOverlay');
 const passwordInput = document.getElementById('passwordInput');
 const submitPassword = document.getElementById('submitPassword');
 const cancelBtn = document.getElementById('cancelBtn');
-const pStella = document.getElementById('pStellaHotspot');
-const mapContainer = document.getElementById('mapContainer');
 const PASS = "2574";
 
-// Launch rocket
+/* Launch */
 launchButton.addEventListener('click', () => {
-  // Hide hero & button immediately
-  document.querySelector('.hero').style.display = 'none';
+  document.querySelector('.hero').style.transition = 'opacity .6s';
+  document.querySelector('.hero').style.opacity = '0';
 
-  // Start rocket liftoff
+  launchButton.disabled = true;
+  launchButton.style.opacity = '0.6';
+
   rocketContainer.classList.add('launching');
 
-  // Show map after 2 seconds with fade-in
-  setTimeout(() => {
+  fadeOverlay.style.background = 'rgba(0,0,0,0.0)';
+  setTimeout(()=> fadeOverlay.style.background = 'rgba(0,0,0,0.35)', 1200);
+
+  setTimeout(()=>{
     mapContainer.style.display = 'block';
-    mapContainer.classList.add('show');
-  }, 2000);
+    requestAnimationFrame(()=> mapContainer.classList.add('show'));
+  }, 1800);
 
-  // Hide rocket after it finishes liftoff (5s)
-  setTimeout(() => {
+  setTimeout(()=> {
     rocketContainer.style.display = 'none';
-  }, 5000);
+  }, 5200);
 });
 
-// Clicking P Stella shows password overlay
-pStella.addEventListener('click', () => {
-    passwordOverlay.style.display = 'flex';
+/* Map hotspot */
+pStella.addEventListener('click', openPassword);
+pStella.addEventListener('touchstart', function(e){ e.preventDefault(); openPassword(); }, {passive:false});
+
+function openPassword(){
+  passwordOverlay.style.display = 'flex';
+  passwordInput.value = '';
+  setTimeout(()=> passwordInput.focus(), 80);
+}
+
+/* Password check */
+submitPassword.addEventListener('click', validatePassword);
+passwordInput.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter') validatePassword();
+});
+
+function validatePassword(){
+  if(passwordInput.value.trim() === PASS){
+    window.location.href = "pinkklish_full.html";
+  } else {
+    alert('❌ Incorrect code. Try again.');
+    passwordInput.value = '';
     passwordInput.focus();
+  }
+}
+
+cancelBtn.addEventListener('click', ()=> {
+  passwordOverlay.style.display = 'none';
 });
 
-// Password handling
-submitPassword.addEventListener('click', () => {
-    if(passwordInput.value.trim() === PASS){
-        window.location.href = "pinkklish_full.html";
-    } else {
-        alert('❌ Incorrect code. Try again.');
-        passwordInput.value = '';
-        passwordInput.focus();
-    }
-});
-
-// Cancel button hides overlay
-cancelBtn.addEventListener('click', () => {
-    passwordOverlay.style.display = 'none';
-});
-
-// Enter key submits
-passwordInput.addEventListener('keypress', (e) => {
-    if(e.key === 'Enter') submitPassword.click();
-});
-
-// Escape key closes overlay
-document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape') passwordOverlay.style.display = 'none';
+/* ESC closes modal */
+document.addEventListener('keydown', (e)=> {
+  if(e.key === 'Escape'){
+    if(passwordOverlay.style.display === 'flex') passwordOverlay.style.display = 'none';
+  }
 });
 </script>
 
