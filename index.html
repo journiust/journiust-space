@@ -21,13 +21,6 @@
   --flame-outer: #ff2b00; 
 }
 
-@supports (-webkit-touch-callout: none) {
-  :root {
-    --safe-top: env(safe-area-inset-top);
-    --safe-bottom: env(safe-area-inset-bottom);
-  }
-}
-
 /* Reset & Body */
 *{box-sizing:border-box;margin:0;padding:0} 
 html,body{
@@ -38,12 +31,6 @@ html,body{
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
-  position: fixed;
-  touch-action: pan-x pan-y;
-}
-html {
-  height: 100%;
-  height: -webkit-fill-available;
 }
 body{ 
   background: linear-gradient(to bottom,var(--bg-space-start),var(--bg-space-end)); 
@@ -52,10 +39,6 @@ body{
   align-items:center;
   flex-direction:column;
   position:relative;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
 }
 
 /* Stars */
@@ -75,19 +58,18 @@ body{
 } 
 .hero h1{
   font-family:'Orbitron',sans-serif;
-  font-size:clamp(2.5em, 8vw, 4em);
+  font-size:4em;
   text-shadow:0 0 20px rgba(255,255,255,.5);
   line-height: 1.2;
 } 
 .hero .subtitle{
   font-family:'Orbitron',sans-serif;
-  font-size:clamp(1.2em, 5vw, 1.8em);
+  font-size:1.8em;
   color:rgba(255,255,255,.85);
   margin-top:10px;
   text-shadow:0 0 10px rgba(255,255,255,.4);
   letter-spacing:1px;
   font-weight:400;
-  transition:all .3s ease;
   line-height: 1.2;
 }
 
@@ -95,9 +77,9 @@ body{
 #launch-button {
   position: absolute;
   left: 10%;
-  bottom: -550px; 
-  padding: 12px 20px;
-  font-size: clamp(0.85em, 3vw, 1.2em);
+  bottom: 150px;
+  padding: 15px 30px;
+  font-size: 1.2em;
   font-weight: 700;
   font-family: 'Roboto Condensed',sans-serif;
   color: #222;
@@ -110,8 +92,8 @@ body{
   transition: all 0.3s ease;
   -webkit-appearance: none;
   appearance: none;
-  min-height: 40px;
-  tap-highlight-color: transparent;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #launch-button:active {
@@ -128,25 +110,23 @@ body{
   }
 }
 
-/* Rocket Container - Scaled for mobile */
+/* Rocket Container */
 .rocket-container{
   position:absolute;
-  bottom:60px;
-  width:clamp(120px, 35vw, 180px);
-  height:auto;
-  aspect-ratio: 180/400;
+  bottom:80px;
+  width:180px;
+  height:400px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:flex-end;
   transition:all 5s ease-out;
   transform-origin:bottom center;
   z-index:5;
 } 
 
 .rocket{
-  width:100%;
-  height:100%;
+  width:180px;
+  height:400px;
   position:relative;
   display:flex;
   align-items:center;
@@ -160,9 +140,9 @@ body{
 
 .rocket-nose{
   position:absolute;
-  top:-30%;
-  width:100%;
-  height:30%;
+  top:-120px;
+  width:180px;
+  height:120px;
   background: linear-gradient(180deg, #9e1216 0%, #7a0f12 60%, #2b0a0a 100%);
   clip-path: polygon(50% 0%, 90% 100%, 10% 100%);
   border-radius:50% 50% 0 0;
@@ -172,9 +152,9 @@ body{
 
 .cockpit {
   position: absolute;
-  top: 17.5%;
-  width: 45%;
-  height: 9.5%;
+  top: 70px;
+  width: 82px;
+  height: 38px;
   border-radius: 50px / 20px;
   background:
     radial-gradient(circle at 50% 0%, rgba(255,255,255,0.35), rgba(255,255,255,0) 45%),
@@ -195,7 +175,7 @@ body{
   left:50%;
   transform:translate(-50%, -50%) rotate(-90deg);
   font-family:'Orbitron',sans-serif;
-  font-size:clamp(14px, 4vw, 25px);
+  font-size:25px;
   font-weight:700;
   color:#000;
   text-shadow:0 0 5px #ffff00;
@@ -207,27 +187,27 @@ body{
 .fin-left,.fin-right{
   position:absolute;
   bottom:0;
-  width:32%;
-  height:30%;
+  width:58px;
+  height:120px;
   border-radius:6px;
   background: repeating-linear-gradient(45deg, rgba(180,3,3,0.87) 0 2px, rgba(20,20,20,0.92) 2px 6px), linear-gradient(180deg, rgba(0,0,0,0.6), rgba(10,10,10,0.9));
   clip-path: polygon(50% 0, 0 100%, 100% 100%);
   box-shadow:0 18px 40px rgba(0,0,0,0.45), inset 0 2px 6px rgba(255,255,255,0.02);
 }
 .fin-left{
-  left:-20%;
-  transform: rotate(-18deg) translateY(1.5%);
+  left:-36px;
+  transform: rotate(-18deg) translateY(6px);
 }
 .fin-right{
-  right:-20%;
-  transform: rotate(18deg) translateY(1.5%);
+  right:-36px;
+  transform: rotate(18deg) translateY(6px);
 }
 
 .exhaust{
   position:absolute;
-  bottom:-23%;
-  width:100%;
-  height:45%;
+  bottom:-92px;
+  width:180px;
+  height:180px;
   display:flex;
   justify-content:center;
   align-items:flex-end;
@@ -237,8 +217,8 @@ body{
 .flame{
   position:absolute;
   bottom:0;
-  width:39%;
-  height:45%;
+  width:70px;
+  height:180px;
   border-radius:50%;
   background: radial-gradient(ellipse at bottom, var(--flame-core) 0%, #ff7a1a 30%, var(--flame-outer) 60%, rgba(255,200,80,0) 100%);
   filter: blur(14px) saturate(1.2);
@@ -250,7 +230,7 @@ body{
 .rocket-container.launching{animation:liftoff 5s forwards ease-out} 
 @keyframes liftoff{0%{transform:translateY(0)}100%{transform:translateY(-150vh)}}
 
-/* Map container (hidden initially) */
+/* Map container */
 #mapContainer{
   position:fixed;
   inset:0;
@@ -261,7 +241,6 @@ body{
   z-index:20;
   opacity:0;
   transition: opacity 1s ease;
-  overflow: hidden;
 }
 #mapContainer.show{
   opacity:1;
@@ -327,59 +306,55 @@ body{
 
 #passwordOverlay .panel{
   background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-  padding:clamp(24px, 5vw, 32px);
-  border-radius:16px;
+  padding:28px;
+  border-radius:12px;
   backdrop-filter:blur(6px);
   box-shadow:0 12px 36px rgba(0,0,0,0.6);
   text-align:center;
-  width:100%;
+  width:90%;
   max-width:320px;
 }
 
 #passwordOverlay .panel > div:first-child {
-  font-size:clamp(18px, 4vw, 24px);
-  margin-bottom:12px;
-  line-height: 1.2;
+  font-size:20px;
+  margin-bottom:8px;
 }
 
 #passwordOverlay input{
-  padding:12px 16px;
+  padding:10px;
   font-size:18px;
-  margin-top:16px;
-  border-radius:8px;
+  margin-top:15px;
+  border-radius:5px;
   border:none;
   text-align:center;
   width:100%;
   -webkit-appearance: none;
   appearance: none;
-  min-height: 44px;
 }
 
 #passwordOverlay .button-group {
   display:flex;
-  gap:12px;
+  gap:10px;
   justify-content:center;
-  margin-top:16px;
+  margin-top:12px;
 }
 
 #passwordOverlay button {
-  padding: 12px 24px;
-  font-size: 16px;
+  padding: 10px 20px;
+  font-size: 18px;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
   background: #ffff00;
   color: #222;
   font-weight: bold;
   font-family: 'Roboto Condensed',sans-serif;
-  box-shadow: 0 8px 20px rgba(255,215,0,0.4);
+  box-shadow: 0 8px 20px rgba(255,255,0,0.4);
   transition: all 0.3s ease;
   -webkit-appearance: none;
   appearance: none;
-  min-height: 44px;
-  min-width: 80px;
   flex: 1;
-  tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #passwordOverlay button:active {
@@ -397,82 +372,97 @@ body{
 }
 
 #passwordOverlay .tip {
-  margin-top:12px;
+  margin-top:8px;
   color: #ffea00;
-  font-size:clamp(12px, 3vw, 14px);
+  font-size:13px;
   font-family:'Orbitron',sans-serif;
 }
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
-  .hero {
-    top: 8%;
-    padding: 0 16px;
-  }
-  
   .hero h1 {
-    font-size: clamp(2em, 7vw, 3em);
+    font-size: 2.5em;
   }
   
   .hero .subtitle {
-    font-size: clamp(1em, 4vw, 1.4em);
-    margin-top: 8px;
+    font-size: 1.3em;
   }
   
   #launch-button {
-    bottom: 45px;
-    padding: 11px 18px;
-    font-size: clamp(0.8em, 3vw, 1em);
+    font-size: 1em;
+    padding: 12px 24px;
+    bottom: 60px;
+    left: 8%;
   }
   
   .rocket-container {
-    bottom: 45px;
-    width: clamp(100px, 28vw, 160px);
+    width: 140px;
+    height: 310px;
+    bottom: 60px;
+  }
+  
+  .rocket {
+    width: 140px;
+    height: 310px;
+  }
+  
+  .rocket-nose {
+    top: -93px;
+    width: 140px;
+    height: 93px;
+  }
+  
+  .branding {
+    font-size: 18px;
+  }
+  
+  .fin-left, .fin-right {
+    width: 45px;
+    height: 93px;
+  }
+  
+  .fin-left {
+    left: -28px;
+  }
+  
+  .fin-right {
+    right: -28px;
+  }
+  
+  .exhaust {
+    bottom: -71px;
+    width: 140px;
+    height: 140px;
+  }
+  
+  .flame {
+    width: 54px;
+    height: 140px;
   }
 }
 
 @media (max-width: 480px) {
-  html, body {
-    height: 100vh;
-    height: -webkit-fill-available;
-  }
-  
   .hero {
-    top: 10%;
-    padding: 0 12px;
+    top: 8%;
   }
   
   .hero h1 {
-    font-size: clamp(1.8em, 6vw, 2.5em);
+    font-size: 2em;
   }
   
   .hero .subtitle {
-    font-size: clamp(0.9em, 3.5vw, 1.2em);
-    margin-top: 6px;
+    font-size: 1.1em;
   }
   
   #launch-button {
-    bottom: 40px;
-    left: 8%;
-    padding: 10px 16px;
-    font-size: clamp(0.75em, 2.8vw, 0.95em);
+    font-size: 0.9em;
+    padding: 10px 20px;
+    bottom: 50px;
+    left: 5%;
   }
   
   .rocket-container {
-    bottom: 40px;
-    width: clamp(90px, 24vw, 140px);
-  }
-
-  #passwordOverlay .panel {
-    max-width: 280px;
-    padding: clamp(20px, 4vw, 28px);
-  }
-}
-
-/* iPhone specific adjustments */
-@supports (-webkit-touch-callout: none) {
-  body {
-    padding-bottom: env(safe-area-inset-bottom, 0);
+    bottom: 50px;
   }
 }
 
@@ -493,8 +483,9 @@ body{
 <div class="hero">
   <h1>Pinkklish I Journiust I Whatever</h1>
   <p class="subtitle">(acr.) I'm exactly who you think I am :P</p>
-  <button id="launch-button">Rocket Launch</button>
 </div>
+
+<button id="launch-button">Rocket Launch</button>
 
 <div class="rocket-container" id="rocket">
   <div class="rocket">
@@ -623,29 +614,6 @@ document.addEventListener('touchend', (e) => {
   }
   lastTouchEnd = now;
 }, false);
-
-// Prevent pinch zoom
-document.addEventListener('gesturestart', (e) => {
-  e.preventDefault();
-});
-
-document.addEventListener('gesturechange', (e) => {
-  e.preventDefault();
-});
-
-document.addEventListener('gestureend', (e) => {
-  e.preventDefault();
-});
-
-// Fix viewport height on iOS
-const setVH = () => {
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-};
-
-setVH();
-window.addEventListener('resize', setVH);
-window.addEventListener('orientationchange', setVH);
 </script>
 
 </body>
