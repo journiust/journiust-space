@@ -251,6 +251,7 @@ body{
 @keyframes liftoff{0%{transform:translateY(0)}100%{transform:translateY(-150vh)}}
 
 /* Map container (hidden initially) */
+/* Map container (hidden initially) */
 #mapContainer{
   position:fixed;
   inset:0;
@@ -435,17 +436,6 @@ body{
     bottom: 45px;
     width: clamp(100px, 28vw, 160px);
   }
-
-  /* Scale map labels for mobile */
-  .label {
-    font-size: clamp(10px, 2.5vw, 20px);
-  }
-
-  /* Scale P Stella hotspot for mobile */
-  .p-stella {
-    width: clamp(60px, 6vw, 80px);
-    height: clamp(40px, 10vw, 80px);
-  }
 }
 
 @media (max-width: 480px) {
@@ -480,29 +470,13 @@ body{
     width: clamp(90px, 24vw, 140px);
   }
 
-  /* Further scale map elements for small screens */
-  .label {
-    font-size: clamp(9px, 2.2vw, 16px);
-    letter-spacing: 1px;
-  }
-
-  .p-stella {
-    width: clamp(50px, 5vw, 70px);
-    height: clamp(35px, 8vw, 70px);
-  }
-
   #passwordOverlay .panel {
     max-width: 280px;
     padding: clamp(20px, 4vw, 28px);
   }
 }
 
-/* iPhone specific adjustments */
 @supports (-webkit-touch-callout: none) {
-  body {
-    padding-bottom: env(safe-area-inset-bottom, 0);
-  }
-
   #mapContainer {
     padding-top: env(safe-area-inset-top, 0);
     padding-bottom: env(safe-area-inset-bottom, 0);
@@ -531,13 +505,6 @@ body{
 }
 
 @supports (padding: max(0px)) {
-  body {
-    padding-top: max(0px, env(safe-area-inset-top));
-    padding-bottom: max(0px, env(safe-area-inset-bottom));
-    padding-left: max(0px, env(safe-area-inset-left));
-    padding-right: max(0px, env(safe-area-inset-right));
-  }
-
   #mapContainer {
     height: 100vh;
     height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
@@ -639,7 +606,6 @@ launchButton.addEventListener('click', () => {
   }, 5000);
 });
 
-// Clicking P Stella shows password overlay
 pStella.addEventListener('click', () => {
     passwordOverlay.classList.add('show');
     passwordInput.focus();
