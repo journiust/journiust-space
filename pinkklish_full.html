@@ -855,6 +855,98 @@
           padding-right: max(0px, env(safe-area-inset-right));
         }
       }
+      /* ===== Post Music Player (IG-style) ===== */
+.post-music-player {
+  margin: 14px auto 0;
+  width: 92%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--music-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow-sm);
+  backdrop-filter: blur(6px);
+}
+
+.post-music-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.post-music-info svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-color);
+  flex-shrink: 0;
+  animation: musicPulse 2s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.post-track-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.post-track-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-artist-name {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--text-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-play-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--text-color), var(--text-secondary));
+  color: var(--bg-color);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.post-play-btn:active {
+  transform: scale(0.9);
+}
+
+@media (hover: hover) {
+  .post-play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.post-play-btn.playing {
+  background: linear-gradient(135deg, #ff6b9d, #c94b7f);
+}
+
     </style>
   </head>
 
@@ -939,6 +1031,37 @@
         <img src="images/post3.jpg" alt="Post 3" />
         <div class="caption">Notre vie, notre décision, notre choix :P</div>
       </div>
+
+    
+      <!-- Post 4 - Image + Caption + Music -->
+<div class="post">
+  <img src="images/post6.jpeg" alt="Post 4" />
+  <div class="caption">You fear. You run. You jump. You brave. You love...</div>
+
+  <div class="post-music-player">
+    <div class="post-music-info">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+
+      <div class="post-track-info">
+        <span class="post-track-name">The reason</span>
+        <span class="post-artist-name">Hoobastank</span>
+      </div>
+    </div>
+
+    <button class="post-play-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+
+    <audio class="post-audio">
+      <source src="track2.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+</div>
+
       
       <!-- Food Album Card -->
       <div class="post food-album-card" id="foodAlbumCard">
@@ -1439,6 +1562,63 @@
         }
         lastTouchEnd = now;
       }, false);
+
+      // ===== Post Music Player Logic =====
+  const postPlayBtns = document.querySelectorAll('.post-play-btn');
+
+  postPlayBtns.forEach(btn => {
+    const player = btn.closest('.post-music-player');
+    const audio = player.querySelector('.post-audio');
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+
+      // Stop all other post audios
+      document.querySelectorAll('.post-audio').forEach(other => {
+        if (other !== audio) {
+          other.pause();
+          other.currentTime = 0;
+        }
+      });
+
+      // Reset all other buttons
+      postPlayBtns.forEach(otherBtn => {
+        if (otherBtn !== btn) {
+          otherBtn.classList.remove('playing');
+          otherBtn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>`;
+        }
+      });
+
+      // Toggle current
+      if (audio.paused) {
+        audio.play();
+        btn.classList.add('playing');
+        btn.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+          </svg>`;
+      } else {
+        audio.pause();
+        btn.classList.remove('playing');
+        btn.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>`;
+      }
+    });
+
+    audio.addEventListener('ended', () => {
+      btn.classList.remove('playing');
+      btn.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>`;
+    });
+  });
+      
     </script>
   </body>
 </html>
