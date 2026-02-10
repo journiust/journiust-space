@@ -947,6 +947,193 @@
   background: linear-gradient(135deg, #ff6b9d, #c94b7f);
 }
 
+/* ===== Integrated Post Music Player ===== */
+.post-with-music .post-content-wrapper {
+  position: relative;
+  border-radius: clamp(12px, 3vw, 16px);
+  overflow: hidden;
+}
+
+.integrated-music-player {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 14px);
+  padding: clamp(12px, 3vw, 16px) clamp(14px, 3vw, 18px);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.7) 60%,
+    transparent 100%
+  );
+  backdrop-filter: blur(12px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateY(0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.post-with-music:hover .integrated-music-player {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.75) 60%,
+    transparent 100%
+  );
+}
+
+/* Music Wave Indicator */
+.music-wave-indicator {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.music-wave-indicator span {
+  width: 3px;
+  background: linear-gradient(to top, #ff6b9d, #ffa8c5);
+  border-radius: 10px;
+  animation: wave 1.2s ease-in-out infinite;
+}
+
+.music-wave-indicator span:nth-child(1) {
+  height: 40%;
+  animation-delay: 0s;
+}
+
+.music-wave-indicator span:nth-child(2) {
+  height: 70%;
+  animation-delay: 0.2s;
+}
+
+.music-wave-indicator span:nth-child(3) {
+  height: 50%;
+  animation-delay: 0.4s;
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.5);
+  }
+}
+
+.integrated-music-player.playing .music-wave-indicator span {
+  animation-play-state: running;
+}
+
+.integrated-music-player:not(.playing) .music-wave-indicator span {
+  animation-play-state: paused;
+  opacity: 0.5;
+}
+
+/* Music Info */
+.integrated-music-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.integrated-track-name {
+  font-size: clamp(14px, 3.5vw, 16px);
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.integrated-artist-name {
+  font-size: clamp(12px, 3vw, 13px);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Play Button */
+.integrated-play-btn {
+  width: clamp(38px, 10vw, 44px);
+  height: clamp(38px, 10vw, 44px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #1d1d1d;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 0 0 0 rgba(255, 255, 255, 0.5);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.integrated-play-btn:active {
+  transform: scale(0.92);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.25),
+    0 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+@media (hover: hover) {
+  .integrated-play-btn:hover {
+    transform: scale(1.08);
+    background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.95));
+    box-shadow: 
+      0 6px 20px rgba(0, 0, 0, 0.3),
+      0 0 0 8px rgba(255, 255, 255, 0.15);
+  }
+}
+
+.integrated-play-btn.playing {
+  background: linear-gradient(135deg, #ff6b9d, #ff8fb3);
+  color: white;
+  border-color: rgba(255, 107, 157, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 12px rgba(255, 107, 157, 0.4),
+      0 0 0 0 rgba(255, 107, 157, 0.4);
+  }
+  50% {
+    box-shadow: 
+      0 4px 16px rgba(255, 107, 157, 0.4),
+      0 0 0 12px rgba(255, 107, 157, 0);
+  }
+}
+
+/* Dark mode adjustments */
+body.dark-mode .integrated-music-player {
+  background: linear-gradient(
+    to top,
+    rgba(20, 20, 20, 0.9) 0%,
+    rgba(30, 30, 30, 0.75) 60%,
+    transparent 100%
+  );
+}
+
+body.dark-mode .integrated-play-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+}
+
     </style>
   </head>
 
@@ -1033,33 +1220,37 @@
       </div>
 
     
-      <!-- Post 4 - Image + Caption + Music -->
-<div class="post">
-  <img src="images/post6.jpeg" alt="Post 4" />
-  <div class="caption">You run. You jump. You love</div>
-
-  <div class="post-music-player">
-    <div class="post-music-info">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-      </svg>
-
-      <div class="post-track-info">
-        <span class="post-track-name">The reason</span>
-        <span class="post-artist-name">Hoobastank</span>
+      <!-- Post 4 - Image + Caption + Music (Updated) -->
+<div class="post post-with-music">
+  <div class="post-content-wrapper">
+    <img src="images/post6.jpeg" alt="Post 4" />
+    
+    <!-- Integrated Music Player -->
+    <div class="integrated-music-player">
+      <div class="music-wave-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
+      
+      <div class="integrated-music-info">
+        <div class="integrated-track-name">The reason</div>
+        <div class="integrated-artist-name">Hoobastank</div>
+      </div>
+
+      <button class="integrated-play-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+
+      <audio class="post-audio">
+        <source src="track2.mp3" type="audio/mpeg">
+      </audio>
     </div>
-
-    <button class="post-play-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M8 5v14l11-7z"/>
-      </svg>
-    </button>
-
-    <audio class="post-audio">
-      <source src="track2.mp3" type="audio/mpeg">
-    </audio>
   </div>
+  
+  <div class="caption">You run. You jump. You love</div>
 </div>
 
       
@@ -1565,6 +1756,66 @@
 
       // ===== Post Music Player Logic =====
   const postPlayBtns = document.querySelectorAll('.post-play-btn');
+
+  // ===== Integrated Post Music Player Logic =====
+const integratedPlayBtns = document.querySelectorAll('.integrated-play-btn');
+
+integratedPlayBtns.forEach(btn => {
+  const player = btn.closest('.integrated-music-player');
+  const audio = player.querySelector('.post-audio');
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    // Stop all other post audios
+    document.querySelectorAll('.post-audio').forEach(other => {
+      if (other !== audio) {
+        other.pause();
+        other.currentTime = 0;
+      }
+    });
+
+    // Reset all other buttons and players
+    integratedPlayBtns.forEach(otherBtn => {
+      if (otherBtn !== btn) {
+        otherBtn.classList.remove('playing');
+        otherBtn.closest('.integrated-music-player').classList.remove('playing');
+        otherBtn.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>`;
+      }
+    });
+
+    // Toggle current
+    if (audio.paused) {
+      audio.play();
+      btn.classList.add('playing');
+      player.classList.add('playing');
+      btn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+        </svg>`;
+    } else {
+      audio.pause();
+      btn.classList.remove('playing');
+      player.classList.remove('playing');
+      btn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>`;
+    }
+  });
+
+  audio.addEventListener('ended', () => {
+    btn.classList.remove('playing');
+    player.classList.remove('playing');
+    btn.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>`;
+  });
+});
 
   postPlayBtns.forEach(btn => {
     const player = btn.closest('.post-music-player');
