@@ -1133,6 +1133,126 @@ body.dark-mode .integrated-music-player {
 body.dark-mode .integrated-play-btn {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
 }
+/* ===== Carousel Post ===== */
+      .carousel-wrapper {
+        position: relative;
+        border-radius: clamp(12px, 3vw, 16px);
+        overflow: hidden;
+        aspect-ratio: 1 / 1;
+        touch-action: pan-y pinch-zoom;
+        cursor: grab;
+        box-shadow: 0px 4px 16px var(--shadow-md);
+        transition: box-shadow 0.6s ease;
+      }
+
+      .carousel-wrapper:active {
+        cursor: grabbing;
+      }
+
+      .post:active .carousel-wrapper {
+        box-shadow: 0px 8px 24px var(--shadow-lg);
+      }
+
+      @media (hover: hover) {
+        .post:hover .carousel-wrapper {
+          box-shadow: 0px 14px 40px var(--shadow-lg);
+        }
+      }
+
+      .carousel-track {
+        display: flex;
+        height: 100%;
+        transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
+      }
+
+      .carousel-slide {
+        flex: 0 0 100%;
+        height: 100%;
+      }
+
+      .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        transform: none !important;
+        filter: none !important;
+        pointer-events: none;
+        aspect-ratio: unset;
+      }
+
+      /* Dots */
+      .carousel-dots {
+        position: absolute;
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 5px;
+        z-index: 5;
+      }
+
+      .carousel-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.5);
+        transition: all 0.3s ease;
+      }
+
+      .carousel-dot.active {
+        background: white;
+        width: 18px;
+        border-radius: 4px;
+      }
+
+      /* Counter */
+      .carousel-counter {
+        position: absolute;
+        top: 12px; right: 14px;
+        background: rgba(0,0,0,0.45);
+        color: white;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 13px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        z-index: 5;
+        backdrop-filter: blur(6px);
+        letter-spacing: 0.5px;
+      }
+/* ===== Carousel Arrows ===== */
+      .carousel-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: clamp(32px, 8vw, 40px);
+        height: clamp(32px, 8vw, 40px);
+        background: rgba(255, 255, 255, 0.85);
+        border: none;
+        border-radius: 50%;
+        color: #1d1d1d;
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: all 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      }
+
+      .carousel-arrow:active {
+        transform: translateY(-50%) scale(0.9);
+        background: white;
+      }
+
+      .carousel-arrow.prev { left: 10px; }
+      .carousel-arrow.next { right: 10px; }
+
+      .carousel-arrow.hidden { opacity: 0; pointer-events: none; }
 
     </style>
   </head>
@@ -1252,6 +1372,59 @@ body.dark-mode .integrated-play-btn {
   
   <div class="caption">You run. You jump. You love</div>
 </div>
+      
+<!-- Post 5 - Carousel + Music (Instagram-style) -->
+      <div class="post post-with-music">
+        <div class="carousel-wrapper" id="carousel5">
+          <button class="carousel-arrow prev hidden" id="prevBtn5">&#8249;</button>
+          <button class="carousel-arrow next" id="nextBtn5">&#8250;</button>
+
+          <!-- Slides — replace image paths with your own 5 photos -->
+          <div class="carousel-track" id="carouselTrack5">
+            <div class="carousel-slide"><img src="images/post13.jpeg" alt="Slide 1" /></div>
+            <div class="carousel-slide"><img src="images/post8.jpeg" alt="Slide 2" /></div>
+            <div class="carousel-slide"><img src="images/post9.jpeg" alt="Slide 3" /></div>
+            <div class="carousel-slide"><img src="images/post10.jpeg" alt="Slide 4" /></div>
+            <div class="carousel-slide"><img src="images/post11.jpeg" alt="Slide 5" /></div>
+          </div>
+
+          <!-- Slide counter top-right -->
+          <div class="carousel-counter" id="carouselCounter5">1 / 5</div>
+
+          <!-- Dot indicators -->
+          <div class="carousel-dots" id="carouselDots5">
+            <span class="carousel-dot active"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+          </div>
+
+          <!-- Integrated Music Player -->
+          <div class="integrated-music-player" id="carouselPlayer5">
+            <div class="music-wave-indicator">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="integrated-music-info">
+              <!-- ✏️ Change song name & artist below -->
+              <div class="integrated-track-name">Her Savior, Her God</div>
+              <div class="integrated-artist-name">Twothous2fiven-ine</div>
+            </div>
+            <button class="integrated-play-btn" id="carouselPlayBtn5">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+            <!-- ✏️ Change track3.mp3 to your audio file -->
+            <audio class="post-audio" id="carouselAudio5">
+              <source src="track51.mp3" type="audio/mpeg">
+            </audio>
+          </div>
+
+        </div>
+        <!-- ✏️ Change caption below -->
+        <div class="caption">Thank you🍯 :P</div>
+      </div>
 
       
       <!-- Food Album Card -->
@@ -1855,189 +2028,160 @@ body.dark-mode .integrated-play-btn {
         playButton.style.opacity = '0';
       });
 
-      // Food Album Modal
+      // ===== Food Album Modal =====
       const foodAlbumCard = document.getElementById('foodAlbumCard');
       const foodModal = document.getElementById('foodModal');
       const closeModal = document.getElementById('closeModal');
       const foodGrid = document.getElementById('foodGrid');
       const filterBtns = document.querySelectorAll('.filter-btn');
 
-      // Populate food grid
       function populateFoodGrid(filter = 'all') {
         foodGrid.innerHTML = '';
-        const filteredItems = filter === 'all' ? foodItems : foodItems.filter(item => item.category === filter);
-        
-        filteredItems.forEach(item => {
-          const foodItem = document.createElement('div');
-          foodItem.className = 'food-item';
-          foodItem.innerHTML = `
+        const filtered = filter === 'all' ? foodItems : foodItems.filter(i => i.category === filter);
+        filtered.forEach(item => {
+          const el = document.createElement('div');
+          el.className = 'food-item';
+          el.innerHTML = `
             <img src="${item.img}" alt="${item.name}" class="food-photo" />
             <div class="food-info">
               <div class="food-name">${item.name}</div>
               <div class="food-location">${item.location}</div>
-            </div>
-          `;
-          foodGrid.appendChild(foodItem);
+            </div>`;
+          foodGrid.appendChild(el);
         });
       }
 
-      // Open modal
       foodAlbumCard.addEventListener('click', () => {
         foodModal.classList.add('active');
         document.body.style.overflow = 'hidden';
         populateFoodGrid();
       });
 
-      // Close modal
       closeModal.addEventListener('click', () => {
         foodModal.classList.remove('active');
         document.body.style.overflow = '';
       });
 
-      // Close modal on background click
-      foodModal.addEventListener('click', (e) => {
+      foodModal.addEventListener('click', e => {
         if (e.target === foodModal) {
           foodModal.classList.remove('active');
           document.body.style.overflow = '';
         }
       });
 
-      // Filter buttons
       filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           filterBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          const filter = btn.getAttribute('data-filter');
-          populateFoodGrid(filter);
+          populateFoodGrid(btn.getAttribute('data-filter'));
         });
       });
 
-      // Prevent zoom on double tap
+      // ===== Integrated Music Players (Post 4 + Carousel Post 5) =====
+      function setupIntegratedPlayer(btn) {
+        const player = btn.closest('.integrated-music-player');
+        const audio = player.querySelector('.post-audio');
+
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+
+          // Pause all other audio
+          document.querySelectorAll('.post-audio').forEach(a => {
+            if (a !== audio) { a.pause(); a.currentTime = 0; }
+          });
+
+          // Reset all other buttons/players
+          document.querySelectorAll('.integrated-play-btn').forEach(b => {
+            if (b !== btn) {
+              b.classList.remove('playing');
+              b.closest('.integrated-music-player').classList.remove('playing');
+              b.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+            }
+          });
+
+          if (audio.paused) {
+            audio.play();
+            btn.classList.add('playing');
+            player.classList.add('playing');
+            btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>`;
+          } else {
+            audio.pause();
+            btn.classList.remove('playing');
+            player.classList.remove('playing');
+            btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+          }
+        });
+
+        audio.addEventListener('ended', () => {
+          btn.classList.remove('playing');
+          player.classList.remove('playing');
+          btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+        });
+      }
+
+      document.querySelectorAll('.integrated-play-btn').forEach(setupIntegratedPlayer);
+
+      // ===== Carousel Logic =====
+      function initCarousel(wrapperId, trackId, dotsId, counterId, prevBtnId, nextBtnId, totalSlides) {
+  const wrapper = document.getElementById(wrapperId);
+  const track = document.getElementById(trackId);
+  const dotsContainer = document.getElementById(dotsId);
+  const counter = document.getElementById(counterId);
+  const prevBtn = document.getElementById(prevBtnId);
+  const nextBtn = document.getElementById(nextBtnId);
+  const dots = dotsContainer.querySelectorAll('.carousel-dot');
+  let current = 0;
+  let startX = 0;
+  let isDragging = false;
+
+  function goTo(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    current = index;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = `${current + 1} / ${totalSlides}`;
+    prevBtn.classList.toggle('hidden', current === 0);
+    nextBtn.classList.toggle('hidden', current === totalSlides - 1);
+  }
+
+  prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+  nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+
+  // Touch swipe
+  wrapper.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  }, { passive: true });
+
+  wrapper.addEventListener('touchend', e => {
+    if (!isDragging) return;
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 30) goTo(diff > 0 ? current + 1 : current - 1);
+    isDragging = false;
+  });
+
+  // Mouse drag
+  wrapper.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; });
+  wrapper.addEventListener('mouseup', e => {
+    if (!isDragging) return;
+    const diff = startX - e.clientX;
+    if (Math.abs(diff) > 30) goTo(diff > 0 ? current + 1 : current - 1);
+    isDragging = false;
+  });
+  wrapper.addEventListener('mouseleave', () => { isDragging = false; });
+}
+
+initCarousel('carousel5', 'carouselTrack5', 'carouselDots5', 'carouselCounter5', 'prevBtn5', 'nextBtn5', 5);
+
+      // ===== Prevent zoom on double tap =====
       let lastTouchEnd = 0;
-      document.addEventListener('touchend', (e) => {
+      document.addEventListener('touchend', e => {
         const now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-          e.preventDefault();
-        }
+        if (now - lastTouchEnd <= 300) e.preventDefault();
         lastTouchEnd = now;
       }, false);
 
-      // ===== Post Music Player Logic =====
-  const postPlayBtns = document.querySelectorAll('.post-play-btn');
-
-  // ===== Integrated Post Music Player Logic =====
-const integratedPlayBtns = document.querySelectorAll('.integrated-play-btn');
-
-integratedPlayBtns.forEach(btn => {
-  const player = btn.closest('.integrated-music-player');
-  const audio = player.querySelector('.post-audio');
-
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-
-    // Stop all other post audios
-    document.querySelectorAll('.post-audio').forEach(other => {
-      if (other !== audio) {
-        other.pause();
-        other.currentTime = 0;
-      }
-    });
-
-    // Reset all other buttons and players
-    integratedPlayBtns.forEach(otherBtn => {
-      if (otherBtn !== btn) {
-        otherBtn.classList.remove('playing');
-        otherBtn.closest('.integrated-music-player').classList.remove('playing');
-        otherBtn.innerHTML = `
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8 5v14l11-7z"/>
-          </svg>`;
-      }
-    });
-
-    // Toggle current
-    if (audio.paused) {
-      audio.play();
-      btn.classList.add('playing');
-      player.classList.add('playing');
-      btn.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-        </svg>`;
-    } else {
-      audio.pause();
-      btn.classList.remove('playing');
-      player.classList.remove('playing');
-      btn.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M8 5v14l11-7z"/>
-        </svg>`;
-    }
-  });
-
-  audio.addEventListener('ended', () => {
-    btn.classList.remove('playing');
-    player.classList.remove('playing');
-    btn.innerHTML = `
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M8 5v14l11-7z"/>
-      </svg>`;
-  });
-});
-
-  postPlayBtns.forEach(btn => {
-    const player = btn.closest('.post-music-player');
-    const audio = player.querySelector('.post-audio');
-
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-
-      // Stop all other post audios
-      document.querySelectorAll('.post-audio').forEach(other => {
-        if (other !== audio) {
-          other.pause();
-          other.currentTime = 0;
-        }
-      });
-
-      // Reset all other buttons
-      postPlayBtns.forEach(otherBtn => {
-        if (otherBtn !== btn) {
-          otherBtn.classList.remove('playing');
-          otherBtn.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5v14l11-7z"/>
-            </svg>`;
-        }
-      });
-
-      // Toggle current
-      if (audio.paused) {
-        audio.play();
-        btn.classList.add('playing');
-        btn.innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-          </svg>`;
-      } else {
-        audio.pause();
-        btn.classList.remove('playing');
-        btn.innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8 5v14l11-7z"/>
-          </svg>`;
-      }
-    });
-
-    audio.addEventListener('ended', () => {
-      btn.classList.remove('playing');
-      btn.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M8 5v14l11-7z"/>
-        </svg>`;
-    });
-  });
-      
     </script>
   </body>
 </html>
