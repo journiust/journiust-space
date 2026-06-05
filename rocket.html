@@ -2,778 +2,1238 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no,maximum-scale=1,minimum-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
-<title>Pinkklish I Journiust I Whatever</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
+<title>PINKKLISH · Launch Control</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-
-/* ── TOKENS ─────────────────────────────────────────────────── */
-:root {
-  --bg-start: #0a0a0a;
-  --bg-end: #000010;
-  --gold: #d4af37;
-  --flame-core: #ffb84d;
-  --flame-outer: #ff2b00;
-  --shadow: rgba(0,0,0,0.45);
-  --nose-a: #9e1216;
-  --nose-b: #7a0f12;
-  --nose-c: #2b0a0a;
-  --fin-a:  rgba(180,3,3,0.87);
-  --fin-b:  rgba(20,20,20,0.92);
-  --glow:   #ffff00;
-  --sat: env(safe-area-inset-top,    0px);
-  --sab: env(safe-area-inset-bottom, 0px);
-  --sal: env(safe-area-inset-left,   0px);
-  --sar: env(safe-area-inset-right,  0px);
+:root{
+  --sat:env(safe-area-inset-top,0px);
+  --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px);
+  --sar:env(safe-area-inset-right,0px);
+  --gold:#e8c46a;
+  --gold2:#c49b3c;
+  --ion:#4af0ff;
+  --plasma:#c86aff;
+  --ember:#ff7b30;
+  --void:#000509;
+  --font-ui:'Syne',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{
+  width:100%;height:100%;height:100dvh;
+  overflow:hidden;position:fixed;
+  -webkit-text-size-adjust:100%;
+}
+body{
+  font-family:var(--font-ui);
+  background:var(--void);
+  touch-action:none;
+  -webkit-user-select:none;user-select:none;
+  -webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent;
 }
 
-/* ── RESET ──────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ═══ CANVAS BG ═══ */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
-html, body {
-  width: 100%;
-  height: 100dvh;
-  overflow: hidden;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
-
-body {
-  font-family: 'Roboto Condensed', sans-serif;
-  background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
-  position: relative;
-  padding-top:    var(--sat);
-  padding-bottom: var(--sab);
-  padding-left:   var(--sal);
-  padding-right:  var(--sar);
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-touch-callout: none;
+/* ═══ SCENE ═══ */
+#scene{
+  position:fixed;inset:0;z-index:2;
+  display:flex;flex-direction:column;
+  align-items:center;
+  padding:calc(var(--sat) + 16px) 20px calc(var(--sab) + 16px);
+  gap:0;
 }
 
-/* ── BACKGROUND EFX ─────────────────────────────────────────── */
-.luxury-gradient {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(212,175,55,.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(138,43,226,.06) 0%, transparent 50%);
-  animation: gradShift 15s ease-in-out infinite alternate;
+/* ═══ HEADER / HERO ═══ */
+#header{
+  width:100%;text-align:center;
+  flex-shrink:0;
+  animation:fadeDown .8s cubic-bezier(.22,1,.36,1) both;
 }
-@keyframes gradShift {
-  from { opacity:.3; transform:scale(1); }
-  to   { opacity:.6; transform:scale(1.2) rotate(5deg); }
-}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-18px);}to{opacity:1;transform:none;}}
+@keyframes liveBlink{0%,100%{opacity:1;}50%{opacity:.15;}}
 
-.stars, .particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-
-.star {
-  position: absolute; background: #fff; border-radius: 50%;
-  animation: twinkle 2s ease-in-out infinite alternate;
-}
-@keyframes twinkle { from{opacity:.2;transform:scale(.8);} to{opacity:1;transform:scale(1.2);} }
-
-.shooting-star {
-  position: absolute; width: 2px; height: 2px;
-  background: white; border-radius: 50%;
-  box-shadow: 0 0 10px 2px rgba(255,255,255,.8);
-  animation: shoot 3s linear infinite; opacity: 0;
-}
-@keyframes shoot {
-  0%  { opacity:0; transform:translate(0,0); }
-  10% { opacity:1; }
-  100%{ opacity:0; transform:translate(-300px,300px); }
-}
-
-.particle {
-  position: absolute; width: 3px; height: 3px;
-  background: var(--gold); border-radius: 50%;
-  opacity: 0; box-shadow: 0 0 10px var(--gold);
-  animation: floatP 8s ease-in-out infinite;
-}
-@keyframes floatP {
-  0%  { transform:translateY(100dvh) scale(0); opacity:0; }
-  10% { opacity:1; }
-  90% { opacity:1; }
-  100%{ transform:translateY(-20dvh) translateX(80px) scale(1); opacity:0; }
-}
-
-/* ── CORNER ORNAMENTS ───────────────────────────────────────── */
-.corner {
-  position: fixed; z-index: 5; pointer-events: none;
-  width: 50px; height: 50px;
-  border: 2px solid rgba(212,175,55,.3);
-}
-.corner.tl { top:calc(14px + var(--sat)); left:calc(14px + var(--sal)); border-right:none; border-bottom:none; border-radius:10px 0 0 0; }
-.corner.tr { top:calc(14px + var(--sat)); right:calc(14px + var(--sar)); border-left:none; border-bottom:none; border-radius:0 10px 0 0; }
-.corner.bl { bottom:calc(14px + var(--sab)); left:calc(14px + var(--sal)); border-right:none; border-top:none; border-radius:0 0 0 10px; }
-.corner.br { bottom:calc(14px + var(--sab)); right:calc(14px + var(--sar)); border-left:none; border-top:none; border-radius:0 0 10px 0; }
-
-/* ── LAYOUT SHELL ───────────────────────────────────────────── */
-#scene {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 2;
-  padding: 18px 16px 16px;
-}
-
-/* ── HERO ────────────────────────────────────────────────────── */
-.hero {
-  width: 100%;
-  text-align: center;
-  flex-shrink: 0;
-  transition: opacity .8s ease;
-}
-.hero-frame {
-  display: inline-block;
-  padding: 13px 18px;
-  max-width: min(88vw, 560px);
-  background: linear-gradient(135deg, rgba(212,175,55,.08), rgba(138,43,226,.08));
-  border: 2px solid rgba(212,175,55,.3);
-  border-radius: 18px;
-  box-shadow: 0 0 30px rgba(212,175,55,.2), inset 0 0 20px rgba(212,175,55,.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  animation: frameGlow 3s ease-in-out infinite alternate;
-}
-@keyframes frameGlow {
-  from { box-shadow: 0 0 30px rgba(212,175,55,.2), inset 0 0 20px rgba(212,175,55,.05); }
-  to   { box-shadow: 0 0 50px rgba(212,175,55,.4), inset 0 0 30px rgba(212,175,55,.1);  }
-}
-.hero h1 {
-  font-family: 'Orbitron', sans-serif;
-  /* iPhone 15 is 393px wide. "Pinkklish I Journiust I Whatever" in Orbitron
-     fits on one line at ~3.5vw = ~13.8px on iPhone, looks great on desktop too */
-  font-size: clamp(0.72rem, 3.5vw, 2rem);
-  line-height: 1.25;
-  white-space: nowrap;
-  background: linear-gradient(135deg, #fff 0%, var(--gold) 50%, #fff 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; background-size: 200% auto;
-  animation: shimmer 4s ease-in-out infinite;
-}
-@keyframes shimmer { 0%,100%{background-position:0% center;} 50%{background-position:100% center;} }
-.hero .sub {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(.58rem, 3vw, 1.3rem);
-  color: rgba(255,255,255,.85);
-  margin-top: 5px; letter-spacing: .5px; line-height: 1.3;
-}
-
-/* ── MIDDLE ROW ──────────────────────────────────────────────── */
-.middle {
-  flex: 1 1 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  min-height: 0;
-}
-
-/* ── COLOR STRIP ─────────────────────────────────────────────── */
-.color-strip {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 46px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px 9px;
-  background: linear-gradient(180deg,
-    rgba(212,175,55,.06) 0%,
-    rgba(0,0,0,.55) 40%,
-    rgba(0,0,0,.55) 60%,
-    rgba(212,175,55,.06) 100%
-  );
-  border: 1.5px solid rgba(212,175,55,.28);
-  border-radius: 36px;
-  box-shadow: 0 0 24px rgba(212,175,55,.12), inset 0 0 16px rgba(0,0,0,.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 10;
-  transition: opacity .8s ease;
-}
-.strip-label {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 6px; color: rgba(212,175,55,.55);
-  letter-spacing: 2px; text-transform: uppercase;
-  margin-bottom: 11px; text-align: center;
-}
-.strip-div {
-  width: 60%; height: 1px;
-  background: rgba(212,175,55,.15);
-  margin: 7px 0;
-}
-.swatch {
-  position: relative;
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid rgba(255,255,255,.12);
-  transition: transform .25s cubic-bezier(.34,1.56,.64,1), border-color .25s, box-shadow .25s;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  flex-shrink: 0;
-}
-.swatch::after {
-  content: ''; position: absolute; inset: -5px;
-  border-radius: 50%; border: 1.5px solid transparent;
-  transition: border-color .25s, box-shadow .25s;
-}
-.swatch:active        { transform: scale(.88); }
-.swatch.active        { transform: scale(1.18); border-color: rgba(255,255,255,.7); }
-.swatch.active::after { border-color: var(--gold); box-shadow: 0 0 12px var(--gold); }
-
-.sw-red    { background: radial-gradient(circle at 35% 30%, #ff6b6b, #cc1010); box-shadow: 0 0 12px rgba(204,16,16,.5); }
-.sw-red.active    { box-shadow: 0 0 20px rgba(255,50,50,.8); }
-.sw-brown  { background: radial-gradient(circle at 35% 30%, #c8956a, #5c2e0a); box-shadow: 0 0 12px rgba(92,46,10,.5); }
-.sw-brown.active  { box-shadow: 0 0 20px rgba(180,100,30,.8); }
-.sw-yellow { background: radial-gradient(circle at 35% 30%, #fff176, #e0b800); box-shadow: 0 0 12px rgba(224,184,0,.5); }
-.sw-yellow.active { box-shadow: 0 0 20px rgba(255,220,0,.8); }
-.sw-green  { background: radial-gradient(circle at 35% 30%, #81e86a, #1a6b08); box-shadow: 0 0 12px rgba(26,107,8,.5); }
-.sw-green.active  { box-shadow: 0 0 20px rgba(50,200,30,.8); }
-
-/* ── ROCKET ──────────────────────────────────────────────────── */
-.rocket-wrap {
-  position: relative;
-  width: 110px;
-  height: min(260px, 54dvh);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-  z-index: 5;
-}
-@keyframes liftoff {
-  0%   { top: var(--launch-y); transform: translate(-50%,-50%); }
-  100% { top: -150dvh;         transform: translate(-50%,-50%); }
-}
-
-.rocket-body {
-  width: 100%; flex: 1;
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 90px/18px;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.06)),
-    linear-gradient(180deg, #fdf0f0, #ece2e3);
-  box-shadow: 0 28px 72px var(--shadow), inset 0 -8px 20px rgba(0,0,0,.25);
-  overflow: visible;
-  border: 2px solid rgba(0,0,0,.18);
-}
-.rocket-nose {
-  position: absolute; top: -30%; width: 100%; height: 30%;
-  background: linear-gradient(180deg, var(--nose-a) 0%, var(--nose-b) 60%, var(--nose-c) 100%);
-  clip-path: polygon(50% 0%, 90% 100%, 10% 100%);
-  border-radius: 50% 50% 0 0;
-  box-shadow: inset -2px -2px 10px rgba(0,0,0,.45);
-  transition: background .5s ease;
-}
-.cockpit {
-  position: absolute; top: 12%; width: 40%; height: 8%;
-  border-radius: 50px/20px;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,.35), rgba(255,255,255,0) 45%),
-    linear-gradient(180deg, rgba(10,12,22,.92), rgba(8,8,18,.85) 45%, rgba(0,0,0,.75));
+.hero-frame{
+  display:inline-block;
+  padding:14px 22px 12px;
+  max-width:min(92vw,620px);
+  width:min(92vw,620px);
+  background:linear-gradient(135deg,rgba(212,175,55,.09),rgba(80,20,120,.09));
+  border:2px solid rgba(212,175,55,.32);
+  border-radius:16px;
   box-shadow:
-    inset -3px -4px 8px rgba(0,0,0,.75),
-    inset 2px 3px 6px rgba(120,120,255,.4),
-    0 0 22px rgba(40,80,255,.25);
+    0 0 32px rgba(212,175,55,.22),
+    0 0 80px rgba(212,175,55,.08),
+    inset 0 0 22px rgba(212,175,55,.06);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  animation:heroGlow 3s ease-in-out infinite alternate;
 }
-.branding {
-  position: absolute; top: 55%; left: 50%;
-  transform: translate(-50%,-50%) rotate(-90deg);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 13px; font-weight: 700;
-  color: #000; text-shadow: 0 0 5px var(--glow);
-  letter-spacing: 2px; opacity: .8;
-  white-space: nowrap;
-  transition: text-shadow .5s ease;
+@keyframes heroGlow{
+  from{box-shadow:0 0 32px rgba(212,175,55,.22),0 0 80px rgba(212,175,55,.08),inset 0 0 22px rgba(212,175,55,.06);}
+  to  {box-shadow:0 0 52px rgba(212,175,55,.42),0 0 120px rgba(212,175,55,.14),inset 0 0 32px rgba(212,175,55,.1);}
 }
-.fin {
-  position: absolute; bottom: 0;
-  width: 42px; height: 84px; border-radius: 6px;
-  background:
-    repeating-linear-gradient(45deg, var(--fin-a) 0 2px, var(--fin-b) 2px 6px),
-    linear-gradient(180deg, rgba(0,0,0,.6), rgba(10,10,10,.9));
-  clip-path: polygon(50% 0, 0 100%, 100% 100%);
-  box-shadow: 0 18px 40px rgba(0,0,0,.45);
-  transition: background .5s ease;
+.hero-title{
+  font-family:'Orbitron','Syne',sans-serif;
+  font-size:clamp(0.7rem,4.2vw,2rem);
+  font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  line-height:1.25;
+  background:linear-gradient(135deg,#fff 0%,var(--gold) 48%,#fff 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:heroShimmer 4s ease-in-out infinite;
 }
-.fin-l { left: -25px;  transform: rotate(-18deg) translateY(6px); }
-.fin-r { right: -25px; transform: rotate(18deg)  translateY(6px); }
-
-.exhaust {
-  position: absolute; bottom: -35%;
-  width: 100%; height: 45%;
-  display: flex; justify-content: center; align-items: flex-end;
-  pointer-events: none;
-}
-.flame {
-  position: absolute; bottom: 0; width: 40%; height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at bottom,
-    var(--flame-core) 0%, #ff7a1a 30%, var(--flame-outer) 60%, rgba(255,200,80,0) 100%
-  );
-  filter: blur(14px) saturate(1.2);
-  animation: flicker .45s infinite alternate ease-in-out;
-}
-@keyframes flicker { from{transform:scaleY(.9) scaleX(1);} to{transform:scaleY(1.25) scaleX(1.1);} }
-
-@keyframes colorBurst {
-  0%  { filter:brightness(1); }
-  40% { filter:brightness(1.6); }
-  100%{ filter:brightness(1); }
-}
-.rocket-body.burst { animation: colorBurst .45s ease-out forwards; }
-
-/* ── BOTTOM BAR ──────────────────────────────────────────────── */
-.bottom-bar {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  transition: opacity .8s ease;
+@keyframes heroShimmer{0%,100%{background-position:0% center;}50%{background-position:100% center;}}
+.hero-sub{
+  font-family:'Orbitron','Syne',sans-serif;
+  font-size:clamp(.58rem,3vw,1.1rem);
+  color:rgba(255,255,255,.82);
+  margin-top:6px;letter-spacing:.5px;line-height:1.3;
 }
 
-.status-pill {
-  display: flex; align-items: center; gap: 8px;
-  padding: 9px 16px;
-  background: rgba(0,0,0,.5);
-  border: 2px solid rgba(212,175,55,.5);
-  border-radius: 10px;
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  font-family: 'Orbitron', sans-serif;
-  color: var(--gold); font-size: .72em;
-  box-shadow: 0 0 20px rgba(212,175,55,.3);
-  white-space: nowrap;
+/* ═══ MAIN STAGE ═══ */
+#stage{
+  flex:1;width:100%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;min-height:0;
 }
-.pulse-dot {
-  width: 8px; height: 8px;
-  background: var(--gold); border-radius: 50%; flex-shrink: 0;
-  animation: pulse 2s infinite; box-shadow: 0 0 10px var(--gold);
-}
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(.8);} }
 
-#launch-btn {
-  position: relative;
-  padding: 13px 26px;
-  font-size: .88em; font-weight: 700;
-  font-family: 'Orbitron', sans-serif;
-  color: #000;
-  background: linear-gradient(135deg, #ffff00, #ffd700);
-  border: 2px solid rgba(255,255,255,.3);
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(255,255,0,.4), 0 0 30px rgba(255,215,0,.3), inset 0 1px 0 rgba(255,255,255,.3);
-  min-height: 48px; min-width: 180px;
-  -webkit-appearance: none; appearance: none;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  text-transform: uppercase; letter-spacing: 2px;
-  overflow: hidden; white-space: nowrap;
-  transition: box-shadow .3s ease, transform .15s ease;
+/* ═══ ROCKET SVG WRAP ═══ */
+#rocket-wrap{
+  position:relative;
+  display:flex;flex-direction:column;
+  align-items:center;
+  z-index:5;
+  /* size is clamped by SVG viewBox + height */
+  height:min(58dvh, 480px);
+  animation:rocketFloat 5s ease-in-out infinite;
 }
-#launch-btn::before {
-  content: ''; position: absolute; top:-50%; left:-50%;
-  width:200%; height:200%;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,.3), transparent);
-  animation: shine 3s infinite;
+@keyframes rocketFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
 }
-@keyframes shine { 0%{transform:translateX(-100%);} 100%{transform:translateX(100%);} }
-#launch-btn:active {
-  box-shadow: 0 12px 30px rgba(255,255,0,.7), 0 0 50px rgba(255,215,0,.5);
-  transform: scale(.97);
+#rocket-svg{
+  height:100%;
+  width:auto;
+  display:block;
+  overflow:visible;
 }
-@media (hover:hover) {
-  #launch-btn:hover {
-    box-shadow: 0 12px 30px rgba(255,255,0,.7), 0 0 50px rgba(255,215,0,.5);
-    transform: translateY(-3px) scale(1.04);
+
+/* Exhaust plume container */
+#plume-wrap{
+  position:absolute;
+  bottom:-22%;left:50%;
+  transform:translateX(-50%);
+  width:80px;
+  pointer-events:none;
+  z-index:4;
+}
+#plume-canvas{
+  width:100%;
+  display:block;
+}
+
+/* ═══ SKIN SELECTOR ═══ */
+#skin-panel{
+  position:absolute;right:0;top:50%;
+  transform:translateY(-50%);
+  display:flex;flex-direction:column;
+  align-items:center;gap:8px;
+  padding:14px 8px;
+  background:rgba(1,2,12,.8);
+  border:1px solid rgba(232,196,106,.12);
+  border-radius:40px;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  z-index:10;
+  animation:fadeLeft .8s .3s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes fadeLeft{from{opacity:0;transform:translateY(-50%) translateX(20px);}to{opacity:1;transform:translateY(-50%);}}
+.skin-label{
+  font-family:var(--font-mono);
+  font-size:5.5px;letter-spacing:3px;
+  color:rgba(232,196,106,.35);text-transform:uppercase;
+}
+.skin-sep{width:50%;height:1px;background:rgba(232,196,106,.08);}
+.swatch{
+  width:24px;height:24px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.1);
+  cursor:pointer;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),border-color .2s,box-shadow .2s;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  position:relative;
+}
+.swatch::after{
+  content:'';position:absolute;inset:-5px;border-radius:50%;
+  border:1.5px solid transparent;transition:border-color .25s,box-shadow .25s;
+}
+.swatch:active{transform:scale(.88);}
+.swatch.active{transform:scale(1.2);border-color:rgba(255,255,255,.6);}
+.swatch.active::after{border-color:var(--gold);box-shadow:0 0 12px var(--gold);}
+
+/* ═══ BOTTOM CONTROLS ═══ */
+#controls{
+  width:100%;flex-shrink:0;
+  display:flex;flex-direction:column;
+  align-items:center;gap:10px;
+  animation:fadeUp .8s .4s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+
+.status-row{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 16px;
+  background:rgba(1,2,12,.7);
+  border:1px solid rgba(74,240,255,.1);
+  border-radius:8px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.status-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--ion);box-shadow:0 0 8px var(--ion);
+  animation:liveBlink 2s ease-in-out infinite;
+}
+.status-txt{
+  font-family:var(--font-mono);
+  font-size:8px;letter-spacing:2px;
+  color:rgba(74,240,255,.55);text-transform:uppercase;
+}
+
+#launch-btn{
+  position:relative;overflow:hidden;
+  padding:14px 36px;
+  font-family:var(--font-ui);
+  font-size:12px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  color:#000;
+  background:linear-gradient(135deg,#fff7a0,#e8c46a,#c49b3c);
+  border:none;border-radius:12px;cursor:pointer;
+  min-height:50px;min-width:200px;
+  -webkit-appearance:none;appearance:none;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  box-shadow:
+    0 8px 24px rgba(232,196,106,.35),
+    0 0 0 1px rgba(232,196,106,.2),
+    inset 0 1px 0 rgba(255,255,255,.4);
+  transition:transform .15s,box-shadow .2s;
+}
+#launch-btn::before{
+  content:'';position:absolute;top:0;left:-100%;
+  width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+  animation:btnShine 3.5s ease-in-out infinite;
+}
+@keyframes btnShine{
+  0%{left:-100%;}40%,100%{left:160%;}
+}
+#launch-btn:active{transform:scale(.97);box-shadow:0 4px 12px rgba(232,196,106,.2);}
+@media(hover:hover){
+  #launch-btn:hover{
+    transform:translateY(-2px) scale(1.02);
+    box-shadow:0 16px 40px rgba(232,196,106,.5),0 0 60px rgba(232,196,106,.2),inset 0 1px 0 rgba(255,255,255,.4);
   }
 }
 
-/* ── MAP ─────────────────────────────────────────────────────── */
-#mapContainer {
-  position: fixed; inset: 0;
-  background: #0e1525;
-  display: none; z-index: 20; opacity: 0;
-  transition: opacity 1.5s ease; overflow: hidden;
+/* ═══ LIFTOFF STATE ═══ */
+#rocket-wrap.liftoff{
+  position:fixed;
+  bottom:0;left:50%;
+  transform:translateX(-50%);
+  animation:rocketLaunch 4.5s cubic-bezier(.22,1,.36,1) forwards;
+  z-index:100;
 }
-#mapContainer.show { opacity: 1; }
-#mapContainer img {
-  position: absolute; top:50%; left:50%;
-  transform: translate(-50%,-50%) scale(.95);
-  min-width:100%; min-height:100%;
-  width:auto; height:auto; max-width:none;
+@keyframes rocketLaunch{
+  0%{bottom:0;opacity:1;}
+  80%{opacity:1;}
+  100%{bottom:130dvh;opacity:0;}
+}
+
+/* ═══ MAP CONTAINER ═══ */
+#map-wrap{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  height:100dvh;
+  background:#0e1525;
+  display:none;
+  z-index:20;
+  opacity:0;
+  transition:opacity 1.5s ease;
+  overflow:hidden;
+}
+#map-wrap.show{opacity:1;}
+#map-wrap img{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(.95);
+  min-width:100%;min-height:100%;
+  width:auto;height:auto;max-width:none;
   display:block;
-  transition: transform 2s ease;
-  filter: brightness(.9) contrast(1.1);
+  transition:transform 2s ease;
+  filter:brightness(.9) contrast(1.1);
 }
-#mapContainer.show img { transform: translate(-50%,-50%) scale(1); }
-
-.map-label {
-  position: absolute;
-  font-size: clamp(11px, 2.3vw, 28px);
-  color: #ffffffdd; font-weight:700; letter-spacing:2px;
-  text-shadow: 0 0 8px rgba(0,180,255,.8), 0 0 15px rgba(0,180,255,.5), 0 0 25px rgba(212,175,55,.3);
-  user-select:none; pointer-events:none;
-  animation: labelFloat 3s ease-in-out infinite alternate;
+#map-wrap.show img{transform:translate(-50%,-50%) scale(1);}
+.map-label{
+  position:absolute;
+  font-family:'Orbitron','Syne',sans-serif;
+  font-size:clamp(11px,2.3vw,28px);
+  color:#ffffffdd;
+  font-weight:700;
+  letter-spacing:2px;
+  text-shadow:
+    0 0 8px rgba(0,180,255,.8),
+    0 0 15px rgba(0,180,255,.5),
+    0 0 25px rgba(212,175,55,.3);
+  user-select:none;pointer-events:none;
+  animation:labelPulse 3s ease-in-out infinite alternate;
 }
-@keyframes labelFloat { 0%{transform:translateY(0);} 100%{transform:translateY(-5px);} }
-
-.p-stella {
-  position: absolute; top:37%; left:64%;
-  width: clamp(65px,6.5vw,95px); height: clamp(42px,10vw,95px);
-  border-radius:50%; cursor:pointer;
-  background: linear-gradient(to bottom,
-    #f00 0%,#f00 20%, #fff 20%,#fff 40%,
-    #00f 40%,#00f 60%, #fff 60%,#fff 80%,
-    #f00 80%,#f00 100%
+@keyframes labelPulse{0%{transform:translateY(0);}100%{transform:translateY(-5px);}}
+.p-stella-btn{
+  position:absolute;
+  top:37%;left:64%;
+  width:clamp(65px,6.5vw,95px);
+  height:clamp(65px,6.5vw,95px);
+  border-radius:50%;
+  cursor:pointer;
+  background:linear-gradient(to bottom,
+    #ff0000 0%,#ff0000 20%,
+    #ffffff 20%,#ffffff 40%,
+    #0000ff 40%,#0000ff 60%,
+    #ffffff 60%,#ffffff 80%,
+    #ff0000 80%,#ff0000 100%
   );
-  animation: pGlow 1.8s infinite;
-  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  animation:stellaPulse 1.8s infinite;
+  box-shadow:
+    0 0 25px 10px rgba(0,180,255,.6),
+    0 0 50px 20px rgba(212,175,55,.2);
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
-.p-stella::before {
-  content:''; position:absolute; top:-10px;left:-10px;right:-10px;bottom:-10px;
-  border-radius:50%; border:2px solid rgba(212,175,55,.3);
-  animation: ringX 2s infinite;
+.p-stella-btn::before{
+  content:'';
+  position:absolute;top:-10px;left:-10px;right:-10px;bottom:-10px;
+  border-radius:50%;
+  border:2px solid rgba(212,175,55,.3);
+  animation:ringExpand 2s infinite;
 }
-@keyframes ringX  { 0%{transform:scale(1);opacity:1;} 100%{transform:scale(1.3);opacity:0;} }
-@keyframes pGlow  {
-  0%  { box-shadow:0 0 25px 10px rgba(0,180,255,.6), 0 0 50px 20px rgba(212,175,55,.2); }
-  50% { transform:scale(1.15); box-shadow:0 0 45px 20px rgba(0,180,255,.9), 0 0 70px 30px rgba(212,175,55,.4); }
-  100%{ box-shadow:0 0 25px 10px rgba(0,180,255,.6), 0 0 50px 20px rgba(212,175,55,.2); }
+@keyframes ringExpand{
+  0%{transform:scale(1);opacity:1;}
+  100%{transform:scale(1.3);opacity:0;}
 }
-
-/* ── PASSWORD OVERLAY ────────────────────────────────────────── */
-#pwOverlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.95);
-  display: none; justify-content:center; align-items:center; flex-direction:column;
-  color: white; font-family:'Orbitron',sans-serif; z-index:1000;
-  padding: 20px;
-  padding-bottom: calc(20px + var(--sab));
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-}
-#pwOverlay.show { display:flex; animation:fadeIn .3s ease; }
-@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-
-.pw-panel {
-  background: linear-gradient(135deg, rgba(212,175,55,.1), rgba(138,43,226,.1));
-  padding: 28px; border-radius:15px;
-  backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px);
-  box-shadow: 0 12px 36px rgba(0,0,0,.6), 0 0 40px rgba(212,175,55,.2), inset 0 0 30px rgba(212,175,55,.05);
-  border: 2px solid rgba(212,175,55,.3);
-  text-align:center; width:90%; max-width:340px;
-  animation: slideIn .5s ease;
-}
-@keyframes slideIn { from{transform:translateY(-50px);opacity:0;} to{transform:translateY(0);opacity:1;} }
-
-.pw-title {
-  font-size:16px; color:var(--gold);
-  text-shadow:0 0 10px rgba(212,175,55,.5);
-  font-weight:700; text-transform:uppercase; letter-spacing:2px;
-  margin-bottom:8px;
-}
-#pwInput {
-  padding:12px; font-size:17px; margin-top:12px;
-  border-radius:8px; border:2px solid rgba(212,175,55,.5);
-  text-align:center; width:100%;
-  background:rgba(0,0,0,.3); color:white;
-  font-family:'Orbitron',sans-serif;
-  -webkit-appearance:none; appearance:none;
-  transition:all .3s ease;
-}
-#pwInput:focus { outline:none; border-color:var(--gold); box-shadow:0 0 20px rgba(212,175,55,.4); }
-
-.pw-btns { display:flex; gap:12px; justify-content:center; margin-top:14px; }
-.pw-btns button {
-  padding:12px 20px; font-size:14px;
-  border:2px solid rgba(212,175,55,.5); border-radius:8px; cursor:pointer;
-  background:linear-gradient(135deg,#ffff00,#ffd700);
-  color:#000; font-weight:bold; font-family:'Orbitron',sans-serif;
-  box-shadow:0 8px 20px rgba(255,255,0,.4);
-  -webkit-appearance:none; appearance:none;
-  flex:1; -webkit-tap-highlight-color:transparent; touch-action:manipulation;
-  text-transform:uppercase; letter-spacing:1px; min-height:48px;
-  transition:all .3s ease;
-}
-.pw-btns button:active { box-shadow:0 12px 30px rgba(255,255,0,.7); transform:translateY(-2px); }
-@media (hover:hover) { .pw-btns button:hover { box-shadow:0 12px 30px rgba(255,255,0,.7); transform:translateY(-2px); } }
-
-.pw-tip {
-  margin-top:12px; color:var(--gold); font-size:12px;
-  font-family:'Roboto Condensed',sans-serif;
+@keyframes stellaPulse{
+  0%{transform:scale(1);box-shadow:0 0 25px 10px rgba(0,180,255,.6),0 0 50px 20px rgba(212,175,55,.2);}
+  50%{transform:scale(1.15);box-shadow:0 0 45px 20px rgba(0,180,255,.9),0 0 70px 30px rgba(212,175,55,.4);}
+  100%{transform:scale(1);box-shadow:0 0 25px 10px rgba(0,180,255,.6),0 0 50px 20px rgba(212,175,55,.2);}
 }
 
-/* ── LOADING ─────────────────────────────────────────────────── */
-#loader {
-  position: fixed; inset: 0;
-  background: linear-gradient(135deg, #0a0a0a, #000010);
-  display:flex; justify-content:center; align-items:center; flex-direction:column;
-  z-index:9999; opacity:1; transition:opacity .8s ease; pointer-events:none;
+/* ═══ PASSWORD OVERLAY ═══ */
+#pw-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,2,8,.94);
+  display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px;
+  padding-bottom:calc(24px + var(--sab));
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
 }
-#loader.gone { opacity:0; }
-.spin {
-  width:52px; height:52px;
-  border:4px solid rgba(212,175,55,.2); border-top-color:var(--gold);
-  border-radius:50%; animation:spin 1s linear infinite; margin-bottom:18px;
-  box-shadow:0 0 30px rgba(212,175,55,.3);
+#pw-overlay.show{display:flex;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.pw-card{
+  width:100%;max-width:320px;
+  background:rgba(1,4,20,.88);
+  border:1px solid rgba(232,196,106,.16);
+  border-radius:20px;
+  padding:28px 24px;
+  text-align:center;
+  box-shadow:0 24px 64px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);
+  animation:slideUp .4s cubic-bezier(.22,1,.36,1);
 }
-@keyframes spin { to{transform:rotate(360deg);} }
-.load-txt {
-  font-family:'Orbitron',sans-serif; color:var(--gold);
-  font-size:13px; text-transform:uppercase; letter-spacing:3px;
-  animation:txtP 2s ease-in-out infinite;
+@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:none;opacity:1;}}
+.pw-card::before{
+  content:'';display:block;
+  width:60%;margin:0 auto 20px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,196,106,.4),transparent);
 }
-@keyframes txtP { 0%,100%{opacity:.5;} 50%{opacity:1;} }
+.pw-title{
+  font-size:12px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:18px;
+}
+#pw-input{
+  width:100%;padding:13px;
+  font-family:var(--font-mono);font-size:18px;
+  text-align:center;letter-spacing:8px;
+  background:rgba(0,2,12,.8);
+  border:1px solid rgba(232,196,106,.2);
+  border-radius:10px;color:#fff;
+  -webkit-appearance:none;appearance:none;
+  transition:border-color .3s,box-shadow .3s;
+}
+#pw-input:focus{
+  outline:none;
+  border-color:rgba(232,196,106,.6);
+  box-shadow:0 0 20px rgba(232,196,106,.15);
+}
+.pw-btns{display:flex;gap:10px;margin-top:16px;}
+.pw-btn{
+  flex:1;padding:13px;
+  font-family:var(--font-ui);font-size:11px;
+  font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  border-radius:10px;cursor:pointer;border:none;
+  -webkit-appearance:none;appearance:none;min-height:48px;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  transition:transform .15s,box-shadow .2s;
+}
+.pw-btn-go{
+  background:linear-gradient(135deg,#fff7a0,#e8c46a);
+  color:#000;
+  box-shadow:0 6px 20px rgba(232,196,106,.3);
+}
+.pw-btn-go:active{transform:scale(.97);}
+.pw-btn-cancel{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.45);
+}
+.pw-tip{
+  margin-top:14px;font-family:var(--font-mono);
+  font-size:9px;color:rgba(232,196,106,.35);letter-spacing:1px;
+}
 
+/* ═══ LOADER ═══ */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--void);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:18px;
+  transition:opacity .8s ease;pointer-events:none;
+}
+#loader.gone{opacity:0;}
+.loader-ring{
+  width:48px;height:48px;border-radius:50%;
+  border:2px solid rgba(232,196,106,.12);
+  border-top-color:var(--gold);
+  animation:spin 1s linear infinite;
+  box-shadow:0 0 24px rgba(232,196,106,.2);
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loader-txt{
+  font-family:var(--font-mono);
+  font-size:9px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(232,196,106,.4);
+  animation:txtPulse 2s ease-in-out infinite;
+}
+@keyframes txtPulse{0%,100%{opacity:.4;}50%{opacity:1;}}
 </style>
 </head>
 <body>
 
 <div id="loader">
-  <div class="spin"></div>
-  <div class="load-txt">:P reparing…</div>
+  <div class="loader-ring"></div>
+  <div class="loader-txt">:P reparing</div>
 </div>
 
-<div class="luxury-gradient"></div>
-<div class="stars"     id="stars"></div>
-<div class="particles" id="particles"></div>
-
-<div class="corner tl"></div>
-<div class="corner tr"></div>
-<div class="corner bl"></div>
-<div class="corner br"></div>
+<canvas id="bg-canvas"></canvas>
 
 <div id="scene">
 
-  <div class="hero" id="hero">
+  <!-- Header -->
+  <div id="header">
     <div class="hero-frame">
-      <h1>Pinkklish I Journiust I Whatever</h1>
-      <p class="sub">(acr.) I'm exactly who you think I am :P</p>
+      <div class="hero-title">Pinkklish I Journiust I Whatever</div>
+      <div class="hero-sub">(acr.) I'm exactly who you think I am :P</div>
     </div>
   </div>
 
-  <div class="middle">
+  <!-- Stage -->
+  <div id="stage">
 
-    <div class="rocket-wrap" id="rocketWrap">
-      <div class="rocket-body" id="rocketBody">
-        <div class="rocket-nose"></div>
-        <div class="cockpit"></div>
-        <div class="branding">PINKKLISH</div>
-        <div class="fin fin-l"></div>
-        <div class="fin fin-r"></div>
+    <!-- Rocket -->
+    <div id="rocket-wrap">
+      <svg id="rocket-svg" viewBox="0 0 200 540" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- ─ Body gradients ─ -->
+          <linearGradient id="bodyMain" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#8a8ea0"/>
+            <stop offset="12%"  stop-color="#c4c8d8"/>
+            <stop offset="35%"  stop-color="#e8eaf2"/>
+            <stop offset="50%"  stop-color="#f8faff"/>
+            <stop offset="65%"  stop-color="#dde0ec"/>
+            <stop offset="88%"  stop-color="#aeb2c2"/>
+            <stop offset="100%" stop-color="#7a7e90"/>
+          </linearGradient>
+          <linearGradient id="bodyShadowL" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"  stop-color="rgba(0,0,0,.45)"/>
+            <stop offset="30%" stop-color="rgba(0,0,0,.0)"/>
+          </linearGradient>
+          <linearGradient id="bodyShadowR" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="70%" stop-color="rgba(0,0,0,.0)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,.45)"/>
+          </linearGradient>
+          <linearGradient id="bodyReflect" x1="20%" y1="0%" x2="40%" y2="0%">
+            <stop offset="0%"  stop-color="rgba(255,255,255,0)"/>
+            <stop offset="50%" stop-color="rgba(255,255,255,.18)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </linearGradient>
+
+          <!-- ─ Nose gradients ─ -->
+          <linearGradient id="noseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#6a0010" id="nose-s0"/>
+            <stop offset="15%"  stop-color="#b01828" id="nose-s1"/>
+            <stop offset="38%"  stop-color="#d82035" id="nose-s2"/>
+            <stop offset="50%"  stop-color="#e83045" id="nose-s3"/>
+            <stop offset="62%"  stop-color="#c82030" id="nose-s4"/>
+            <stop offset="85%"  stop-color="#8a1020" id="nose-s5"/>
+            <stop offset="100%" stop-color="#580818" id="nose-s6"/>
+          </linearGradient>
+          <linearGradient id="noseHighlight" x1="20%" y1="0%" x2="45%" y2="0%">
+            <stop offset="0%"  stop-color="rgba(255,180,180,0)"/>
+            <stop offset="50%" stop-color="rgba(255,180,180,.22)"/>
+            <stop offset="100%" stop-color="rgba(255,180,180,0)"/>
+          </linearGradient>
+          <linearGradient id="noseTip" x1="40%" y1="0%" x2="60%" y2="100%">
+            <stop offset="0%"  stop-color="#fff0f0"/>
+            <stop offset="100%" stop-color="#c82030"/>
+          </linearGradient>
+
+          <!-- ─ Accent band ─ -->
+          <linearGradient id="bandRed" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#5a0010" id="band-s0"/>
+            <stop offset="30%"  stop-color="#cc1828" id="band-s1"/>
+            <stop offset="50%"  stop-color="#e82038" id="band-s2"/>
+            <stop offset="70%"  stop-color="#cc1828" id="band-s3"/>
+            <stop offset="100%" stop-color="#5a0010" id="band-s4"/>
+          </linearGradient>
+
+          <!-- ─ Fin gradients ─ -->
+          <linearGradient id="finGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#3a0008" id="fin-s0"/>
+            <stop offset="40%"  stop-color="#b01428" id="fin-s1"/>
+            <stop offset="60%"  stop-color="#901020" id="fin-s2"/>
+            <stop offset="100%" stop-color="#2a0006" id="fin-s3"/>
+          </linearGradient>
+          <linearGradient id="finSheen" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"  stop-color="rgba(255,200,200,0)"/>
+            <stop offset="40%" stop-color="rgba(255,200,200,.12)"/>
+            <stop offset="100%" stop-color="rgba(255,200,200,0)"/>
+          </linearGradient>
+
+          <!-- ─ Engine bell ─ -->
+          <linearGradient id="bellGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#1a1a1a"/>
+            <stop offset="15%"  stop-color="#4a4a4a"/>
+            <stop offset="35%"  stop-color="#787878"/>
+            <stop offset="50%"  stop-color="#909090"/>
+            <stop offset="65%"  stop-color="#6a6a6a"/>
+            <stop offset="85%"  stop-color="#3a3a3a"/>
+            <stop offset="100%" stop-color="#141414"/>
+          </linearGradient>
+          <linearGradient id="bellHeat" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"  stop-color="rgba(255,80,0,0)"/>
+            <stop offset="100%" stop-color="rgba(255,80,0,.35)"/>
+          </linearGradient>
+          <radialGradient id="bellThroat" cx="50%" cy="35%" r="50%">
+            <stop offset="0%"  stop-color="rgba(255,140,0,.6)"/>
+            <stop offset="60%" stop-color="rgba(200,40,0,.2)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+          </radialGradient>
+
+          <!-- ─ Window ─ -->
+          <radialGradient id="winGrad" cx="38%" cy="32%" r="65%">
+            <stop offset="0%"  stop-color="#3060e0"/>
+            <stop offset="40%" stop-color="#1030a0"/>
+            <stop offset="100%" stop-color="#060820"/>
+          </radialGradient>
+          <radialGradient id="winReflect" cx="30%" cy="25%" r="55%">
+            <stop offset="0%"  stop-color="rgba(255,255,255,.35)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </radialGradient>
+
+          <!-- ─ Panel line mask ─ -->
+          <clipPath id="bodyClip">
+            <rect x="50" y="90" width="100" height="360" rx="2"/>
+          </clipPath>
+          <!-- Body silhouette for shapes -->
+          <clipPath id="noseClip">
+            <polygon points="100,0 152,90 48,90"/>
+          </clipPath>
+
+          <!-- ─ Rivets / fasteners ─ -->
+          <radialGradient id="rivetG" cx="35%" cy="30%" r="65%">
+            <stop offset="0%"  stop-color="#e0e4f0"/>
+            <stop offset="100%" stop-color="#7a7e90"/>
+          </radialGradient>
+
+          <!-- ─ Thermal tile pattern ─ -->
+          <pattern id="tilePat" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+            <rect width="12" height="12" fill="none" stroke="rgba(80,88,110,.18)" stroke-width=".5"/>
+            <rect x=".5" y=".5" width="11" height="11" fill="rgba(180,185,200,.04)"/>
+          </pattern>
+
+          <!-- ─ Glow filter ─ -->
+          <filter id="engineGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- ════════════════════════════════
+             ROCKET BODY LAYERS
+             ════════════════════════════════ -->
+
+        <!-- ──── FINS (behind body) ──── -->
+        <!-- Left fin -->
+        <g id="fin-l">
+          <path d="M 55 390 L 12 485 L 36 485 L 55 430 Z" fill="url(#finGrad)"/>
+          <path d="M 55 390 L 12 485 L 36 485 L 55 430 Z" fill="url(#finSheen)"/>
+          <path d="M 55 390 L 12 485" stroke="rgba(255,180,180,.15)" stroke-width=".8" fill="none"/>
+          <line x1="46" y1="402" x2="22" y2="460" stroke="rgba(0,0,0,.25)" stroke-width=".6"/>
+          <line x1="51" y1="415" x2="30" y2="468" stroke="rgba(0,0,0,.2)" stroke-width=".5"/>
+          <path d="M 12 485 L 36 485" stroke="rgba(255,100,50,.3)" stroke-width="1" filter="url(#softGlow)"/>
+        </g>
+
+        <!-- Right fin -->
+        <g id="fin-r">
+          <path d="M 145 390 L 188 485 L 164 485 L 145 430 Z" fill="url(#finGrad)"/>
+          <path d="M 145 390 L 188 485 L 164 485 L 145 430 Z" fill="url(#finSheen)"/>
+          <path d="M 145 390 L 188 485" stroke="rgba(255,180,180,.15)" stroke-width=".8" fill="none"/>
+          <line x1="154" y1="402" x2="178" y2="460" stroke="rgba(0,0,0,.25)" stroke-width=".6"/>
+          <line x1="149" y1="415" x2="170" y2="468" stroke="rgba(0,0,0,.2)" stroke-width=".5"/>
+          <path d="M 164 485 L 188 485" stroke="rgba(255,100,50,.3)" stroke-width="1" filter="url(#softGlow)"/>
+        </g>
+
+        <!-- Small dorsal fins (canard-style, upper) -->
+        <g id="fin-tl">
+          <path d="M 55 160 L 28 215 L 48 200 L 55 180 Z" fill="url(#finGrad)" opacity=".85"/>
+          <path d="M 55 160 L 28 215 L 48 200 L 55 180 Z" fill="url(#finSheen)" opacity=".6"/>
+        </g>
+        <g id="fin-tr">
+          <path d="M 145 160 L 172 215 L 152 200 L 145 180 Z" fill="url(#finGrad)" opacity=".85"/>
+          <path d="M 145 160 L 172 215 L 152 200 L 145 180 Z" fill="url(#finSheen)" opacity=".6"/>
+        </g>
+
+        <!-- ──── MAIN BODY CYLINDER ──── -->
+        <!-- Base shape -->
+        <rect x="50" y="90" width="100" height="360" rx="2" fill="url(#bodyMain)"/>
+
+        <!-- Thermal tile texture overlay -->
+        <rect x="50" y="90" width="100" height="360" rx="2" fill="url(#tilePat)"/>
+
+        <!-- Panel seam lines (horizontal) -->
+        <g stroke="rgba(60,65,90,.55)" stroke-width=".6" fill="none" clip-path="url(#bodyClip)">
+          <line x1="50" y1="120" x2="150" y2="120"/>
+          <line x1="50" y1="150" x2="150" y2="150"/>
+          <line x1="50" y1="180" x2="150" y2="180"/>
+          <line x1="50" y1="210" x2="150" y2="210"/>
+          <line x1="50" y1="240" x2="150" y2="240"/>
+          <line x1="50" y1="270" x2="150" y2="270"/>
+          <line x1="50" y1="310" x2="150" y2="310"/>
+          <line x1="50" y1="350" x2="150" y2="350"/>
+          <line x1="50" y1="390" x2="150" y2="390"/>
+        </g>
+        <!-- Vertical seam lines -->
+        <g stroke="rgba(60,65,90,.45)" stroke-width=".5" fill="none" clip-path="url(#bodyClip)">
+          <line x1="75" y1="90" x2="75" y2="450"/>
+          <line x1="100" y1="90" x2="100" y2="450"/>
+          <line x1="125" y1="90" x2="125" y2="450"/>
+        </g>
+
+        <!-- Left shadow limb -->
+        <rect x="50" y="90" width="100" height="360" rx="2" fill="url(#bodyShadowL)" opacity=".7"/>
+        <!-- Right shadow limb -->
+        <rect x="50" y="90" width="100" height="360" rx="2" fill="url(#bodyShadowR)" opacity=".7"/>
+        <!-- Specular reflection band -->
+        <rect x="50" y="90" width="100" height="360" rx="2" fill="url(#bodyReflect)" opacity=".9"/>
+
+        <!-- ──── ACCENT BANDS ──── -->
+        <!-- Upper accent band -->
+        <rect x="50" y="98" width="100" height="18" fill="url(#bandRed)" id="band-top"/>
+        <rect x="50" y="98" width="100" height="18" fill="url(#bodyShadowL)" opacity=".5"/>
+        <rect x="50" y="98" width="100" height="18" fill="url(#bodyShadowR)" opacity=".5"/>
+        <!-- Band edge lines -->
+        <line x1="50" y1="98" x2="150" y2="98" stroke="rgba(255,100,120,.35)" stroke-width=".8"/>
+        <line x1="50" y1="116" x2="150" y2="116" stroke="rgba(80,0,20,.6)" stroke-width=".8"/>
+
+        <!-- Lower accent band -->
+        <rect x="50" y="380" width="100" height="16" fill="url(#bandRed)" id="band-bot"/>
+        <rect x="50" y="380" width="100" height="16" fill="url(#bodyShadowL)" opacity=".5"/>
+        <rect x="50" y="380" width="100" height="16" fill="url(#bodyShadowR)" opacity=".5"/>
+        <line x1="50" y1="380" x2="150" y2="380" stroke="rgba(255,100,120,.35)" stroke-width=".8"/>
+        <line x1="50" y1="396" x2="150" y2="396" stroke="rgba(80,0,20,.6)" stroke-width=".8"/>
+
+        <!-- ──── COCKPIT WINDOW ──── -->
+        <!-- Outer window frame -->
+        <ellipse cx="100" cy="138" rx="18" ry="12" fill="rgba(20,24,50,.9)" stroke="rgba(180,185,200,.5)" stroke-width="1.5"/>
+        <!-- Window glass -->
+        <ellipse cx="100" cy="138" rx="15.5" ry="10" fill="url(#winGrad)"/>
+        <!-- Glass reflection -->
+        <ellipse cx="100" cy="138" rx="15.5" ry="10" fill="url(#winReflect)"/>
+        <!-- Window glare spot -->
+        <ellipse cx="93" cy="133" rx="4.5" ry="3" fill="rgba(255,255,255,.28)" transform="rotate(-12,93,133)"/>
+        <!-- Window frame bolts -->
+        <circle cx="82.5" cy="138" r="1.5" fill="url(#rivetG)"/>
+        <circle cx="117.5" cy="138" r="1.5" fill="url(#rivetG)"/>
+        <circle cx="100" cy="127.5" r="1.5" fill="url(#rivetG)"/>
+        <circle cx="100" cy="148.5" r="1.5" fill="url(#rivetG)"/>
+        <!-- Interior glow from window -->
+        <ellipse cx="100" cy="140" rx="12" ry="8" fill="rgba(50,100,255,.12)" filter="url(#softGlow)"/>
+
+        <!-- ──── BRANDING ──── -->
+        <text x="100" y="285"
+          font-family="'JetBrains Mono',monospace"
+          font-size="11" font-weight="500"
+          fill="rgba(220,200,255,.65)"
+          text-anchor="middle"
+          letter-spacing="4"
+          transform="rotate(-90,100,285)">PINKKLISH</text>
+
+        <!-- ──── INSTRUMENT CLUSTER (body) ──── -->
+        <!-- Vent panel left — moved inward so they don't cover text -->
+        <rect x="52" y="230" width="12" height="28" rx="2" fill="rgba(10,12,30,.7)" stroke="rgba(100,105,140,.3)" stroke-width=".8"/>
+        <g stroke="rgba(60,65,100,.6)" stroke-width=".6">
+          <line x1="53" y1="236" x2="63" y2="236"/>
+          <line x1="53" y1="240" x2="63" y2="240"/>
+          <line x1="53" y1="244" x2="63" y2="244"/>
+          <line x1="53" y1="248" x2="63" y2="248"/>
+          <line x1="53" y1="252" x2="63" y2="252"/>
+          <line x1="53" y1="256" x2="63" y2="256"/>
+        </g>
+        <!-- Vent panel right -->
+        <rect x="136" y="230" width="12" height="28" rx="2" fill="rgba(10,12,30,.7)" stroke="rgba(100,105,140,.3)" stroke-width=".8"/>
+        <g stroke="rgba(60,65,100,.6)" stroke-width=".6">
+          <line x1="137" y1="236" x2="147" y2="236"/>
+          <line x1="137" y1="240" x2="147" y2="240"/>
+          <line x1="137" y1="244" x2="147" y2="244"/>
+          <line x1="137" y1="248" x2="147" y2="248"/>
+          <line x1="137" y1="252" x2="147" y2="252"/>
+          <line x1="137" y1="256" x2="147" y2="256"/>
+        </g>
+
+        <!-- Sensor array centre -->
+        <rect x="80" y="300" width="40" height="20" rx="3" fill="rgba(8,10,28,.85)" stroke="rgba(100,108,150,.35)" stroke-width=".8"/>
+        <circle cx="88" cy="310" r="3" fill="rgba(0,0,0,.8)" stroke="rgba(80,88,130,.4)" stroke-width=".6"/>
+        <circle cx="100" cy="310" r="3" fill="rgba(0,0,0,.8)" stroke="rgba(80,88,130,.4)" stroke-width=".6"/>
+        <circle cx="112" cy="310" r="3" fill="rgba(0,0,0,.8)" stroke="rgba(80,88,130,.4)" stroke-width=".6"/>
+        <!-- Sensor LEDs -->
+        <circle cx="88" cy="310" r="1.5" fill="rgba(0,255,180,.9)" id="led-l" class="led"/>
+        <circle cx="100" cy="310" r="1.5" fill="rgba(74,240,255,.9)" id="led-c" class="led"/>
+        <circle cx="112" cy="310" r="1.5" fill="rgba(232,196,106,.9)" id="led-r" class="led"/>
+
+        <!-- Rivets along panel seams -->
+        <g fill="url(#rivetG)">
+          <!-- Top band rivets -->
+          <circle cx="56" cy="107" r="1.4"/>
+          <circle cx="68" cy="107" r="1.4"/>
+          <circle cx="80" cy="107" r="1.4"/>
+          <circle cx="92" cy="107" r="1.4"/>
+          <circle cx="100" cy="107" r="1.4"/>
+          <circle cx="108" cy="107" r="1.4"/>
+          <circle cx="120" cy="107" r="1.4"/>
+          <circle cx="132" cy="107" r="1.4"/>
+          <circle cx="144" cy="107" r="1.4"/>
+          <!-- Side rivets vertical -->
+          <circle cx="52" cy="130" r="1.2"/>
+          <circle cx="52" cy="160" r="1.2"/>
+          <circle cx="52" cy="200" r="1.2"/>
+          <circle cx="52" cy="250" r="1.2"/>
+          <circle cx="52" cy="300" r="1.2"/>
+          <circle cx="52" cy="340" r="1.2"/>
+          <circle cx="148" cy="130" r="1.2"/>
+          <circle cx="148" cy="160" r="1.2"/>
+          <circle cx="148" cy="200" r="1.2"/>
+          <circle cx="148" cy="250" r="1.2"/>
+          <circle cx="148" cy="300" r="1.2"/>
+          <circle cx="148" cy="340" r="1.2"/>
+          <!-- Bottom band rivets -->
+          <circle cx="56" cy="388" r="1.4"/>
+          <circle cx="68" cy="388" r="1.4"/>
+          <circle cx="80" cy="388" r="1.4"/>
+          <circle cx="92" cy="388" r="1.4"/>
+          <circle cx="100" cy="388" r="1.4"/>
+          <circle cx="108" cy="388" r="1.4"/>
+          <circle cx="120" cy="388" r="1.4"/>
+          <circle cx="132" cy="388" r="1.4"/>
+          <circle cx="144" cy="388" r="1.4"/>
+        </g>
+
+        <!-- ──── NOSE CONE ──── -->
+        <!-- Nose base collar -->
+        <rect x="46" y="82" width="108" height="10" rx="1" fill="rgba(50,55,80,.9)" stroke="rgba(100,108,150,.35)" stroke-width=".8"/>
+        <rect x="46" y="82" width="108" height="10" rx="1" fill="url(#bodyShadowL)" opacity=".6"/>
+        <rect x="46" y="82" width="108" height="10" rx="1" fill="url(#bodyShadowR)" opacity=".6"/>
+
+        <!-- Nose cone main shape - tapered ogive -->
+        <path d="M 100 4 Q 144 40 152 82 L 48 82 Q 56 40 100 4 Z" fill="url(#noseGrad)" id="nose-main"/>
+        <!-- Nose shadow layers -->
+        <path d="M 100 4 Q 144 40 152 82 L 80 82 Z" fill="url(#bodyShadowL)" opacity=".5"/>
+        <path d="M 100 4 Q 56 40 48 82 L 120 82 Z" fill="url(#bodyShadowR)" opacity=".5"/>
+        <!-- Nose highlight -->
+        <path d="M 100 4 Q 144 40 152 82 L 48 82 Q 56 40 100 4 Z" fill="url(#noseHighlight)"/>
+        <!-- Nose tip cap (metallic) -->
+        <ellipse cx="100" cy="8" rx="7" ry="9" fill="url(#noseTip)"/>
+        <ellipse cx="100" cy="6" rx="3.5" ry="4" fill="rgba(255,255,255,.45)"/>
+        <!-- Ablative panel lines on nose -->
+        <g stroke="rgba(80,0,20,.35)" stroke-width=".5" fill="none" clip-path="url(#noseClip)">
+          <path d="M 100 4 Q 120 42 136 74"/>
+          <path d="M 100 4 Q 132 52 144 80"/>
+          <path d="M 100 4 Q 80 42 64 74"/>
+          <path d="M 100 4 Q 68 52 56 80"/>
+          <path d="M 78 28 Q 90 31 100 30 Q 110 31 122 28"/>
+          <path d="M 62 56 Q 82 60 100 59 Q 118 60 138 56"/>
+        </g>
+
+        <!-- ──── ENGINE SECTION ──── -->
+        <!-- Engine skirt -->
+        <path d="M 50 448 Q 46 454 44 460 L 156 460 Q 154 454 150 448 Z" fill="rgba(30,32,48,.95)" stroke="rgba(80,85,120,.4)" stroke-width=".8"/>
+        <!-- Engine bell cluster (3 bells) -->
+        <!-- Left bell -->
+        <g transform="translate(-22, 0)">
+          <path d="M 90 460 Q 84 466 78 480 Q 76 490 82 492 L 98 492 Q 104 490 102 480 Q 100 468 96 460 Z"
+            fill="url(#bellGrad)"/>
+          <path d="M 90 460 Q 84 466 78 480 Q 76 490 82 492 L 98 492 Q 104 490 102 480 Q 100 468 96 460 Z"
+            fill="url(#bellHeat)"/>
+          <ellipse cx="93" cy="462" rx="5" ry="3" fill="url(#bellThroat)" class="bell-glow"/>
+          <path d="M 80 480 Q 84 476 88 476 Q 93 476 97 480" fill="none" stroke="rgba(100,100,100,.4)" stroke-width=".7"/>
+          <path d="M 79 486 Q 83 482 88 482 Q 94 482 98 486" fill="none" stroke="rgba(100,100,100,.35)" stroke-width=".6"/>
+        </g>
+        <!-- Centre bell (main) -->
+        <path d="M 82 460 Q 74 468 70 485 Q 68 496 76 500 L 124 500 Q 132 496 130 485 Q 126 468 118 460 Z"
+          fill="url(#bellGrad)"/>
+        <path d="M 82 460 Q 74 468 70 485 Q 68 496 76 500 L 124 500 Q 132 496 130 485 Q 126 468 118 460 Z"
+          fill="url(#bellHeat)"/>
+        <ellipse cx="100" cy="463" rx="9" ry="5" fill="url(#bellThroat)" class="bell-glow"/>
+        <path d="M 72 483 Q 84 478 100 477 Q 116 478 128 483" fill="none" stroke="rgba(120,120,120,.4)" stroke-width=".8"/>
+        <path d="M 71 490 Q 84 485 100 484 Q 116 485 129 490" fill="none" stroke="rgba(120,120,120,.35)" stroke-width=".7"/>
+        <!-- Right bell -->
+        <g transform="translate(22, 0)">
+          <path d="M 90 460 Q 84 466 78 480 Q 76 490 82 492 L 98 492 Q 104 490 102 480 Q 100 468 96 460 Z"
+            fill="url(#bellGrad)"/>
+          <path d="M 90 460 Q 84 466 78 480 Q 76 490 82 492 L 98 492 Q 104 490 102 480 Q 100 468 96 460 Z"
+            fill="url(#bellHeat)"/>
+          <ellipse cx="93" cy="462" rx="5" ry="3" fill="url(#bellThroat)" class="bell-glow"/>
+          <path d="M 80 480 Q 84 476 88 476 Q 93 476 97 480" fill="none" stroke="rgba(100,100,100,.4)" stroke-width=".7"/>
+          <path d="M 79 486 Q 83 482 88 482 Q 94 482 98 486" fill="none" stroke="rgba(100,100,100,.35)" stroke-width=".6"/>
+        </g>
+
+        <!-- Engine mount plate -->
+        <rect x="48" y="448" width="104" height="6" rx="1" fill="rgba(20,22,36,.95)" stroke="rgba(70,75,110,.45)" stroke-width=".7"/>
+        <!-- Mount bolts -->
+        <g fill="url(#rivetG)">
+          <circle cx="56" cy="451" r="1.6"/>
+          <circle cx="68" cy="451" r="1.6"/>
+          <circle cx="80" cy="451" r="1.6"/>
+          <circle cx="92" cy="451" r="1.6"/>
+          <circle cx="100" cy="451" r="1.6"/>
+          <circle cx="108" cy="451" r="1.6"/>
+          <circle cx="120" cy="451" r="1.6"/>
+          <circle cx="132" cy="451" r="1.6"/>
+          <circle cx="144" cy="451" r="1.6"/>
+        </g>
+
+        <!-- ──── BODY EDGE OUTLINES ──── -->
+        <rect x="50" y="90" width="100" height="360" rx="2"
+          fill="none" stroke="rgba(40,44,70,.7)" stroke-width=".7"/>
+
+        <!-- ──── LED STATUS INDICATORS (animated) ──── -->
+        <!-- Handled above with class="led" -->
+      </svg>
+
+      <!-- Exhaust plume (canvas) -->
+      <div id="plume-wrap">
+        <canvas id="plume-canvas" width="160" height="180"></canvas>
       </div>
-      <div class="exhaust">
-        <div class="flame"></div>
-      </div>
+    </div><!-- /rocket-wrap -->
+
+    <!-- Skin selector -->
+    <div id="skin-panel">
+      <span class="skin-label">Skin</span>
+      <div class="skin-sep"></div>
+      <div class="swatch active" data-skin="red"
+        style="background:radial-gradient(circle at 35% 30%,#ff6060,#aa1018);box-shadow:0 0 12px rgba(200,16,24,.5);"></div>
+      <div class="skin-sep"></div>
+      <div class="swatch" data-skin="brown"
+        style="background:radial-gradient(circle at 35% 30%,#c89060,#5c2e0a);box-shadow:0 0 12px rgba(92,46,10,.5);"></div>
+      <div class="skin-sep"></div>
+      <div class="swatch" data-skin="yellow"
+        style="background:radial-gradient(circle at 35% 30%,#fff090,#e0b800);box-shadow:0 0 12px rgba(224,184,0,.5);"></div>
+      <div class="skin-sep"></div>
+      <div class="swatch" data-skin="green"
+        style="background:radial-gradient(circle at 35% 30%,#60e060,#1a6b08);box-shadow:0 0 12px rgba(26,107,8,.5);"></div>
     </div>
 
-    <div class="color-strip" id="colorStrip">
-      <span class="strip-label">SKIN</span>
-      <div class="swatch sw-red    active" data-color="red"></div>
-      <div class="strip-div"></div>
-      <div class="swatch sw-brown"         data-color="brown"></div>
-      <div class="strip-div"></div>
-      <div class="swatch sw-yellow"        data-color="yellow"></div>
-      <div class="strip-div"></div>
-      <div class="swatch sw-green"         data-color="green"></div>
-    </div>
+  </div><!-- /stage -->
 
+  <!-- Controls -->
+  <div id="controls">
+    <div class="status-row">
+      <div class="status-dot"></div>
+      <div class="status-txt" id="statusTxt">ROSE : DUST</div>
+    </div>
+    <button id="launch-btn">🚀 Rocket Lauch</button>
   </div>
 
-  <div class="bottom-bar" id="bottomBar">
-    <div class="status-pill">
-      <div class="pulse-dot"></div>
-      <span id="statusTxt">Rose : Dust</span>
-    </div>
-    <button id="launch-btn">🚀 Rocket Launch</button>
-  </div>
+</div><!-- /scene -->
 
-</div>
-
-<div id="mapContainer">
+<!-- Map -->
+<div id="map-wrap">
   <img src="map.png" alt="World Map">
-  <div class="map-label" style="top:31%;left:62%;">P STELLA</div>
-  <div class="map-label" style="top:24%;left:45%;">WHOPPER</div>
+  <div class="map-label" style="top:29%;left:62%;">P STELLA</div>
+  <div class="map-label" style="top:27%;left:45%;">WHOPPER</div>
   <div class="map-label" style="top:44%;left:47%;">JUPITER</div>
-  <div class="map-label" style="top:18%;left:20%;">SUPERSONIC</div>
+  <div class="map-label" style="top:23%;left:20%;">SUPERSONIC</div>
   <div class="map-label" style="top:55%;left:27%;">PHANTOM</div>
-  <div class="map-label" style="top:73%;left:75%;">TESTAROSSA</div>
+  <div class="map-label" style="top:73%;left:81%;">TESTAROSSA</div>
   <div class="map-label" style="top:91%;left:50%;">AVIONICS</div>
-  <div class="p-stella"  id="pStella"></div>
+  <div class="p-stella-btn" id="pStella"></div>
 </div>
 
-<div id="pwOverlay">
-  <div class="pw-panel">
-    <div class="pw-title">🔐 Boarding Entrance — Warp Zone</div>
-    <input type="password" id="pwInput" placeholder="Enter 4-digit code" inputmode="numeric" maxlength="4"/>
+<!-- Password -->
+<div id="pw-overlay">
+  <div class="pw-card">
+    <div class="pw-title">Boarding Entrance · Warp Zone</div>
+    <input type="password" id="pw-input" inputmode="numeric" maxlength="4" placeholder="· · · ·"/>
     <div class="pw-btns">
-      <button id="pwSubmit">Enter</button>
-      <button id="pwCancel">Cancel</button>
+      <button class="pw-btn pw-btn-go" id="pw-submit">Enter</button>
+      <button class="pw-btn pw-btn-cancel" id="pw-cancel">Cancel</button>
     </div>
-    <div class="pw-tip">✨ Cheat Code: <strong>4592</strong></div>
+    <div class="pw-tip">Cheat code: 4592</div>
   </div>
 </div>
+
+<style>
+/* LED animations injected here for inline SVG elements */
+.led { animation: ledPulse 2.2s ease-in-out infinite; }
+#led-l { animation-delay: 0s; }
+#led-c { animation-delay: .7s; }
+#led-r { animation-delay: 1.4s; }
+@keyframes ledPulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+.bell-glow{animation:bellPulse 1.4s ease-in-out infinite alternate;}
+@keyframes bellPulse{from{opacity:.4;}to{opacity:1;}}
+</style>
 
 <script>
-window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('loader').classList.add('gone'), 1200);
-});
+'use strict';
 
-// Stars
-const starsEl = document.getElementById('stars');
-for(let i=0;i<150;i++){
-  const s=document.createElement('div'); s.className='star';
-  s.style.cssText=`top:${Math.random()*100}%;left:${Math.random()*100}%;width:${Math.random()*2+1}px;height:${Math.random()*2+1}px;animation-duration:${Math.random()*2+1}s;animation-delay:${Math.random()*2}s`;
-  starsEl.appendChild(s);
-}
-for(let i=0;i<5;i++){
-  const ss=document.createElement('div'); ss.className='shooting-star';
-  ss.style.cssText=`top:${Math.random()*50}%;left:${Math.random()*100}%;animation-delay:${Math.random()*5}s;animation-duration:${2+Math.random()*2}s`;
-  starsEl.appendChild(ss);
+/* ══════════════════════════════════════════
+   STARFIELD
+══════════════════════════════════════════ */
+const bgCanvas = document.getElementById('bg-canvas');
+const bgCtx    = bgCanvas.getContext('2d');
+let stars = [];
+
+function initBg() {
+  const W = window.innerWidth, H = window.innerHeight;
+  bgCanvas.width = W; bgCanvas.height = H;
+  stars = [];
+  for (let i = 0; i < 240; i++) {
+    stars.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() < .7 ? .5 : (Math.random() < .6 ? 1 : 1.5),
+      a: .1 + Math.random() * .7,
+      t: Math.random() * Math.PI * 2,
+      sp: .003 + Math.random() * .007,
+    });
+  }
 }
 
-// Particles
-const partEl=document.getElementById('particles');
-for(let i=0;i<30;i++){
-  const p=document.createElement('div'); p.className='particle';
-  p.style.cssText=`left:${Math.random()*100}%;animation-delay:${Math.random()*8}s;animation-duration:${6+Math.random()*4}s`;
-  partEl.appendChild(p);
+function drawBg() {
+  const W = bgCanvas.width, H = bgCanvas.height;
+  bgCtx.clearRect(0, 0, W, H);
+  // Nebula glow
+  const ng = bgCtx.createRadialGradient(W*.3, H*.4, 0, W*.3, H*.4, W*.5);
+  ng.addColorStop(0, 'rgba(80,0,120,.06)');
+  ng.addColorStop(1, 'rgba(0,0,0,0)');
+  bgCtx.fillStyle = ng; bgCtx.fillRect(0, 0, W, H);
+  const ng2 = bgCtx.createRadialGradient(W*.75, H*.6, 0, W*.75, H*.6, W*.4);
+  ng2.addColorStop(0, 'rgba(0,60,100,.05)');
+  ng2.addColorStop(1, 'rgba(0,0,0,0)');
+  bgCtx.fillStyle = ng2; bgCtx.fillRect(0, 0, W, H);
+
+  for (const s of stars) {
+    s.t += s.sp;
+    const a = s.a + Math.sin(s.t) * .25;
+    bgCtx.beginPath();
+    bgCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    bgCtx.fillStyle = `rgba(255,255,255,${Math.max(0, Math.min(1, a))})`;
+    bgCtx.fill();
+  }
 }
 
-// Color themes
-const themes={
-  red:    {a:'#9e1216',b:'#7a0f12',c:'#2b0a0a',fa:'rgba(180,3,3,0.87)', fb:'rgba(20,20,20,0.92)', g:'#ffff00',s:'STAR BOY'},
-  brown:  {a:'#5c2e0a',b:'#3d1f07',c:'#1a0a02',fa:'rgba(130,70,20,0.9)',fb:'rgba(15,8,0,0.92)',   g:'#ffcc66',s:'CVN-72'},
-  yellow: {a:'#ffd400',b:'#ffbf00',c:'#805a00',fa:'rgba(255,220,0,0.9)',fb:'rgba(40,30,0,0.92)',   g:'#fff000',s:'SUKHOI SU-57'},
-  green:  {a:'#1b5e20',b:'#0d3b12',c:'#021505',fa:'rgba(20,130,30,0.9)',fb:'rgba(0,15,5,0.92)',    g:'#ffd700',s:'DF-1'}
+/* ══════════════════════════════════════════
+   EXHAUST PLUME (canvas)
+══════════════════════════════════════════ */
+const plumeCanvas = document.getElementById('plume-canvas');
+const plumeCtx    = plumeCanvas.getContext('2d');
+
+const PARTICLES = [];
+const MAX_P = 80;
+
+class PlumeParticle {
+  constructor() { this.reset(true); }
+  reset(cold) {
+    this.x  = 80 + (Math.random() - .5) * 14;
+    this.y  = cold ? 60 + Math.random() * 120 : 10;
+    this.vx = (Math.random() - .5) * 1.8;
+    this.vy = 1.4 + Math.random() * 2.2;
+    this.life = 0;
+    this.maxLife = 40 + Math.random() * 50;
+    this.r = 6 + Math.random() * 10;
+    this.core = Math.random() < .3;
+  }
+  update() {
+    this.life++;
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vx += (Math.random() - .5) * .3;
+    this.r *= .985;
+    if (this.life >= this.maxLife || this.y > 175 || this.r < .5) this.reset(false);
+  }
+  draw(ctx) {
+    const t = this.life / this.maxLife;
+    let r, g, b, a;
+    if (this.core) {
+      // Hot inner core: white → yellow → orange
+      if (t < .2)      { r=255;g=255;b=255;a=.9; }
+      else if (t < .45){ r=255;g=220;b=80; a=.8*(1-t); }
+      else             { r=255;g=120;b=0;  a=.5*(1-t); }
+    } else {
+      // Outer plume: orange → red → purple smoke
+      if (t < .3)      { r=255;g=140;b=20;a=.55*(1-t*.5); }
+      else if (t < .6) { r=220;g=60; b=0; a=.35*(1-t); }
+      else             { r=100;g=20; b=40;a=.2*(1-t); }
+    }
+    const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+    grad.addColorStop(0,   `rgba(${r},${g},${b},${a})`);
+    grad.addColorStop(.6,  `rgba(${r},${g},${b},${a*.4})`);
+    grad.addColorStop(1,   `rgba(${r},${g},${b},0)`);
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < MAX_P; i++) PARTICLES.push(new PlumeParticle());
+
+function drawPlume() {
+  plumeCtx.clearRect(0, 0, 160, 180);
+  // Engine mouth glow
+  const mgrd = plumeCtx.createRadialGradient(80, 8, 0, 80, 8, 30);
+  mgrd.addColorStop(0, 'rgba(255,220,80,.9)');
+  mgrd.addColorStop(.3, 'rgba(255,120,0,.6)');
+  mgrd.addColorStop(.7, 'rgba(200,40,0,.2)');
+  mgrd.addColorStop(1,  'rgba(0,0,0,0)');
+  plumeCtx.fillStyle = mgrd;
+  plumeCtx.fillRect(0, 0, 160, 80);
+
+  for (const p of PARTICLES) { p.update(); p.draw(plumeCtx); }
+
+  // Shockwave diamond (Mach diamonds)
+  for (let i = 0; i < 3; i++) {
+    const dy = 18 + i * 32;
+    const sz = 12 - i * 3;
+    plumeCtx.beginPath();
+    plumeCtx.ellipse(80, dy, sz, sz * .4, 0, 0, Math.PI * 2);
+    plumeCtx.fillStyle = `rgba(255,220,80,${.18 - i * .04})`;
+    plumeCtx.fill();
+  }
+}
+
+/* ══════════════════════════════════════════
+   SKIN THEMES
+══════════════════════════════════════════ */
+const SKINS = {
+  red: {
+    nose: ['#6a0010','#b01828','#d82035','#e83045','#c82030','#8a1020','#580818'],
+    band: ['#5a0010','#cc1828','#e82038','#cc1828','#5a0010'],
+    fin:  ['#3a0008','#b01428','#901020','#2a0006'],
+    status: 'CVN-72',
+  },
+  brown: {
+    nose: ['#3a1800','#6b3010','#8a4018','#9a4a20','#7a3818','#502808','#281000'],
+    band: ['#2a1000','#784020','#8c4828','#784020','#2a1000'],
+    fin:  ['#200a00','#6a3010','#502808','#180600'],
+    status: 'Mariana Trench',
+  },
+  yellow: {
+    nose: ['#806000','#c09000','#e0b000','#f0c020','#d0a000','#a07000','#604800'],
+    band: ['#604800','#b08000','#d09800','#b08000','#604800'],
+    fin:  ['#402800','#a07000','#806000','#301800'],
+    status: 'SUKHOI SU-57',
+  },
+  green: {
+    nose: ['#002808','#085018','#0c6820','#108828','#0a6018','#063810','#021808'],
+    band: ['#001806','#066816','#08801e','#066816','#001806'],
+    fin:  ['#000e04','#065014','#043810','#000802'],
+    status: 'DF-1',
+  },
 };
-const root=document.documentElement;
-const rocketBody=document.getElementById('rocketBody');
-const statusTxt=document.getElementById('statusTxt');
 
-function applyTheme(name){
-  const t=themes[name]; if(!t) return;
-  root.style.setProperty('--nose-a',t.a);
-  root.style.setProperty('--nose-b',t.b);
-  root.style.setProperty('--nose-c',t.c);
-  root.style.setProperty('--fin-a', t.fa);
-  root.style.setProperty('--fin-b', t.fb);
-  root.style.setProperty('--glow',  t.g);
-  statusTxt.textContent=t.s;
-  rocketBody.classList.remove('burst');
-  void rocketBody.offsetWidth;
-  rocketBody.classList.add('burst');
-  rocketBody.addEventListener('animationend',()=>rocketBody.classList.remove('burst'),{once:true});
+function applySkin(name) {
+  const s = SKINS[name]; if (!s) return;
+  const setStops = (ids, colors) => {
+    ids.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('stop-color', colors[i]);
+    });
+  };
+  setStops(['nose-s0','nose-s1','nose-s2','nose-s3','nose-s4','nose-s5','nose-s6'], s.nose);
+  setStops(['band-s0','band-s1','band-s2','band-s3','band-s4'], s.band);
+  setStops(['fin-s0','fin-s1','fin-s2','fin-s3'], s.fin);
+  document.getElementById('statusTxt').textContent = s.status;
 }
-document.querySelectorAll('.swatch').forEach(sw=>{
-  sw.addEventListener('click',()=>{
-    document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));
+
+document.querySelectorAll('.swatch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
     sw.classList.add('active');
-    applyTheme(sw.dataset.color);
+    applySkin(sw.dataset.skin);
   });
 });
 
-// Launch — snapshot real screen position first so it flies from the right spot on every device
-const rocketWrap=document.getElementById('rocketWrap');
-const hero=document.getElementById('hero');
-const bottomBar=document.getElementById('bottomBar');
-const colorStrip=document.getElementById('colorStrip');
+/* ══════════════════════════════════════════
+   LAUNCH SEQUENCE
+══════════════════════════════════════════ */
+const rocketWrap = document.getElementById('rocket-wrap');
+const controls   = document.getElementById('controls');
+const skinPanel  = document.getElementById('skin-panel');
+const header     = document.getElementById('header');
 
-document.getElementById('launch-btn').addEventListener('click',()=>{
-  hero.style.opacity='0';       hero.style.pointerEvents='none';
-  bottomBar.style.opacity='0';  bottomBar.style.pointerEvents='none';
-  colorStrip.style.opacity='0'; colorStrip.style.pointerEvents='none';
+document.getElementById('launch-btn').addEventListener('click', () => {
+  // Fade UI
+  [controls, skinPanel, header].forEach(el => {
+    el.style.transition = 'opacity .8s ease';
+    el.style.opacity = '0';
+    el.style.pointerEvents = 'none';
+  });
 
-  // Snapshot center of rocket on screen
-  const r=rocketWrap.getBoundingClientRect();
-  const cx=r.left+r.width/2;
-  const cy=r.top+r.height/2;
+  // Snapshot position
+  const r  = rocketWrap.getBoundingClientRect();
+  const cx = r.left + r.width / 2;
+  const cy = r.top  + r.height / 2;
 
-  // Pull the rocket out of the flex layout and pin it in place
-  rocketWrap.style.cssText=`
+  rocketWrap.style.cssText = `
     position:fixed;
-    left:${cx}px;
-    top:${cy}px;
-    width:${r.width}px;
-    height:${r.height}px;
+    left:${cx}px;top:${cy}px;
+    width:${r.width}px;height:${r.height}px;
     transform:translate(-50%,-50%);
-    margin:0;
-    z-index:5;
+    z-index:50;margin:0;
+    animation:none;
   `;
 
-  // Set the CSS variable used by the keyframe start value
-  root.style.setProperty('--launch-y', cy+'px');
-
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    rocketWrap.style.animation='liftoff 5s forwards ease-out';
+  // Two-frame forced reflow then animate
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    rocketWrap.style.transition = 'none';
+    rocketWrap.style.animation = 'rocketLaunch 4.5s cubic-bezier(.22,1,.36,1) forwards';
+    // Camera shake
+    document.body.style.animation = 'cameraShake .6s ease';
   }));
 
-  setTimeout(()=>{
-    const mc=document.getElementById('mapContainer');
-    mc.style.display='block';
-    requestAnimationFrame(()=>requestAnimationFrame(()=>mc.classList.add('show')));
-  },2000);
+  setTimeout(() => {
+    const mw = document.getElementById('map-wrap');
+    mw.style.display = 'block';
+    requestAnimationFrame(() => requestAnimationFrame(() => mw.classList.add('show')));
+  }, 1800);
 
-  setTimeout(()=>{ rocketWrap.style.display='none'; },5000);
+  setTimeout(() => { rocketWrap.style.display = 'none'; }, 4800);
 });
 
-// Password
-const pwOverlay=document.getElementById('pwOverlay');
-const pwInput=document.getElementById('pwInput');
-const PASS='4592';
+/* ══════════════════════════════════════════
+   PASSWORD
+══════════════════════════════════════════ */
+const pwOverlay = document.getElementById('pw-overlay');
+const pwInput   = document.getElementById('pw-input');
+const PASS      = '4592';
 
-document.getElementById('pStella').addEventListener('click',()=>{
+document.getElementById('pStella').addEventListener('click', () => {
   pwOverlay.classList.add('show');
-  setTimeout(()=>pwInput.focus(),100);
+  setTimeout(() => pwInput.focus(), 120);
 });
-document.getElementById('pwSubmit').addEventListener('click',()=>{
-  if(pwInput.value.trim()===PASS){
-    pwOverlay.style.opacity='0';
-    setTimeout(()=>{ window.location.href='pinkklish_full.html'; },300);
+document.getElementById('pw-submit').addEventListener('click', () => {
+  if (pwInput.value.trim() === PASS) {
+    pwOverlay.style.opacity = '0';
+    setTimeout(() => { window.location.href = 'pinkklish_full.html'; }, 350);
   } else {
-    alert('❌ Incorrect code. Try again.');
-    pwInput.value='';
-    setTimeout(()=>pwInput.focus(),100);
+    pwInput.style.borderColor = 'rgba(255,80,80,.8)';
+    pwInput.style.boxShadow   = '0 0 20px rgba(255,0,0,.2)';
+    setTimeout(() => {
+      pwInput.style.borderColor = '';
+      pwInput.style.boxShadow   = '';
+    }, 700);
+    pwInput.value = '';
+    setTimeout(() => pwInput.focus(), 120);
   }
 });
-document.getElementById('pwCancel').addEventListener('click',()=>{
-  pwOverlay.classList.remove('show'); pwInput.value='';
+document.getElementById('pw-cancel').addEventListener('click', () => {
+  pwOverlay.classList.remove('show'); pwInput.value = '';
 });
-pwInput.addEventListener('keypress',e=>{ if(e.key==='Enter') document.getElementById('pwSubmit').click(); });
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){ pwOverlay.classList.remove('show'); pwInput.value=''; }
+pwInput.addEventListener('keypress', e => { if (e.key === 'Enter') document.getElementById('pw-submit').click(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { pwOverlay.classList.remove('show'); pwInput.value = ''; }
 });
 
-// Prevent double-tap zoom
-let lastTouch=0;
-document.addEventListener('touchend',e=>{
-  const now=Date.now();
-  if(now-lastTouch<=300) e.preventDefault();
-  lastTouch=now;
-},{passive:false});
+/* ══════════════════════════════════════════
+   CAMERA SHAKE KEYFRAME (injected)
+══════════════════════════════════════════ */
+const styleEl = document.createElement('style');
+styleEl.textContent = `
+@keyframes cameraShake{
+  0%{transform:none;}
+  15%{transform:translate(-3px,2px) rotate(-.3deg);}
+  30%{transform:translate(3px,-2px) rotate(.3deg);}
+  45%{transform:translate(-2px,1px);}
+  60%{transform:translate(2px,-1px);}
+  75%{transform:translate(-1px,.5px);}
+  100%{transform:none;}
+}`;
+document.head.appendChild(styleEl);
 
-// Konami
-let kc=[];
-const ks=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-document.addEventListener('keydown',e=>{
-  kc.push(e.key); kc=kc.slice(-10);
-  if(kc.join(',')===ks.join(',')){ document.body.style.filter='hue-rotate(180deg)'; setTimeout(()=>{document.body.style.filter='none';},3000); }
+/* ══════════════════════════════════════════
+   PREVENT DOUBLE TAP ZOOM
+══════════════════════════════════════════ */
+let lastTap = 0;
+document.addEventListener('touchend', e => {
+  const now = Date.now();
+  if (now - lastTap <= 300) e.preventDefault();
+  lastTap = now;
+}, { passive: false });
+
+/* ══════════════════════════════════════════
+   MAIN LOOP
+══════════════════════════════════════════ */
+function loop() {
+  requestAnimationFrame(loop);
+  drawBg();
+  drawPlume();
+}
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+window.addEventListener('load', () => {
+  initBg();
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('gone');
+    setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 900);
+  }, 800);
+  loop();
 });
+window.addEventListener('resize', initBg);
+
 </script>
 </body>
 </html>
