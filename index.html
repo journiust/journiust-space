@@ -947,10 +947,20 @@ function spawnRipple(cx, cy) {
 }
 
 /* ── INPUT ── */
-let lastMoveTapTime = 0;
 function handleTap(cx, cy) {
   if (warping) return;
   const targetEl = document.elementFromPoint(cx, cy);
+
+  // If the art info modal is open, only let it handle its own close/backdrop taps —
+  // don't fall through to walking/frame logic (this is what was eating the Close tap on iOS).
+  const infoModal = document.getElementById('info-modal');
+  if (infoModal.classList.contains('on')) {
+    if (targetEl && (targetEl.closest('#im-close') || targetEl.closest('#info-backdrop'))) {
+      closeInfo();
+    }
+    return;
+  }
+
   if (targetEl && targetEl.closest('#sound-toggle')) return;
 
   const frameEl = targetEl && targetEl.closest('.art-frame');
