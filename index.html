@@ -350,147 +350,120 @@ body{
     <div id="world"></div>
     <div id="player-wrap">
       <svg id="crew-svg" viewBox="0 0 88 192" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="skinG" cx="42%" cy="30%" r="68%"><stop offset="0%" stop-color="#ffd8b8"/><stop offset="55%" stop-color="#e8b890"/><stop offset="100%" stop-color="#c8906a"/></radialGradient>
-          <linearGradient id="hairG" x1="20%" y1="0%" x2="80%" y2="100%"><stop offset="0%" stop-color="#2a2860"/><stop offset="60%" stop-color="#18163a"/><stop offset="100%" stop-color="#0c0a20"/></linearGradient>
-          <linearGradient id="uniG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#EADDCA"/><stop offset="50%" stop-color="#6E260E"/><stop offset="100%" stop-color="#6E260E"/></linearGradient>
-          <linearGradient id="tealStripe" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d4e8"/><stop offset="100%" stop-color="#0090b0"/></linearGradient>
-          <linearGradient id="rankG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f0d060"/><stop offset="100%" stop-color="#c09030"/></linearGradient>
-          <linearGradient id="pantsG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#141626"/><stop offset="100%" stop-color="#090b18"/></linearGradient>
-          <linearGradient id="bootG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#181a2e"/><stop offset="100%" stop-color="#080918"/></linearGradient>
-          <linearGradient id="tabG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#003848"/><stop offset="100%" stop-color="#001828"/></linearGradient>
-          <radialGradient id="eyeG" cx="35%" cy="32%" r="65%"><stop offset="0%" stop-color="#50d8e8"/><stop offset="50%" stop-color="#1888a0"/><stop offset="100%" stop-color="#084858"/></radialGradient>
-          <linearGradient id="visorG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(0,200,220,0)"/><stop offset="40%" stop-color="rgba(0,200,220,.75)"/><stop offset="100%" stop-color="rgba(0,200,220,0)"/></linearGradient>
-          <radialGradient id="bootGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(240,201,110,.4)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-        </defs>
-        <g id="arm-l">
-          <path d="M23 82Q10 90 8 108Q7 118 12 123Q16 126 20 124Q24 126 26 122Q29 112 27 96Q26 87 23 82Z" fill="url(#uniG)" stroke="rgba(0,180,200,.2)" stroke-width=".8"/>
-          <path d="M10 112Q14 122 20 124Q24 126 26 122Q22 118 18 116Q13 114 10 112Z" fill="url(#tealStripe)" opacity=".85"/>
-          <ellipse cx="16" cy="130" rx="7" ry="6.5" fill="url(#skinG)"/>
-          <rect x="6" y="134" width="20" height="28" rx="3" fill="url(#tabG)" stroke="rgba(0,200,220,.5)" stroke-width="1"/>
-          <rect x="8" y="136" width="16" height="24" rx="2" fill="rgba(0,200,230,.05)"/>
-          <line x1="9" y1="139" x2="23" y2="139" stroke="rgba(0,220,240,.55)" stroke-width=".8" class="tab-glow"/>
-          <line x1="9" y1="142" x2="20" y2="142" stroke="rgba(0,220,240,.35)" stroke-width=".6"/>
-          <line x1="9" y1="145" x2="22" y2="145" stroke="rgba(0,220,240,.4)" stroke-width=".6"/>
-          <line x1="9" y1="148" x2="19" y2="148" stroke="rgba(0,220,240,.3)" stroke-width=".6"/>
-          <polyline points="9,155 12,151 15,153 18,148 21,150 23,147" fill="none" stroke="rgba(0,240,200,.65)" stroke-width=".9" stroke-linecap="round"/>
-          <rect x="8" y="158" width="4" height="3" rx=".5" fill="rgba(0,200,220,.4)"/>
-          <rect x="14" y="156" width="4" height="5" rx=".5" fill="rgba(0,200,220,.5)"/>
-          <rect x="20" y="157" width="3" height="4" rx=".5" fill="rgba(0,200,220,.45)"/>
-          <path d="M22 136Q27 138 26 143" fill="none" stroke="url(#skinG)" stroke-width="5" stroke-linecap="round"/>
-        </g>
-        <g id="arm-r">
-          <path d="M65 82Q78 90 80 108Q81 118 76 123Q72 126 68 124Q64 126 62 122Q59 112 61 96Q62 87 65 82Z" fill="url(#uniG)" stroke="rgba(0,180,200,.2)" stroke-width=".8"/>
-          <path d="M78 112Q74 122 68 124Q64 126 62 122Q66 118 70 116Q75 114 78 112Z" fill="url(#tealStripe)" opacity=".85"/>
-          <ellipse cx="72" cy="130" rx="7" ry="6.5" fill="url(#skinG)"/>
-          <path d="M66 133Q64 138 66 140" fill="none" stroke="url(#skinG)" stroke-width="4" stroke-linecap="round"/>
-          <path d="M69 135Q68 141 70 143" fill="none" stroke="url(#skinG)" stroke-width="4" stroke-linecap="round"/>
-          <path d="M73 136Q73 142 73 144" fill="none" stroke="url(#skinG)" stroke-width="3.8" stroke-linecap="round"/>
-          <path d="M77 135Q78 140 77 142" fill="none" stroke="url(#skinG)" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M79 132Q81 136 80 139" fill="none" stroke="url(#skinG)" stroke-width="3" stroke-linecap="round"/>
-        </g>
-        <path d="M25 82Q22 100 22 115Q22 128 25 136Q30 142 44 142Q58 142 63 136Q66 128 66 115Q66 100 63 82Q57 76 44 74Q31 76 25 82Z" fill="url(#uniG)"/>
-        <path d="M27 84Q24 101 25 115" fill="none" stroke="rgba(100,180,255,.14)" stroke-width="2.5"/>
-        <rect x="41.5" y="77" width="5" height="61" rx="1" fill="rgba(255,255,255,.03)" stroke="rgba(0,180,210,.14)" stroke-width=".5"/>
-        <circle cx="44" cy="81" r="2.5" fill="rgba(18,36,80,.95)" stroke="rgba(0,220,240,.55)" stroke-width=".8"/>
-        <circle cx="44" cy="81" r="1.2" fill="rgba(0,220,240,.7)"/>
-        <rect x="26.5" y="84.5" width="14" height="20" rx="2" fill="rgba(12,20,60,.9)" stroke="rgba(0,200,220,.32)" stroke-width=".8"/>
-        <rect x="28" y="86" width="7" height="9" rx="1" fill="rgba(255,255,255,.07)" stroke="rgba(0,200,220,.2)" stroke-width=".4"/>
-        <circle cx="31.5" cy="88.5" r="1.5" fill="rgba(0,200,220,.4)"/>
-        <line x1="31.5" y1="90" x2="31.5" y2="93.5" stroke="rgba(0,200,220,.35)" stroke-width="1"/>
-        <line x1="29.5" y1="91.5" x2="33.5" y2="91.5" stroke="rgba(0,200,220,.35)" stroke-width="1"/>
-        <line x1="28" y1="97" x2="40" y2="97" stroke="rgba(0,200,220,.4)" stroke-width=".7"/>
-        <line x1="28" y1="99.5" x2="36" y2="99.5" stroke="rgba(0,200,220,.25)" stroke-width=".6"/>
-        <line x1="28" y1="102" x2="38.5" y2="102" stroke="rgba(0,200,220,.2)" stroke-width=".6"/>
-        <circle cx="37.5" cy="87.5" r="2.2" fill="rgba(0,255,180,.85)" class="badge-glow" stroke="rgba(0,200,150,.4)" stroke-width=".4"/>
-        <rect x="48.5" y="84.5" width="16" height="10" rx="2" fill="rgba(6,16,46,.95)" stroke="rgba(200,170,80,.45)" stroke-width=".8"/>
-        <rect x="50.5" y="86" width="12" height="1.5" rx=".7" fill="url(#rankG)" class="rank-pulse"/>
-        <rect x="50.5" y="89" width="12" height="1.5" rx=".7" fill="url(#rankG)" class="rank-pulse" style="animation-delay:.3s"/>
-        <rect x="50.5" y="92" width="8" height="1.5" rx=".7" fill="url(#rankG)" class="rank-pulse" style="animation-delay:.6s"/>
-        <path d="M25 82Q22 87 22 93Q26 91 30 87Q27 84 25 82Z" fill="url(#tealStripe)" opacity=".8"/>
-        <path d="M63 82Q66 87 66 93Q62 91 58 87Q61 84 63 82Z" fill="url(#tealStripe)" opacity=".8"/>
-        <path d="M34 75Q44 71 54 75L56 80Q44 77 32 80Z" fill="rgba(6,16,46,.98)" stroke="rgba(0,180,210,.42)" stroke-width=".8"/>
-        <path d="M34 75Q44 71 54 75" fill="none" stroke="url(#tealStripe)" stroke-width="1.6"/>
-        <circle cx="60.5" cy="98.5" r="7.5" fill="rgba(4,10,34,.95)" stroke="rgba(0,180,210,.38)" stroke-width=".8"/>
-        <circle cx="60.5" cy="98.5" r="4.5" fill="rgba(0,30,70,.85)" stroke="rgba(0,140,180,.4)" stroke-width=".4"/>
-        <ellipse cx="60.5" cy="98.5" rx="6" ry="2.2" fill="none" stroke="rgba(0,210,230,.45)" stroke-width=".8" transform="rotate(-18,60.5,98.5)"/>
-        <circle cx="60.5" cy="98.5" r="2.8" fill="rgba(0,90,150,.75)"/>
-        <circle cx="59.5" cy="97.5" r=".9" fill="rgba(180,230,255,.55)"/>
-        <rect x="23" y="130.5" width="42" height="7" rx="2" fill="rgba(6,12,34,.96)" stroke="rgba(0,160,200,.28)" stroke-width=".8"/>
-        <rect x="39.5" y="131.5" width="9" height="5" rx="1" fill="rgba(3,8,28,.96)" stroke="rgba(0,210,230,.5)" stroke-width=".7"/>
-        <line x1="44" y1="132" x2="44" y2="136" stroke="rgba(0,210,230,.5)" stroke-width=".7"/>
-        <line x1="41" y1="134" x2="47" y2="134" stroke="rgba(0,210,230,.4)" stroke-width=".6"/>
-        <rect x="25" y="132" width="8" height="5" rx="1.5" fill="rgba(8,18,48,.9)" stroke="rgba(0,160,200,.22)" stroke-width=".5"/>
-        <rect x="55" y="132" width="8" height="5" rx="1.5" fill="rgba(8,18,48,.9)" stroke="rgba(0,160,200,.22)" stroke-width=".5"/>
-        <g id="leg-l">
-          <path d="M25 138Q23 154 24 166Q25 176 29 180Q33 182 37 179Q40 176 40 166Q40 150 38 138Z" fill="url(#pantsG)" stroke="rgba(0,90,150,.15)" stroke-width=".7"/>
-          <ellipse cx="32" cy="161" rx="7.5" ry="5.5" fill="rgba(0,18,58,.65)" stroke="rgba(0,140,180,.22)" stroke-width=".6"/>
-          <path d="M25 170Q32 167 40 170" fill="none" stroke="rgba(0,140,180,.28)" stroke-width=".8"/>
-          <path d="M23 175Q22 185 24 189Q27 193 33 193Q39 193 41 189Q43 185 42 175Z" fill="url(#bootG)" stroke="rgba(0,120,180,.3)" stroke-width="1"/>
-          <path d="M23 177Q32 173 42 177" fill="none" stroke="url(#tealStripe)" stroke-width="1.3" opacity=".75"/>
-          <ellipse cx="32.5" cy="193" rx="9.5" ry="3.2" fill="rgba(4,4,16,.96)" stroke="rgba(0,80,140,.25)" stroke-width=".6"/>
-          <ellipse cx="32.5" cy="193" rx="7" ry="2.2" fill="url(#bootGlow)" class="badge-glow"/>
-        </g>
-        <g id="leg-r">
-          <path d="M63 138Q65 154 64 166Q63 176 59 180Q55 182 51 179Q48 176 48 166Q48 150 50 138Z" fill="url(#pantsG)" stroke="rgba(0,90,150,.15)" stroke-width=".7"/>
-          <ellipse cx="56" cy="161" rx="7.5" ry="5.5" fill="rgba(0,18,58,.65)" stroke="rgba(0,140,180,.22)" stroke-width=".6"/>
-          <path d="M48 170Q56 167 64 170" fill="none" stroke="rgba(0,140,180,.28)" stroke-width=".8"/>
-          <path d="M46 175Q45 185 47 189Q49 193 55 193Q61 193 63 189Q65 185 66 175Z" fill="url(#bootG)" stroke="rgba(0,120,180,.3)" stroke-width="1"/>
-          <path d="M46 177Q55 173 66 177" fill="none" stroke="url(#tealStripe)" stroke-width="1.3" opacity=".75"/>
-          <ellipse cx="55.5" cy="193" rx="9.5" ry="3.2" fill="rgba(4,4,16,.96)" stroke="rgba(0,80,140,.25)" stroke-width=".6"/>
-          <ellipse cx="55.5" cy="193" rx="7" ry="2.2" fill="url(#bootGlow)" class="badge-glow" style="animation-delay:.4s"/>
-        </g>
-        <g id="head-g">
-          <path d="M38 60Q37 67 36 72L52 72Q51 67 50 60Z" fill="url(#skinG)"/>
-          <ellipse cx="26" cy="40" rx="4.5" ry="5.5" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".6"/>
-          <ellipse cx="62" cy="40" rx="4.5" ry="5.5" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".6"/>
-          <ellipse cx="26" cy="40" rx="2.5" ry="3.2" fill="rgba(180,120,90,.2)"/>
-          <ellipse cx="62" cy="40" rx="2.5" ry="3.2" fill="rgba(180,120,90,.2)"/>
-          <path d="M28 24Q27 20 30 16Q36 10 44 10Q52 10 58 16Q61 20 60 24Q61 32 61 40Q61 52 58 58Q54 64 44 64Q34 64 30 58Q27 52 27 40Q27 32 28 24Z" fill="url(#skinG)" stroke="rgba(190,140,110,.18)" stroke-width=".7"/>
-          <ellipse cx="40" cy="19" rx="7" ry="4.5" fill="rgba(255,255,255,.13)" transform="rotate(-10,40,19)"/>
-          <ellipse cx="30" cy="46" rx="5" ry="4" fill="rgba(200,120,100,.1)"/>
-          <ellipse cx="58" cy="46" rx="5" ry="4" fill="rgba(200,120,100,.1)"/>
-          <path d="M28 24Q28 12 44 10Q60 12 60 24Q56 16 44 15Q32 16 28 24Z" fill="url(#hairG)"/>
-          <path d="M28 22Q33 14 48 13Q38 16 34 22" fill="url(#hairG)"/>
-          <path d="M28 24Q27 30 27 36" fill="none" stroke="#181630" stroke-width="4" stroke-linecap="round"/>
-          <path d="M60 24Q61 30 61 36" fill="none" stroke="#181630" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M32 13Q44 10 55 13" fill="none" stroke="rgba(100,100,180,.35)" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M30 26Q36 23 41 24.5" fill="none" stroke="#18162a" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M47 24.5Q52 23 58 26" fill="none" stroke="#18162a" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M30 35Q35 30.5 41 33Q41 39 35 41Q30 38 30 35Z" fill="rgba(255,255,255,.97)"/>
-          <ellipse cx="35.5" cy="36" rx="4.2" ry="4.5" fill="url(#eyeG)"/>
-          <ellipse cx="35.5" cy="36.5" rx="2.5" ry="2.7" fill="#050c1a"/>
-          <circle cx="34" cy="34.5" r="1.6" fill="rgba(255,255,255,.9)"/>
-          <circle cx="37" cy="37.5" r=".7" fill="rgba(255,255,255,.45)"/>
-          <path d="M30 35Q35.5 30.5 41 33" fill="none" stroke="#0e0c22" stroke-width="1.4"/>
-          <path d="M47 33Q53 30.5 58 35Q58 38 53 41Q47 39 47 36Z" fill="rgba(255,255,255,.97)"/>
-          <ellipse cx="52.5" cy="36" rx="4.2" ry="4.5" fill="url(#eyeG)"/>
-          <ellipse cx="52.5" cy="36.5" rx="2.5" ry="2.7" fill="#050c1a"/>
-          <circle cx="51" cy="34.5" r="1.6" fill="rgba(255,255,255,.9)"/>
-          <circle cx="54.5" cy="37.5" r=".7" fill="rgba(255,255,255,.45)"/>
-          <path d="M47 33Q52.5 30.5 58 35" fill="none" stroke="#0e0c22" stroke-width="1.4"/>
-          <path d="M42 44Q41 49 40 52Q42 54 44 54Q46 54 48 52Q47 49 46 44" fill="none" stroke="rgba(160,100,80,.32)" stroke-width="1" stroke-linecap="round"/>
-          <path d="M38 57Q44 55 50 57Q47 59.5 44 59Q41 59.5 38 57Z" fill="#c87060" opacity=".85"/>
-          <path d="M27 22Q44 14 61 22" fill="none" stroke="#0c1428" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M27 22Q44 14 61 22" fill="none" stroke="rgba(0,200,220,.55)" stroke-width="1" stroke-linecap="round"/>
-          <rect x="21" y="34" width="9" height="12" rx="3" fill="#0a1428" stroke="rgba(0,190,220,.58)" stroke-width="1"/>
-          <line x1="23" y1="37" x2="28" y2="37" stroke="rgba(0,220,240,.38)" stroke-width=".6"/>
-          <line x1="23" y1="39.5" x2="28" y2="39.5" stroke="rgba(0,220,240,.35)" stroke-width=".6"/>
-          <line x1="23" y1="42" x2="28" y2="42" stroke="rgba(0,220,240,.3)" stroke-width=".6"/>
-          <circle cx="29.5" cy="35.5" r="1.5" fill="rgba(0,255,180,.9)" class="badge-glow" style="animation-delay:.4s"/>
-          <path d="M21 43Q16 46 15 52Q15 55 18 56" fill="none" stroke="#0c1428" stroke-width="2" stroke-linecap="round"/>
-          <path d="M21 43Q16 46 15 52Q15 55 18 56" fill="none" stroke="rgba(0,170,210,.45)" stroke-width=".7" stroke-linecap="round"/>
-          <ellipse cx="18" cy="57" rx="3.5" ry="2.5" fill="#0a1428" stroke="rgba(0,190,220,.58)" stroke-width=".8"/>
-          <ellipse cx="18" cy="57" rx="1.8" ry="1.2" fill="rgba(0,30,70,.9)" stroke="rgba(0,220,240,.35)" stroke-width=".4"/>
-          <rect x="46" y="31" width="18" height="6" rx="2" fill="rgba(0,15,38,.8)" stroke="rgba(0,210,230,.42)" stroke-width=".7"/>
-          <rect x="47.5" y="32.5" width="15" height="3" rx="1" fill="url(#visorG)" class="visor-glow"/>
-          <text x="48.5" y="35.5" font-family="monospace" font-size="2.2" fill="rgba(0,245,210,.8)">GAL.WING</text>
-          <rect x="58" y="34" width="7" height="9" rx="2.5" fill="#0a1428" stroke="rgba(0,190,220,.46)" stroke-width=".8"/>
-          <line x1="59.5" y1="37" x2="63.5" y2="37" stroke="rgba(0,220,240,.3)" stroke-width=".5"/>
-          <line x1="59.5" y1="39.5" x2="63.5" y2="39.5" stroke="rgba(0,220,240,.3)" stroke-width=".5"/>
-          <circle cx="63.5" cy="35.5" r="1.2" fill="rgba(0,220,250,.85)" class="rank-pulse" style="animation-delay:.8s"/>
-        </g>
-      </svg>
+  <defs>
+    <radialGradient id="skinG" cx="40%" cy="28%" r="72%"><stop offset="0%" stop-color="#ffe0c2"/><stop offset="55%" stop-color="#eab98e"/><stop offset="100%" stop-color="#c8946a"/></radialGradient>
+    <linearGradient id="hairG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#6b4226"/><stop offset="55%" stop-color="#4a2c15"/><stop offset="100%" stop-color="#301c0d"/></linearGradient>
+    <linearGradient id="hoodieG" x1="10%" y1="0%" x2="90%" y2="100%"><stop offset="0%" stop-color="#a8734a"/><stop offset="45%" stop-color="#7c4f2e"/><stop offset="100%" stop-color="#4e2f1a"/></linearGradient>
+    <linearGradient id="hoodieShade" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3a2211"/><stop offset="100%" stop-color="#5c3a1e"/></linearGradient>
+    <linearGradient id="hoodieLight" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c99368"/><stop offset="100%" stop-color="#8f5c36"/></linearGradient>
+    <linearGradient id="ribG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3a2313"/><stop offset="100%" stop-color="#2a1a0d"/></linearGradient>
+    <linearGradient id="pantsG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#3c4048"/><stop offset="100%" stop-color="#22252b"/></linearGradient>
+    <linearGradient id="bootG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f4ede2"/><stop offset="100%" stop-color="#d8c9b4"/></linearGradient>
+    <linearGradient id="soleG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6b4226"/><stop offset="100%" stop-color="#4a2c15"/></linearGradient>
+    <radialGradient id="eyeG" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#7a5636"/><stop offset="55%" stop-color="#4a3220"/><stop offset="100%" stop-color="#2a1c12"/></radialGradient>
+    <radialGradient id="cheekG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(230,120,100,.25)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+    <radialGradient id="bootGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(240,201,110,.4)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+  </defs>
+  <g id="arm-l">
+    <path d="M24 80Q9 87 7 106Q6 119 11 128Q14 133 19 132Q23 133 25 129Q28 121 26 108Q29 96 27 88Q26 83 24 80Z" fill="url(#hoodieG)" stroke="rgba(40,22,10,.4)" stroke-width=".6"/>
+    <path d="M9 106Q8 119 13 128Q16 132 19 132" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".55"/>
+    <path d="M11 90Q8 100 8 110" fill="none" stroke="rgba(255,220,190,.3)" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+    <path d="M12 122Q19 128 25 124" fill="none" stroke="url(#ribG)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M12 122Q19 128 25 124" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="7" stroke-linecap="round" stroke-dasharray="1.5 1.6"/>
+    <ellipse cx="17" cy="133" rx="6.5" ry="6" fill="url(#skinG)"/>
+    <path d="M12.5 133Q11 138 13.5 141" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M15.5 135.5Q14.5 141.5 16.5 144" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M18.5 136.5Q18.2 143 19.5 145.5" fill="none" stroke="url(#skinG)" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M21.5 135.5Q22 141 21 143.5" fill="none" stroke="url(#skinG)" stroke-width="3.1" stroke-linecap="round"/>
+    <path d="M23.5 132Q25.5 136 24.5 139" fill="none" stroke="url(#skinG)" stroke-width="2.7" stroke-linecap="round"/>
+  </g>
+  <g id="arm-r">
+    <path d="M64 80Q79 87 81 106Q82 119 77 128Q74 133 69 132Q65 133 63 129Q60 121 62 108Q59 96 61 88Q62 83 64 80Z" fill="url(#hoodieLight)" stroke="rgba(40,22,10,.4)" stroke-width=".6"/>
+    <path d="M79 106Q80 119 75 128Q72 132 69 132" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".4"/>
+    <path d="M77 90Q80 100 80 110" fill="none" stroke="rgba(255,220,190,.35)" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+    <path d="M63 124Q69 128 76 122" fill="none" stroke="url(#ribG)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M63 124Q69 128 76 122" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="7" stroke-linecap="round" stroke-dasharray="1.5 1.6"/>
+    <ellipse cx="71" cy="130" rx="6.5" ry="6" fill="url(#skinG)"/>
+    <path d="M66 132Q64.5 137 67 140" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M69.5 134Q68.5 140 71 142.5" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M73 135Q73 141.5 74 144" fill="none" stroke="url(#skinG)" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M76.3 134Q77.5 139.5 76.2 142" fill="none" stroke="url(#skinG)" stroke-width="3.1" stroke-linecap="round"/>
+    <path d="M78.5 130Q81 134 79.5 137" fill="none" stroke="url(#skinG)" stroke-width="2.7" stroke-linecap="round"/>
+  </g>
+  <path d="M25 84Q21 100 21 114Q21 127 24.5 135Q29.5 142 44 142Q58.5 142 63.5 135Q67 127 67 114Q67 100 63 84Q58 75 44 73Q30 75 25 84Z" fill="url(#hoodieG)"/>
+  <path d="M44 73Q30 75 25 84Q21 100 21 114Q21 127 24.5 135" fill="none" stroke="url(#hoodieLight)" stroke-width="2.5" opacity=".45"/>
+  <path d="M44 73Q58 75 63 84Q67 100 67 114Q67 127 63.5 135" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".5"/>
+  <path d="M31 86Q26 94 25.5 106" fill="none" stroke="rgba(255,225,195,.28)" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M25 84Q30 79 38 76Q44 74 50 76Q58 79 63 84Q65 90 65 96Q56 88 44 87Q32 88 23 96Q23 90 25 84Z" fill="url(#hoodieShade)"/>
+  <path d="M30 80Q37 76 44 75.5Q51 76 58 80Q60 83.5 60 87Q52.5 82 44 81.5Q35.5 82 28 87Q28 83.5 30 80Z" fill="#1c1108"/>
+  <ellipse cx="38.5" cy="83.5" rx="3.4" ry="2.6" fill="url(#hoodieG)" stroke="rgba(0,0,0,.3)" stroke-width=".4"/>
+  <ellipse cx="49.5" cy="83.5" rx="3.4" ry="2.6" fill="url(#hoodieG)" stroke="rgba(0,0,0,.3)" stroke-width=".4"/>
+  <path d="M40.5 85Q39 96 38 108Q37.3 116 38.5 121" fill="none" stroke="url(#ribG)" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M47.5 85Q49 96 50 108Q50.7 116 49.5 121" fill="none" stroke="url(#ribG)" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="38.2" cy="121.5" r="1.6" fill="#2a1a0d"/>
+  <circle cx="49.8" cy="121.5" r="1.6" fill="#2a1a0d"/>
+  <path d="M26 108Q30 116 44 117.5Q58 116 62 108Q63 118 61.5 126Q57 134 44 134.5Q31 134 26.5 126Q25 118 26 108Z" fill="url(#hoodieShade)" opacity=".9"/>
+  <path d="M26 108Q30 116 44 117.5Q58 116 62 108" fill="none" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
+  <path d="M27 111Q31 106 44 105Q57 106 61 111" fill="none" stroke="rgba(255,225,195,.16)" stroke-width="1.4"/>
+  <g id="leg-l">
+    <path d="M26 138Q23.5 153 24.5 165Q25.2 174 28.5 178.5Q33 181 37.5 178Q40 174 39.5 165Q39 150 37.5 138Z" fill="url(#pantsG)" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>
+    <path d="M28 141Q26 154 27 166" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M36.5 141Q38.5 154 38 166" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M25 170.5Q32 168 39 170.5" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1"/>
+    <path d="M24.5 174Q23.5 178 25.5 180" fill="none" stroke="#1a1c20" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M22.5 178Q21 187 23.5 190.5Q27 194 33 194Q39 194 41 190.5Q42.5 187 41.5 179Z" fill="url(#bootG)" stroke="rgba(0,0,0,.12)" stroke-width=".8"/>
+    <path d="M22.5 178Q31.5 174.5 41.5 179" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" opacity=".6"/>
+    <path d="M25 187Q32 184.5 40 187" fill="none" stroke="url(#soleG)" stroke-width="1.4" opacity=".65"/>
+    <ellipse cx="32" cy="193.5" rx="10" ry="2.6" fill="url(#soleG)"/>
+  </g>
+  <g id="leg-r">
+    <path d="M62 138Q64.5 153 63.5 165Q62.8 174 59.5 178.5Q55 181 50.5 178Q48 174 48.5 165Q49 150 50.5 138Z" fill="url(#pantsG)" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>
+    <path d="M60 141Q62 154 61 166" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M51.5 141Q49.5 154 50 166" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M49 170.5Q56 168 63 170.5" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1"/>
+    <path d="M63.5 174Q64.5 178 62.5 180" fill="none" stroke="#1a1c20" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M46.5 179Q45 187 46.5 190.5Q48.5 194 54.5 194Q60.5 194 64 190.5Q65.5 187 65.5 178Z" fill="url(#bootG)" stroke="rgba(0,0,0,.12)" stroke-width=".8"/>
+    <path d="M46.5 179Q55.5 174.5 65.5 178" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" opacity=".6"/>
+    <path d="M48 187Q56 184.5 63 187" fill="none" stroke="url(#soleG)" stroke-width="1.4" opacity=".65"/>
+    <ellipse cx="56" cy="193.5" rx="10" ry="2.6" fill="url(#soleG)"/>
+  </g>
+  <g id="head-g">
+    <path d="M37 58Q36 66 35.5 71.5L52.5 71.5Q52 66 51 58Z" fill="url(#skinG)"/>
+    <path d="M32 66Q44 71 56 66L56 71.5Q44 76 32 71.5Z" fill="url(#hoodieG)"/>
+    <path d="M32 66Q44 71 56 66" fill="none" stroke="url(#hoodieLight)" stroke-width="1.2" opacity=".5"/>
+    <ellipse cx="27" cy="39" rx="4.3" ry="5.3" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".5"/>
+    <ellipse cx="61" cy="39" rx="4.3" ry="5.3" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".5"/>
+    <path d="M29 23Q27.5 18 31 14Q37 8.5 44 8.5Q51 8.5 57 14Q60.5 18 59 23Q60.5 30 60 39Q59.5 51 56 58Q52 64.5 44 64.5Q36 64.5 32 58Q28.5 51 28 39Q27.5 30 29 23Z" fill="url(#skinG)" stroke="rgba(190,140,110,.16)" stroke-width=".6"/>
+    <path d="M31 46Q28.5 47.5 28 50.5" fill="none" stroke="rgba(200,140,100,.25)" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M57 46Q59.5 47.5 60 50.5" fill="none" stroke="rgba(200,140,100,.25)" stroke-width="1.1" stroke-linecap="round"/>
+    <ellipse cx="32.5" cy="46" rx="4.3" ry="3.4" fill="url(#cheekG)"/>
+    <ellipse cx="55.5" cy="46" rx="4.3" ry="3.4" fill="url(#cheekG)"/>
+    <path d="M28.5 21Q28 10.5 44 8.5Q60 10.5 59.5 21Q54.5 13.5 44 13Q33.5 13.5 28.5 21Z" fill="url(#hairG)"/>
+    <path d="M29.5 19Q35 12 44 11.5Q34.5 14 31 20" fill="none" stroke="rgba(255,220,180,.22)" stroke-width="1" stroke-linecap="round"/>
+    <path d="M28.5 21Q26.5 13 31 9Q30 15 30.5 21Z" fill="url(#hairG)"/>
+    <path d="M59.5 21Q61.5 13 57 9Q58 15 57.5 21Z" fill="url(#hairG)"/>
+    <path d="M28.5 21Q27.5 27 28 33" fill="none" stroke="url(#hairG)" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M59.5 21Q60.5 27 60 33" fill="none" stroke="url(#hairG)" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M31 25Q37 22 42 23.5" fill="none" stroke="#3a2313" stroke-width="1.9" stroke-linecap="round"/>
+    <path d="M46.5 23.5Q51.5 22 57 25" fill="none" stroke="#3a2313" stroke-width="1.9" stroke-linecap="round"/>
+    <path d="M31 34Q36 30 41.5 32Q41.5 38 36 40Q31 37 31 34Z" fill="rgba(255,255,255,.96)"/>
+    <ellipse cx="36" cy="35.2" rx="4" ry="4.3" fill="url(#eyeG)"/>
+    <ellipse cx="36" cy="35.7" rx="2.3" ry="2.5" fill="#1a0f08"/>
+    <circle cx="34.6" cy="33.8" r="1.5" fill="rgba(255,255,255,.9)"/>
+    <circle cx="37.3" cy="36.6" r=".6" fill="rgba(255,255,255,.4)"/>
+    <path d="M31 34Q36 30 41.5 32" fill="none" stroke="#241407" stroke-width="1.3"/>
+    <path d="M46.5 32Q52 30 57 34Q57 37 52 40Q46.5 38 46.5 35Z" fill="rgba(255,255,255,.96)"/>
+    <ellipse cx="52" cy="35.2" rx="4" ry="4.3" fill="url(#eyeG)"/>
+    <ellipse cx="52" cy="35.7" rx="2.3" ry="2.5" fill="#1a0f08"/>
+    <circle cx="50.6" cy="33.8" r="1.5" fill="rgba(255,255,255,.9)"/>
+    <circle cx="53.3" cy="36.6" r=".6" fill="rgba(255,255,255,.4)"/>
+    <path d="M46.5 32Q52 30 57 34" fill="none" stroke="#241407" stroke-width="1.3"/>
+    <path d="M43.5 42Q42.7 47 41.8 50Q43.5 51.6 44 51.6Q44.5 51.6 46.2 50Q45.3 47 44.5 42" fill="none" stroke="rgba(170,110,85,.3)" stroke-width=".9" stroke-linecap="round"/>
+    <path d="M38.5 55.5Q44 53.8 49.5 55.5Q46.5 58 44 57.6Q41.5 58 38.5 55.5Z" fill="#c87a63" opacity=".85"/>
+    <path d="M39.5 55.7Q44 57 48.5 55.7" fill="none" stroke="rgba(120,55,45,.3)" stroke-width=".6"/>
+    <path d="M29 58Q34 62 44 62.5Q54 62 59 58" fill="none" stroke="rgba(190,140,110,.22)" stroke-width=".9" stroke-linecap="round"/>
+  </g>
+</svg>
       <div id="crew-shadow"></div>
     </div>
   </div>
