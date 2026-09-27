@@ -19,6 +19,13 @@
   --wine: #7a2b3e;
   --floor-h: 24vh;
   --ceil-h: 18vh;
+
+  /* hoodie palette (default: brown) — swapped live by the closet swatches */
+  --hg1: #a8734a; --hg2: #7c4f2e; --hg3: #4e2f1a;
+  --hs1: #3a2211; --hs2: #5c3a1e;
+  --hl1: #c99368; --hl2: #8f5c36;
+  --hr1: #3a2313; --hr2: #2a1a0d;
+  --hdark: #1c1108;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{width:100%;height:100%;overflow:hidden;position:fixed;}
@@ -165,6 +172,48 @@ body{
 .door-threshold{width:calc(100% + 26px);height:3px;background:linear-gradient(90deg,transparent,rgba(var(--door-r),var(--door-g),var(--door-b),.12) 10%,rgba(240,201,110,.5) 50%,rgba(var(--door-r),var(--door-g),var(--door-b),.12) 90%,transparent);opacity:.25;transition:opacity .3s,box-shadow .3s;}
 .door-wrap.near .door-threshold{opacity:1;box-shadow:0 0 20px rgba(240,201,110,.3),0 -2px 30px rgba(var(--door-r),var(--door-g),var(--door-b),.2);}
 .door-numplate{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);background:rgba(10,6,3,.9);border:1px solid rgba(240,201,110,.25);border-radius:3px;padding:3px 8px;font-family:'Space Mono',monospace;font-size:7px;color:rgba(240,201,110,.5);letter-spacing:2px;white-space:nowrap;}
+
+/* ─── HOODIE CLOSET ─── */
+.closet-wrap{position:absolute;bottom:0;z-index:9;display:flex;flex-direction:column;align-items:center;}
+.closet-cabinet{
+  width:104px;padding:10px 9px 12px;border-radius:10px 10px 6px 6px;
+  background:linear-gradient(155deg,#20140a,#120a05);border:1px solid rgba(240,201,110,.24);
+  box-shadow:0 16px 40px rgba(0,0,0,.55),0 0 24px rgba(255,177,94,.06),inset 0 0 0 1px rgba(255,220,170,.04);
+}
+.closet-doors{position:relative;height:118px;border-radius:6px;overflow:hidden;background:linear-gradient(100deg,#2a1c10,#180f07 48%,#2a1c10 52%,#180f07);border:1px solid rgba(240,201,110,.14);}
+.closet-doors::before,.closet-doors::after{content:'';position:absolute;top:8px;bottom:8px;width:2px;background:rgba(240,201,110,.35);border-radius:2px;box-shadow:0 0 6px rgba(240,201,110,.3);}
+.closet-doors::before{left:calc(50% - 8px);}
+.closet-doors::after{left:calc(50% + 6px);}
+.closet-hanger{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;opacity:.75;filter:drop-shadow(0 0 8px rgba(0,0,0,.6));}
+.closet-label{margin-top:8px;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2.5px;color:rgba(240,201,110,.55);text-transform:uppercase;text-align:center;}
+.closet-swatches{margin-top:8px;display:flex;gap:7px;justify-content:center;}
+.closet-swatch{
+  width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.14);
+  background:var(--sw);cursor:pointer;padding:0;position:relative;
+  box-shadow:0 2px 6px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.08);
+  transition:transform .18s cubic-bezier(.22,1,.36,1),border-color .2s;
+}
+.closet-swatch:active{transform:scale(.88);}
+.closet-swatch.active{border-color:var(--gold);box-shadow:0 0 0 3px rgba(240,201,110,.22),0 2px 8px rgba(0,0,0,.5);}
+.closet-swatch.active::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(240,201,110,.4);animation:colPulse 2.4s ease-in-out infinite;}
+
+/* ─── SHIRT PREVIEW MODAL (reuses info-modal visual language) ─── */
+#shirt-modal{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-46%) scale(.92);z-index:201;
+  width:min(300px,84vw);background:rgba(14,9,4,.97);border:1px solid rgba(240,201,110,.3);border-radius:20px;
+  padding:20px;opacity:0;pointer-events:none;transition:opacity .3s,transform .35s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 30px 80px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);
+}
+#shirt-modal.on{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;}
+#sm-swatch{width:100%;height:200px;border-radius:12px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:inset 0 0 40px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;}
+#sm-swatch img{width:100%;height:100%;object-fit:cover;display:block;}
+#sm-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:0 16px;}
+#sm-placeholder .ph-icon{font-size:26px;opacity:.7;}
+#sm-placeholder .ph-text{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:1px;color:rgba(255,255,255,.55);line-height:1.6;}
+#sm-placeholder .ph-file{color:rgba(240,201,110,.75);}
+#sm-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,177,94,.65);margin-bottom:6px;}
+#sm-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:#fff;margin-bottom:10px;}
+#sm-close{width:100%;padding:10px;border-radius:100px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:rgba(255,255,255,.7);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
 
 /* ─── FLOOR ─── */
 #floor{height:calc(var(--floor-h) + var(--sab));flex-shrink:0;position:relative;overflow:hidden;padding-bottom:var(--sab);}
@@ -350,120 +399,120 @@ body{
     <div id="world"></div>
     <div id="player-wrap">
       <svg id="crew-svg" viewBox="0 0 88 192" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="skinG" cx="40%" cy="28%" r="72%"><stop offset="0%" stop-color="#ffe0c2"/><stop offset="55%" stop-color="#eab98e"/><stop offset="100%" stop-color="#c8946a"/></radialGradient>
-    <linearGradient id="hairG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#6b4226"/><stop offset="55%" stop-color="#4a2c15"/><stop offset="100%" stop-color="#301c0d"/></linearGradient>
-    <linearGradient id="hoodieG" x1="10%" y1="0%" x2="90%" y2="100%"><stop offset="0%" stop-color="#a8734a"/><stop offset="45%" stop-color="#7c4f2e"/><stop offset="100%" stop-color="#4e2f1a"/></linearGradient>
-    <linearGradient id="hoodieShade" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3a2211"/><stop offset="100%" stop-color="#5c3a1e"/></linearGradient>
-    <linearGradient id="hoodieLight" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c99368"/><stop offset="100%" stop-color="#8f5c36"/></linearGradient>
-    <linearGradient id="ribG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3a2313"/><stop offset="100%" stop-color="#2a1a0d"/></linearGradient>
-    <linearGradient id="pantsG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#3c4048"/><stop offset="100%" stop-color="#22252b"/></linearGradient>
-    <linearGradient id="bootG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f4ede2"/><stop offset="100%" stop-color="#d8c9b4"/></linearGradient>
-    <linearGradient id="soleG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6b4226"/><stop offset="100%" stop-color="#4a2c15"/></linearGradient>
-    <radialGradient id="eyeG" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#7a5636"/><stop offset="55%" stop-color="#4a3220"/><stop offset="100%" stop-color="#2a1c12"/></radialGradient>
-    <radialGradient id="cheekG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(230,120,100,.25)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-    <radialGradient id="bootGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(240,201,110,.4)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-  </defs>
-  <g id="arm-l">
-    <path d="M24 80Q9 87 7 106Q6 119 11 128Q14 133 19 132Q23 133 25 129Q28 121 26 108Q29 96 27 88Q26 83 24 80Z" fill="url(#hoodieG)" stroke="rgba(40,22,10,.4)" stroke-width=".6"/>
-    <path d="M9 106Q8 119 13 128Q16 132 19 132" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".55"/>
-    <path d="M11 90Q8 100 8 110" fill="none" stroke="rgba(255,220,190,.3)" stroke-width="2" stroke-linecap="round" opacity=".5"/>
-    <path d="M12 122Q19 128 25 124" fill="none" stroke="url(#ribG)" stroke-width="7" stroke-linecap="round"/>
-    <path d="M12 122Q19 128 25 124" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="7" stroke-linecap="round" stroke-dasharray="1.5 1.6"/>
-    <ellipse cx="17" cy="133" rx="6.5" ry="6" fill="url(#skinG)"/>
-    <path d="M12.5 133Q11 138 13.5 141" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M15.5 135.5Q14.5 141.5 16.5 144" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M18.5 136.5Q18.2 143 19.5 145.5" fill="none" stroke="url(#skinG)" stroke-width="3.4" stroke-linecap="round"/>
-    <path d="M21.5 135.5Q22 141 21 143.5" fill="none" stroke="url(#skinG)" stroke-width="3.1" stroke-linecap="round"/>
-    <path d="M23.5 132Q25.5 136 24.5 139" fill="none" stroke="url(#skinG)" stroke-width="2.7" stroke-linecap="round"/>
-  </g>
-  <g id="arm-r">
-    <path d="M64 80Q79 87 81 106Q82 119 77 128Q74 133 69 132Q65 133 63 129Q60 121 62 108Q59 96 61 88Q62 83 64 80Z" fill="url(#hoodieLight)" stroke="rgba(40,22,10,.4)" stroke-width=".6"/>
-    <path d="M79 106Q80 119 75 128Q72 132 69 132" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".4"/>
-    <path d="M77 90Q80 100 80 110" fill="none" stroke="rgba(255,220,190,.35)" stroke-width="2" stroke-linecap="round" opacity=".5"/>
-    <path d="M63 124Q69 128 76 122" fill="none" stroke="url(#ribG)" stroke-width="7" stroke-linecap="round"/>
-    <path d="M63 124Q69 128 76 122" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="7" stroke-linecap="round" stroke-dasharray="1.5 1.6"/>
-    <ellipse cx="71" cy="130" rx="6.5" ry="6" fill="url(#skinG)"/>
-    <path d="M66 132Q64.5 137 67 140" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M69.5 134Q68.5 140 71 142.5" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M73 135Q73 141.5 74 144" fill="none" stroke="url(#skinG)" stroke-width="3.4" stroke-linecap="round"/>
-    <path d="M76.3 134Q77.5 139.5 76.2 142" fill="none" stroke="url(#skinG)" stroke-width="3.1" stroke-linecap="round"/>
-    <path d="M78.5 130Q81 134 79.5 137" fill="none" stroke="url(#skinG)" stroke-width="2.7" stroke-linecap="round"/>
-  </g>
-  <path d="M25 84Q21 100 21 114Q21 127 24.5 135Q29.5 142 44 142Q58.5 142 63.5 135Q67 127 67 114Q67 100 63 84Q58 75 44 73Q30 75 25 84Z" fill="url(#hoodieG)"/>
-  <path d="M44 73Q30 75 25 84Q21 100 21 114Q21 127 24.5 135" fill="none" stroke="url(#hoodieLight)" stroke-width="2.5" opacity=".45"/>
-  <path d="M44 73Q58 75 63 84Q67 100 67 114Q67 127 63.5 135" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".5"/>
-  <path d="M31 86Q26 94 25.5 106" fill="none" stroke="rgba(255,225,195,.28)" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M25 84Q30 79 38 76Q44 74 50 76Q58 79 63 84Q65 90 65 96Q56 88 44 87Q32 88 23 96Q23 90 25 84Z" fill="url(#hoodieShade)"/>
-  <path d="M30 80Q37 76 44 75.5Q51 76 58 80Q60 83.5 60 87Q52.5 82 44 81.5Q35.5 82 28 87Q28 83.5 30 80Z" fill="#1c1108"/>
-  <ellipse cx="38.5" cy="83.5" rx="3.4" ry="2.6" fill="url(#hoodieG)" stroke="rgba(0,0,0,.3)" stroke-width=".4"/>
-  <ellipse cx="49.5" cy="83.5" rx="3.4" ry="2.6" fill="url(#hoodieG)" stroke="rgba(0,0,0,.3)" stroke-width=".4"/>
-  <path d="M40.5 85Q39 96 38 108Q37.3 116 38.5 121" fill="none" stroke="url(#ribG)" stroke-width="2.6" stroke-linecap="round"/>
-  <path d="M47.5 85Q49 96 50 108Q50.7 116 49.5 121" fill="none" stroke="url(#ribG)" stroke-width="2.6" stroke-linecap="round"/>
-  <circle cx="38.2" cy="121.5" r="1.6" fill="#2a1a0d"/>
-  <circle cx="49.8" cy="121.5" r="1.6" fill="#2a1a0d"/>
-  <path d="M26 108Q30 116 44 117.5Q58 116 62 108Q63 118 61.5 126Q57 134 44 134.5Q31 134 26.5 126Q25 118 26 108Z" fill="url(#hoodieShade)" opacity=".9"/>
-  <path d="M26 108Q30 116 44 117.5Q58 116 62 108" fill="none" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
-  <path d="M27 111Q31 106 44 105Q57 106 61 111" fill="none" stroke="rgba(255,225,195,.16)" stroke-width="1.4"/>
-  <g id="leg-l">
-    <path d="M26 138Q23.5 153 24.5 165Q25.2 174 28.5 178.5Q33 181 37.5 178Q40 174 39.5 165Q39 150 37.5 138Z" fill="url(#pantsG)" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>
-    <path d="M28 141Q26 154 27 166" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M36.5 141Q38.5 154 38 166" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M25 170.5Q32 168 39 170.5" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1"/>
-    <path d="M24.5 174Q23.5 178 25.5 180" fill="none" stroke="#1a1c20" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M22.5 178Q21 187 23.5 190.5Q27 194 33 194Q39 194 41 190.5Q42.5 187 41.5 179Z" fill="url(#bootG)" stroke="rgba(0,0,0,.12)" stroke-width=".8"/>
-    <path d="M22.5 178Q31.5 174.5 41.5 179" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" opacity=".6"/>
-    <path d="M25 187Q32 184.5 40 187" fill="none" stroke="url(#soleG)" stroke-width="1.4" opacity=".65"/>
-    <ellipse cx="32" cy="193.5" rx="10" ry="2.6" fill="url(#soleG)"/>
-  </g>
-  <g id="leg-r">
-    <path d="M62 138Q64.5 153 63.5 165Q62.8 174 59.5 178.5Q55 181 50.5 178Q48 174 48.5 165Q49 150 50.5 138Z" fill="url(#pantsG)" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>
-    <path d="M60 141Q62 154 61 166" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M51.5 141Q49.5 154 50 166" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M49 170.5Q56 168 63 170.5" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1"/>
-    <path d="M63.5 174Q64.5 178 62.5 180" fill="none" stroke="#1a1c20" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M46.5 179Q45 187 46.5 190.5Q48.5 194 54.5 194Q60.5 194 64 190.5Q65.5 187 65.5 178Z" fill="url(#bootG)" stroke="rgba(0,0,0,.12)" stroke-width=".8"/>
-    <path d="M46.5 179Q55.5 174.5 65.5 178" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" opacity=".6"/>
-    <path d="M48 187Q56 184.5 63 187" fill="none" stroke="url(#soleG)" stroke-width="1.4" opacity=".65"/>
-    <ellipse cx="56" cy="193.5" rx="10" ry="2.6" fill="url(#soleG)"/>
-  </g>
-  <g id="head-g">
-    <path d="M37 58Q36 66 35.5 71.5L52.5 71.5Q52 66 51 58Z" fill="url(#skinG)"/>
-    <path d="M32 66Q44 71 56 66L56 71.5Q44 76 32 71.5Z" fill="url(#hoodieG)"/>
-    <path d="M32 66Q44 71 56 66" fill="none" stroke="url(#hoodieLight)" stroke-width="1.2" opacity=".5"/>
-    <ellipse cx="27" cy="39" rx="4.3" ry="5.3" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".5"/>
-    <ellipse cx="61" cy="39" rx="4.3" ry="5.3" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".5"/>
-    <path d="M29 23Q27.5 18 31 14Q37 8.5 44 8.5Q51 8.5 57 14Q60.5 18 59 23Q60.5 30 60 39Q59.5 51 56 58Q52 64.5 44 64.5Q36 64.5 32 58Q28.5 51 28 39Q27.5 30 29 23Z" fill="url(#skinG)" stroke="rgba(190,140,110,.16)" stroke-width=".6"/>
-    <path d="M31 46Q28.5 47.5 28 50.5" fill="none" stroke="rgba(200,140,100,.25)" stroke-width="1.1" stroke-linecap="round"/>
-    <path d="M57 46Q59.5 47.5 60 50.5" fill="none" stroke="rgba(200,140,100,.25)" stroke-width="1.1" stroke-linecap="round"/>
-    <ellipse cx="32.5" cy="46" rx="4.3" ry="3.4" fill="url(#cheekG)"/>
-    <ellipse cx="55.5" cy="46" rx="4.3" ry="3.4" fill="url(#cheekG)"/>
-    <path d="M28.5 21Q28 10.5 44 8.5Q60 10.5 59.5 21Q54.5 13.5 44 13Q33.5 13.5 28.5 21Z" fill="url(#hairG)"/>
-    <path d="M29.5 19Q35 12 44 11.5Q34.5 14 31 20" fill="none" stroke="rgba(255,220,180,.22)" stroke-width="1" stroke-linecap="round"/>
-    <path d="M28.5 21Q26.5 13 31 9Q30 15 30.5 21Z" fill="url(#hairG)"/>
-    <path d="M59.5 21Q61.5 13 57 9Q58 15 57.5 21Z" fill="url(#hairG)"/>
-    <path d="M28.5 21Q27.5 27 28 33" fill="none" stroke="url(#hairG)" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M59.5 21Q60.5 27 60 33" fill="none" stroke="url(#hairG)" stroke-width="3.4" stroke-linecap="round"/>
-    <path d="M31 25Q37 22 42 23.5" fill="none" stroke="#3a2313" stroke-width="1.9" stroke-linecap="round"/>
-    <path d="M46.5 23.5Q51.5 22 57 25" fill="none" stroke="#3a2313" stroke-width="1.9" stroke-linecap="round"/>
-    <path d="M31 34Q36 30 41.5 32Q41.5 38 36 40Q31 37 31 34Z" fill="rgba(255,255,255,.96)"/>
-    <ellipse cx="36" cy="35.2" rx="4" ry="4.3" fill="url(#eyeG)"/>
-    <ellipse cx="36" cy="35.7" rx="2.3" ry="2.5" fill="#1a0f08"/>
-    <circle cx="34.6" cy="33.8" r="1.5" fill="rgba(255,255,255,.9)"/>
-    <circle cx="37.3" cy="36.6" r=".6" fill="rgba(255,255,255,.4)"/>
-    <path d="M31 34Q36 30 41.5 32" fill="none" stroke="#241407" stroke-width="1.3"/>
-    <path d="M46.5 32Q52 30 57 34Q57 37 52 40Q46.5 38 46.5 35Z" fill="rgba(255,255,255,.96)"/>
-    <ellipse cx="52" cy="35.2" rx="4" ry="4.3" fill="url(#eyeG)"/>
-    <ellipse cx="52" cy="35.7" rx="2.3" ry="2.5" fill="#1a0f08"/>
-    <circle cx="50.6" cy="33.8" r="1.5" fill="rgba(255,255,255,.9)"/>
-    <circle cx="53.3" cy="36.6" r=".6" fill="rgba(255,255,255,.4)"/>
-    <path d="M46.5 32Q52 30 57 34" fill="none" stroke="#241407" stroke-width="1.3"/>
-    <path d="M43.5 42Q42.7 47 41.8 50Q43.5 51.6 44 51.6Q44.5 51.6 46.2 50Q45.3 47 44.5 42" fill="none" stroke="rgba(170,110,85,.3)" stroke-width=".9" stroke-linecap="round"/>
-    <path d="M38.5 55.5Q44 53.8 49.5 55.5Q46.5 58 44 57.6Q41.5 58 38.5 55.5Z" fill="#c87a63" opacity=".85"/>
-    <path d="M39.5 55.7Q44 57 48.5 55.7" fill="none" stroke="rgba(120,55,45,.3)" stroke-width=".6"/>
-    <path d="M29 58Q34 62 44 62.5Q54 62 59 58" fill="none" stroke="rgba(190,140,110,.22)" stroke-width=".9" stroke-linecap="round"/>
-  </g>
-</svg>
+        <defs>
+          <radialGradient id="skinG" cx="40%" cy="28%" r="72%"><stop offset="0%" stop-color="#ffe0c2"/><stop offset="55%" stop-color="#eab98e"/><stop offset="100%" stop-color="#c8946a"/></radialGradient>
+          <linearGradient id="hairG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#6b4226"/><stop offset="55%" stop-color="#4a2c15"/><stop offset="100%" stop-color="#301c0d"/></linearGradient>
+          <linearGradient id="hoodieG" x1="10%" y1="0%" x2="90%" y2="100%"><stop offset="0%" style="stop-color:var(--hg1)"/><stop offset="45%" style="stop-color:var(--hg2)"/><stop offset="100%" style="stop-color:var(--hg3)"/></linearGradient>
+          <linearGradient id="hoodieShade" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--hs1)"/><stop offset="100%" style="stop-color:var(--hs2)"/></linearGradient>
+          <linearGradient id="hoodieLight" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--hl1)"/><stop offset="100%" style="stop-color:var(--hl2)"/></linearGradient>
+          <linearGradient id="ribG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--hr1)"/><stop offset="100%" style="stop-color:var(--hr2)"/></linearGradient>
+          <linearGradient id="pantsG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#3c4048"/><stop offset="100%" stop-color="#22252b"/></linearGradient>
+          <linearGradient id="bootG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f4ede2"/><stop offset="100%" stop-color="#d8c9b4"/></linearGradient>
+          <linearGradient id="soleG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6b4226"/><stop offset="100%" stop-color="#4a2c15"/></linearGradient>
+          <radialGradient id="eyeG" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#7a5636"/><stop offset="55%" stop-color="#4a3220"/><stop offset="100%" stop-color="#2a1c12"/></radialGradient>
+          <radialGradient id="cheekG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(230,120,100,.25)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+          <radialGradient id="bootGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(240,201,110,.4)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        </defs>
+        <g id="arm-l">
+          <path d="M24 80Q9 87 7 106Q6 119 11 128Q14 133 19 132Q23 133 25 129Q28 121 26 108Q29 96 27 88Q26 83 24 80Z" fill="url(#hoodieG)" stroke="rgba(40,22,10,.4)" stroke-width=".6"/>
+          <path d="M9 106Q8 119 13 128Q16 132 19 132" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".55"/>
+          <path d="M11 90Q8 100 8 110" fill="none" stroke="rgba(255,220,190,.3)" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+          <path d="M12 122Q19 128 25 124" fill="none" stroke="url(#ribG)" stroke-width="7" stroke-linecap="round"/>
+          <path d="M12 122Q19 128 25 124" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="7" stroke-linecap="round" stroke-dasharray="1.5 1.6"/>
+          <ellipse cx="17" cy="133" rx="6.5" ry="6" fill="url(#skinG)"/>
+          <path d="M12.5 133Q11 138 13.5 141" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+          <path d="M15.5 135.5Q14.5 141.5 16.5 144" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+          <path d="M18.5 136.5Q18.2 143 19.5 145.5" fill="none" stroke="url(#skinG)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M21.5 135.5Q22 141 21 143.5" fill="none" stroke="url(#skinG)" stroke-width="3.1" stroke-linecap="round"/>
+          <path d="M23.5 132Q25.5 136 24.5 139" fill="none" stroke="url(#skinG)" stroke-width="2.7" stroke-linecap="round"/>
+        </g>
+        <g id="arm-r">
+          <path d="M64 80Q79 87 81 106Q82 119 77 128Q74 133 69 132Q65 133 63 129Q60 121 62 108Q59 96 61 88Q62 83 64 80Z" fill="url(#hoodieLight)" stroke="rgba(40,22,10,.4)" stroke-width=".6"/>
+          <path d="M79 106Q80 119 75 128Q72 132 69 132" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".4"/>
+          <path d="M77 90Q80 100 80 110" fill="none" stroke="rgba(255,220,190,.35)" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+          <path d="M63 124Q69 128 76 122" fill="none" stroke="url(#ribG)" stroke-width="7" stroke-linecap="round"/>
+          <path d="M63 124Q69 128 76 122" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="7" stroke-linecap="round" stroke-dasharray="1.5 1.6"/>
+          <ellipse cx="71" cy="130" rx="6.5" ry="6" fill="url(#skinG)"/>
+          <path d="M66 132Q64.5 137 67 140" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+          <path d="M69.5 134Q68.5 140 71 142.5" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+          <path d="M73 135Q73 141.5 74 144" fill="none" stroke="url(#skinG)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M76.3 134Q77.5 139.5 76.2 142" fill="none" stroke="url(#skinG)" stroke-width="3.1" stroke-linecap="round"/>
+          <path d="M78.5 130Q81 134 79.5 137" fill="none" stroke="url(#skinG)" stroke-width="2.7" stroke-linecap="round"/>
+        </g>
+        <path d="M25 84Q21 100 21 114Q21 127 24.5 135Q29.5 142 44 142Q58.5 142 63.5 135Q67 127 67 114Q67 100 63 84Q58 75 44 73Q30 75 25 84Z" fill="url(#hoodieG)"/>
+        <path d="M44 73Q30 75 25 84Q21 100 21 114Q21 127 24.5 135" fill="none" stroke="url(#hoodieLight)" stroke-width="2.5" opacity=".45"/>
+        <path d="M44 73Q58 75 63 84Q67 100 67 114Q67 127 63.5 135" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".5"/>
+        <path d="M31 86Q26 94 25.5 106" fill="none" stroke="rgba(255,225,195,.28)" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M25 84Q30 79 38 76Q44 74 50 76Q58 79 63 84Q65 90 65 96Q56 88 44 87Q32 88 23 96Q23 90 25 84Z" fill="url(#hoodieShade)"/>
+        <path d="M30 80Q37 76 44 75.5Q51 76 58 80Q60 83.5 60 87Q52.5 82 44 81.5Q35.5 82 28 87Q28 83.5 30 80Z" fill="var(--hdark)"/>
+        <ellipse cx="38.5" cy="83.5" rx="3.4" ry="2.6" fill="url(#hoodieG)" stroke="rgba(0,0,0,.3)" stroke-width=".4"/>
+        <ellipse cx="49.5" cy="83.5" rx="3.4" ry="2.6" fill="url(#hoodieG)" stroke="rgba(0,0,0,.3)" stroke-width=".4"/>
+        <path d="M40.5 85Q39 96 38 108Q37.3 116 38.5 121" fill="none" stroke="url(#ribG)" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M47.5 85Q49 96 50 108Q50.7 116 49.5 121" fill="none" stroke="url(#ribG)" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="38.2" cy="121.5" r="1.6" fill="var(--hr2)"/>
+        <circle cx="49.8" cy="121.5" r="1.6" fill="var(--hr2)"/>
+        <path d="M26 108Q30 116 44 117.5Q58 116 62 108Q63 118 61.5 126Q57 134 44 134.5Q31 134 26.5 126Q25 118 26 108Z" fill="url(#hoodieShade)" opacity=".9"/>
+        <path d="M26 108Q30 116 44 117.5Q58 116 62 108" fill="none" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
+        <path d="M27 111Q31 106 44 105Q57 106 61 111" fill="none" stroke="rgba(255,225,195,.16)" stroke-width="1.4"/>
+        <g id="leg-l">
+          <path d="M26 138Q23.5 153 24.5 165Q25.2 174 28.5 178.5Q33 181 37.5 178Q40 174 39.5 165Q39 150 37.5 138Z" fill="url(#pantsG)" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>
+          <path d="M28 141Q26 154 27 166" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M36.5 141Q38.5 154 38 166" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M25 170.5Q32 168 39 170.5" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1"/>
+          <path d="M24.5 174Q23.5 178 25.5 180" fill="none" stroke="#1a1c20" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M22.5 178Q21 187 23.5 190.5Q27 194 33 194Q39 194 41 190.5Q42.5 187 41.5 179Z" fill="url(#bootG)" stroke="rgba(0,0,0,.12)" stroke-width=".8"/>
+          <path d="M22.5 178Q31.5 174.5 41.5 179" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" opacity=".6"/>
+          <path d="M25 187Q32 184.5 40 187" fill="none" stroke="url(#soleG)" stroke-width="1.4" opacity=".65"/>
+          <ellipse cx="32" cy="193.5" rx="10" ry="2.6" fill="url(#soleG)"/>
+        </g>
+        <g id="leg-r">
+          <path d="M62 138Q64.5 153 63.5 165Q62.8 174 59.5 178.5Q55 181 50.5 178Q48 174 48.5 165Q49 150 50.5 138Z" fill="url(#pantsG)" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>
+          <path d="M60 141Q62 154 61 166" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M51.5 141Q49.5 154 50 166" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M49 170.5Q56 168 63 170.5" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1"/>
+          <path d="M63.5 174Q64.5 178 62.5 180" fill="none" stroke="#1a1c20" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M46.5 179Q45 187 46.5 190.5Q48.5 194 54.5 194Q60.5 194 64 190.5Q65.5 187 65.5 178Z" fill="url(#bootG)" stroke="rgba(0,0,0,.12)" stroke-width=".8"/>
+          <path d="M46.5 179Q55.5 174.5 65.5 178" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" opacity=".6"/>
+          <path d="M48 187Q56 184.5 63 187" fill="none" stroke="url(#soleG)" stroke-width="1.4" opacity=".65"/>
+          <ellipse cx="56" cy="193.5" rx="10" ry="2.6" fill="url(#soleG)"/>
+        </g>
+        <g id="head-g">
+          <path d="M37 58Q36 66 35.5 71.5L52.5 71.5Q52 66 51 58Z" fill="url(#skinG)"/>
+          <path d="M32 66Q44 71 56 66L56 71.5Q44 76 32 71.5Z" fill="url(#hoodieG)"/>
+          <path d="M32 66Q44 71 56 66" fill="none" stroke="url(#hoodieLight)" stroke-width="1.2" opacity=".5"/>
+          <ellipse cx="27" cy="39" rx="4.3" ry="5.3" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".5"/>
+          <ellipse cx="61" cy="39" rx="4.3" ry="5.3" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".5"/>
+          <path d="M29 23Q27.5 18 31 14Q37 8.5 44 8.5Q51 8.5 57 14Q60.5 18 59 23Q60.5 30 60 39Q59.5 51 56 58Q52 64.5 44 64.5Q36 64.5 32 58Q28.5 51 28 39Q27.5 30 29 23Z" fill="url(#skinG)" stroke="rgba(190,140,110,.16)" stroke-width=".6"/>
+          <path d="M31 46Q28.5 47.5 28 50.5" fill="none" stroke="rgba(200,140,100,.25)" stroke-width="1.1" stroke-linecap="round"/>
+          <path d="M57 46Q59.5 47.5 60 50.5" fill="none" stroke="rgba(200,140,100,.25)" stroke-width="1.1" stroke-linecap="round"/>
+          <ellipse cx="32.5" cy="46" rx="4.3" ry="3.4" fill="url(#cheekG)"/>
+          <ellipse cx="55.5" cy="46" rx="4.3" ry="3.4" fill="url(#cheekG)"/>
+          <path d="M28.5 21Q28 10.5 44 8.5Q60 10.5 59.5 21Q54.5 13.5 44 13Q33.5 13.5 28.5 21Z" fill="url(#hairG)"/>
+          <path d="M29.5 19Q35 12 44 11.5Q34.5 14 31 20" fill="none" stroke="rgba(255,220,180,.22)" stroke-width="1" stroke-linecap="round"/>
+          <path d="M28.5 21Q26.5 13 31 9Q30 15 30.5 21Z" fill="url(#hairG)"/>
+          <path d="M59.5 21Q61.5 13 57 9Q58 15 57.5 21Z" fill="url(#hairG)"/>
+          <path d="M28.5 21Q27.5 27 28 33" fill="none" stroke="url(#hairG)" stroke-width="3.6" stroke-linecap="round"/>
+          <path d="M59.5 21Q60.5 27 60 33" fill="none" stroke="url(#hairG)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M31 25Q37 22 42 23.5" fill="none" stroke="#3a2313" stroke-width="1.9" stroke-linecap="round"/>
+          <path d="M46.5 23.5Q51.5 22 57 25" fill="none" stroke="#3a2313" stroke-width="1.9" stroke-linecap="round"/>
+          <path d="M31 34Q36 30 41.5 32Q41.5 38 36 40Q31 37 31 34Z" fill="rgba(255,255,255,.96)"/>
+          <ellipse cx="36" cy="35.2" rx="4" ry="4.3" fill="url(#eyeG)"/>
+          <ellipse cx="36" cy="35.7" rx="2.3" ry="2.5" fill="#1a0f08"/>
+          <circle cx="34.6" cy="33.8" r="1.5" fill="rgba(255,255,255,.9)"/>
+          <circle cx="37.3" cy="36.6" r=".6" fill="rgba(255,255,255,.4)"/>
+          <path d="M31 34Q36 30 41.5 32" fill="none" stroke="#241407" stroke-width="1.3"/>
+          <path d="M46.5 32Q52 30 57 34Q57 37 52 40Q46.5 38 46.5 35Z" fill="rgba(255,255,255,.96)"/>
+          <ellipse cx="52" cy="35.2" rx="4" ry="4.3" fill="url(#eyeG)"/>
+          <ellipse cx="52" cy="35.7" rx="2.3" ry="2.5" fill="#1a0f08"/>
+          <circle cx="50.6" cy="33.8" r="1.5" fill="rgba(255,255,255,.9)"/>
+          <circle cx="53.3" cy="36.6" r=".6" fill="rgba(255,255,255,.4)"/>
+          <path d="M46.5 32Q52 30 57 34" fill="none" stroke="#241407" stroke-width="1.3"/>
+          <path d="M43.5 42Q42.7 47 41.8 50Q43.5 51.6 44 51.6Q44.5 51.6 46.2 50Q45.3 47 44.5 42" fill="none" stroke="rgba(170,110,85,.3)" stroke-width=".9" stroke-linecap="round"/>
+          <path d="M38.5 55.5Q44 53.8 49.5 55.5Q46.5 58 44 57.6Q41.5 58 38.5 55.5Z" fill="#c87a63" opacity=".85"/>
+          <path d="M39.5 55.7Q44 57 48.5 55.7" fill="none" stroke="rgba(120,55,45,.3)" stroke-width=".6"/>
+          <path d="M29 58Q34 62 44 62.5Q54 62 59 58" fill="none" stroke="rgba(190,140,110,.22)" stroke-width=".9" stroke-linecap="round"/>
+        </g>
+      </svg>
       <div id="crew-shadow"></div>
     </div>
   </div>
@@ -513,6 +562,19 @@ body{
   <button id="im-close">Close</button>
 </div>
 
+<div id="shirt-modal">
+  <div id="sm-tag">Hoodie Rack</div>
+  <div id="sm-title"></div>
+  <div id="sm-swatch">
+    <img id="sm-img" alt="Hoodie preview" style="display:none;">
+    <div id="sm-placeholder">
+      <div class="ph-icon">🧥</div>
+      <div class="ph-text">Drop your product photo in as<br><span class="ph-file" id="sm-filename"></span><br>to preview it here.</div>
+    </div>
+  </div>
+  <button id="sm-close">Close</button>
+</div>
+
 <script>
 'use strict';
 
@@ -524,6 +586,19 @@ const DOORS = [
 
 const COL_POSITIONS = [];
 for (let x = 500; x < WORLD_W; x += 560) COL_POSITIONS.push(x);
+
+/* ── HOODIE CLOSET ── */
+const CLOSET_WX = 380;
+const HOODIE_LABEL = {brown:'Brown', green:'Green', pink:'Pink', black:'Black'};
+const HOODIE_PALETTES = {
+  brown: {hg1:'#a8734a',hg2:'#7c4f2e',hg3:'#4e2f1a',hs1:'#3a2211',hs2:'#5c3a1e',hl1:'#c99368',hl2:'#8f5c36',hr1:'#3a2313',hr2:'#2a1a0d',hdark:'#1c1108'},
+  green: {hg1:'#6b8f52',hg2:'#4a6b38',hg3:'#2c4020',hs1:'#1c2a14',hs2:'#3a5228',hl1:'#8fb56a',hl2:'#5a7a42',hr1:'#233a18',hr2:'#182810',hdark:'#0f1a0a'},
+  pink:  {hg1:'#e08aa0',hg2:'#c96380',hg3:'#8a3a52',hs1:'#5c1f30',hs2:'#7a3345',hl1:'#f0a8ba',hl2:'#b06078',hr1:'#5c2333',hr2:'#3a1520',hdark:'#2a0f18'},
+  black: {hg1:'#4a4a52',hg2:'#2c2c33',hg3:'#131316',hs1:'#0a0a0c',hs2:'#1e1e22',hl1:'#6a6a74',hl2:'#38383f',hr1:'#1a1a1e',hr2:'#0d0d0f',hdark:'#050506'},
+};
+const HOODIE_SWATCH_HEX = {brown:'#7c4f2e', green:'#4a6b38', pink:'#c96380', black:'#2c2c33'};
+const HOODIE_IMG = {brown:'hoodie-brown.png', green:'hoodie-green.png', pink:'hoodie-pink.png', black:'hoodie-black.png'};
+let currentHoodieColor = 'brown';
 
 const IMG_SRC = {
     ART_IMG_1: 'art1.png',
@@ -568,6 +643,7 @@ function buildStars() {
 let playerWx = 320, playerTgWx = 320;
 let facing = 1, moving = false, warping = false, sprinting = false, sprintTimer = null;
 let camX = 0, camXVel = 0, lastTime = 0, stepAcc = 0;
+let lastMoveTapTime = 0;
 let nearDoor = null;
 const worldEl = document.getElementById('world');
 const wallsEl = document.getElementById('walls');
@@ -716,6 +792,58 @@ function buildDoor(d, wallH) {
   return el;
 }
 
+/* ── BUILD CLOSET ── */
+function buildCloset() {
+  const el = document.createElement('div');
+  el.className = 'closet-wrap';
+  el.id = 'closet';
+  el.style.cssText = `left:${CLOSET_WX}px;transform:translateX(-50%);`;
+  const swatches = Object.keys(HOODIE_PALETTES).map(color => `
+    <button class="closet-swatch${color === currentHoodieColor ? ' active' : ''}" data-color="${color}" style="--sw:${HOODIE_SWATCH_HEX[color]}" aria-label="${HOODIE_LABEL[color]} hoodie"></button>
+  `).join('');
+  el.innerHTML = `
+    <div class="closet-cabinet">
+      <div class="closet-doors"></div>
+      <div class="closet-label">Hoodie Rack</div>
+      <div class="closet-swatches">${swatches}</div>
+    </div>
+  `;
+  return el;
+}
+
+/* ── HOODIE COLOR ── */
+function applyHoodieColor(color) {
+  const palette = HOODIE_PALETTES[color];
+  if (!palette) return;
+  currentHoodieColor = color;
+  const root = document.documentElement.style;
+  Object.entries(palette).forEach(([k, v]) => root.setProperty('--' + k, v));
+  document.querySelectorAll('.closet-swatch').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.color === color);
+  });
+}
+
+function openShirtModal(color) {
+  applyHoodieColor(color);
+  document.getElementById('sm-title').textContent = HOODIE_LABEL[color] + ' Hoodie';
+  document.getElementById('sm-filename').textContent = HOODIE_IMG[color];
+  const img = document.getElementById('sm-img');
+  const placeholder = document.getElementById('sm-placeholder');
+  img.style.display = 'none';
+  placeholder.style.display = 'flex';
+  img.onload = () => { img.style.display = 'block'; placeholder.style.display = 'none'; };
+  img.onerror = () => { img.style.display = 'none'; placeholder.style.display = 'flex'; };
+  img.src = HOODIE_IMG[color];
+  document.getElementById('info-backdrop').classList.add('on');
+  document.getElementById('shirt-modal').classList.add('on');
+  Sound.blip();
+}
+function closeShirtModal() {
+  document.getElementById('info-backdrop').classList.remove('on');
+  document.getElementById('shirt-modal').classList.remove('on');
+}
+document.getElementById('sm-close').addEventListener('click', closeShirtModal);
+
 /* ── BUILD WORLD ── */
 function buildWorld() {
   worldEl.innerHTML = '';
@@ -732,6 +860,7 @@ function buildWorld() {
 
   ARTWORKS.forEach((a, i) => worldEl.appendChild(buildFrame(a, i, wH)));
   DOORS.forEach(d => worldEl.appendChild(buildDoor(d, wH)));
+  worldEl.appendChild(buildCloset());
 
   buildNavStrip();
 }
@@ -867,7 +996,10 @@ function closeInfo() {
   document.getElementById('info-backdrop').classList.remove('on');
   document.getElementById('info-modal').classList.remove('on');
 }
-document.getElementById('info-backdrop').addEventListener('click', closeInfo);
+document.getElementById('info-backdrop').addEventListener('click', () => {
+  closeInfo();
+  closeShirtModal();
+});
 document.getElementById('im-close').addEventListener('click', closeInfo);
 
 /* ── GREET ── */
@@ -934,7 +1066,22 @@ function handleTap(cx, cy) {
     return;
   }
 
+  const shirtModal = document.getElementById('shirt-modal');
+  if (shirtModal.classList.contains('on')) {
+    if (targetEl && (targetEl.closest('#sm-close') || targetEl.closest('#info-backdrop'))) {
+      closeShirtModal();
+    }
+    return;
+  }
+
   if (targetEl && targetEl.closest('#sound-toggle')) return;
+
+  const swatchEl = targetEl && targetEl.closest('.closet-swatch');
+  if (swatchEl) {
+    openShirtModal(swatchEl.dataset.color);
+    spawnRipple(cx, cy);
+    return;
+  }
 
   const frameEl = targetEl && targetEl.closest('.art-frame');
   if (frameEl) {
