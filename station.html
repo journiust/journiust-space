@@ -39,6 +39,13 @@
   /* Typography */
   --font-ui:'Syne',sans-serif;
   --font-mono:'JetBrains Mono',monospace;
+
+  /* hoodie palette (brown) — from the boy in code 1 */
+  --hg1:#a8734a; --hg2:#7c4f2e; --hg3:#4e2f1a;
+  --hs1:#3a2211; --hs2:#5c3a1e;
+  --hl1:#c99368; --hl2:#8f5c36;
+  --hr1:#3a2313; --hr2:#2a1a0d;
+  --hdark:#1c1108;
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -122,7 +129,6 @@ body{
   );
 }
 
-/* Perspective vanishing grid */
 #ceil-grid{
   position:absolute;inset:0;overflow:hidden;
   opacity:.6;
@@ -131,7 +137,6 @@ body{
   position:absolute;bottom:0;left:0;width:100%;height:100%;
 }
 
-/* Ceiling bottom hero bar */
 #ceil-edge{
   position:absolute;bottom:0;left:0;right:0;
   height:3px;
@@ -155,7 +160,6 @@ body{
   filter:blur(4px);
 }
 
-/* Overhead light fixtures */
 .fixture{
   position:absolute;bottom:0;
   display:flex;flex-direction:column;
@@ -191,7 +195,6 @@ body{
   overflow:hidden;min-height:0;
 }
 
-/* Atmospheric gradient */
 #stage-bg{
   position:absolute;inset:0;z-index:0;
   background:
@@ -202,7 +205,6 @@ body{
     );
 }
 
-/* Depth fog layers */
 #fog-l{
   position:absolute;top:0;bottom:0;left:0;
   width:35%;z-index:2;pointer-events:none;
@@ -222,7 +224,6 @@ body{
   );
 }
 
-/* Vanishing point glow */
 #vp{
   position:absolute;
   top:35%;left:50%;
@@ -235,7 +236,6 @@ body{
   );
 }
 
-/* Nebula atmosphere */
 #nebula{
   position:absolute;inset:0;z-index:1;pointer-events:none;
   animation:nebulaShift 18s ease-in-out infinite alternate;
@@ -280,7 +280,6 @@ body{
   border-left:1px solid rgba(200,106,255,.06);
   border-right:1px solid rgba(200,106,255,.06);
 }
-/* Column inner light vein */
 .col-vein{
   position:absolute;top:0;bottom:0;
   left:50%;transform:translateX(-50%);
@@ -299,7 +298,6 @@ body{
   0%,100%{opacity:.2;}
   50%{opacity:1;}
 }
-/* Ornamental column cap */
 .col-cap-t{
   position:absolute;top:-12px;left:50%;
   transform:translateX(-50%);
@@ -372,7 +370,6 @@ body{
   overflow:hidden;
   position:relative;
 }
-/* Porthole scan sweep */
 .port-sweep{
   position:absolute;
   width:100%;height:100%;
@@ -390,7 +387,6 @@ body{
   from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
 }
-/* Porthole glare */
 .port-glare{
   position:absolute;
   top:8%;left:12%;
@@ -400,18 +396,15 @@ body{
   filter:blur(4px);
   z-index:2;pointer-events:none;
 }
-/* Atmospheric rim */
 .port-rim-glow{
   position:absolute;inset:0;border-radius:50%;
   z-index:3;pointer-events:none;
 }
-/* Cross bracket detail */
 .port-bracket{
   position:absolute;
   background:rgba(232,196,106,.15);
   pointer-events:none;z-index:4;
 }
-/* Rivets */
 .port-rivet{
   position:absolute;
   width:7px;height:7px;
@@ -488,7 +481,6 @@ body{
   font-size:6px;color:rgba(255,255,255,.2);
   flex-shrink:0;letter-spacing:.3px;
 }
-/* Waveform inside panel */
 .dp-wave{
   margin-top:6px;height:16px;
   position:relative;overflow:hidden;
@@ -507,7 +499,6 @@ body{
   cursor:none;
 }
 
-/* Arch */
 .door-arch{
   position:relative;overflow:hidden;
   border:1px solid rgba(200,106,255,.2);
@@ -527,7 +518,6 @@ body{
   );
   border-radius:inherit;
 }
-/* Arch glow when near */
 .door-arch-glow{
   position:absolute;inset:0;
   border-radius:inherit;
@@ -542,7 +532,6 @@ body{
     inset 0 0 40px rgba(200,106,255,.06);
 }
 
-/* Pillar pair */
 .door-pillars{
   display:flex;align-items:stretch;
 }
@@ -569,7 +558,6 @@ body{
   );
 }
 
-/* Door body */
 .door-body{
   position:relative;overflow:hidden;
   background:linear-gradient(180deg,
@@ -584,7 +572,6 @@ body{
   border-color:rgba(200,106,255,.35);
 }
 
-/* Interior depth illusion */
 .door-depth{
   position:absolute;inset:0;
   background:
@@ -602,7 +589,6 @@ body{
     linear-gradient(180deg,#020418,#000208);
 }
 
-/* Scanline */
 .door-scan{
   position:absolute;left:0;right:0;height:2px;
   background:linear-gradient(90deg,
@@ -620,7 +606,6 @@ body{
 }
 .dest-door.near .door-scan{opacity:1;}
 
-/* Floating particles */
 .door-mote{
   position:absolute;
   width:2px;height:2px;border-radius:50%;
@@ -635,7 +620,6 @@ body{
 }
 .dest-door.near .door-mote{opacity:var(--mo);}
 
-/* Door interior content */
 .door-content{
   position:relative;z-index:2;
   display:flex;flex-direction:column;
@@ -669,7 +653,6 @@ body{
 }
 .dest-door.near .door-sublabel{color:rgba(200,106,255,.5);}
 
-/* Keypad */
 .door-keypad{
   position:absolute;right:-20px;top:22%;
   width:14px;
@@ -690,7 +673,6 @@ body{
   50%{opacity:.15;box-shadow:none;}
 }
 
-/* Threshold bar */
 .door-threshold{
   width:calc(100% + 22px);
   height:2px;
@@ -711,7 +693,6 @@ body{
     0 -2px 24px rgba(200,106,255,.2);
 }
 
-/* Room number */
 .door-plate{
   position:absolute;
   bottom:28px;left:50%;transform:translateX(-50%);
@@ -736,8 +717,6 @@ body{
   background:linear-gradient(0deg,#000105 0%,#020618 100%);
   z-index:0;
 }
-
-/* Perspective tile grid */
 #floor-grid{
   position:absolute;inset:0;z-index:1;
   overflow:hidden;
@@ -746,8 +725,6 @@ body{
   position:absolute;bottom:0;
   width:100%;
 }
-
-/* Specular reflection band */
 #floor-reflect{
   position:absolute;top:0;left:10%;right:10%;
   height:60%;z-index:2;
@@ -758,7 +735,6 @@ body{
   filter:blur(8px);
   pointer-events:none;
 }
-/* Floor top edge */
 #floor-edge{
   position:absolute;top:0;left:0;right:0;
   height:2px;z-index:3;
@@ -775,75 +751,62 @@ body{
 }
 
 /* ═══════════════════════════════════════
-   CHARACTER
+   CHARACTER — brown hoodie boy (from code 1)
 ═══════════════════════════════════════ */
 #player-wrap{
   position:absolute;bottom:0;z-index:20;
+  transition:left .07s linear;
   transform:translateX(-50%);
-  filter:
-    drop-shadow(0 0 16px rgba(74,240,255,.15))
-    drop-shadow(0 20px 20px rgba(0,0,0,.8));
-  will-change:left;
+  filter:drop-shadow(0 0 20px rgba(240,201,110,.18));
+  cursor:pointer;
 }
 #player-wrap.face-left #crew-svg{transform:scaleX(-1);}
+#player-wrap.sprinting{filter:drop-shadow(0 0 30px rgba(240,201,110,.4));}
 #crew-svg{
-  width:72px;height:198px;
+  width:70px;height:192px;
   overflow:visible;display:block;margin:0 auto;
-  animation:crewFloat 4s ease-in-out infinite;
+  animation:crewIdle 3.4s ease-in-out infinite;
   transform-origin:center bottom;
 }
-@keyframes crewFloat{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-5px);}
-}
-.walking #crew-svg{
-  animation:crewBob .35s ease-in-out infinite alternate;
-}
-@keyframes crewBob{
-  from{transform:translateY(0) rotate(-.3deg);}
-  to{transform:translateY(-4px) rotate(.3deg);}
-}
-
-/* Walk anim */
-.walking #arm-l{animation:wAL .35s ease-in-out infinite alternate;transform-origin:22px 78px;}
-.walking #arm-r{animation:wAR .35s ease-in-out infinite alternate;transform-origin:66px 78px;}
-.walking #leg-l{animation:wLL .35s ease-in-out infinite alternate;transform-origin:34px 134px;}
-.walking #leg-r{animation:wLR .35s ease-in-out infinite alternate;transform-origin:54px 134px;}
-@keyframes wAL{from{transform:rotate(-20deg);}to{transform:rotate(24deg);}}
-@keyframes wAR{from{transform:rotate(20deg);}to{transform:rotate(-24deg);}}
-@keyframes wLL{from{transform:rotate(-22deg);}to{transform:rotate(20deg);}}
-@keyframes wLR{from{transform:rotate(22deg);}to{transform:rotate(-20deg);}}
-
-/* Character anim keyframes */
-@keyframes badgePulse{0%,100%{opacity:.55;}50%{opacity:1;}}
-@keyframes visorFlicker{0%,100%{opacity:.2;}50%{opacity:.9;}88%{opacity:.4;}92%{opacity:.95;}}
-@keyframes tabletPulse{0%,100%{opacity:.3;}50%{opacity:.9;}}
-@keyframes headSway{0%,100%{transform:rotate(0);}30%{transform:rotate(.7deg);}70%{transform:rotate(-.6deg);}}
-@keyframes bootGlow{0%,100%{opacity:.5;}50%{opacity:1;}}
-.badge-pulse{animation:badgePulse 2s ease-in-out infinite;}
-.visor-flick{animation:visorFlicker 3.2s ease-in-out infinite;}
-.tab-pulse{animation:tabletPulse 2.4s ease-in-out infinite;}
-.rank-glow{animation:badgePulse 1.8s ease-in-out infinite;}
-#head-g{animation:headSway 4.5s ease-in-out infinite;transform-origin:44px 36px;}
-.boot-glow{animation:bootGlow 3s ease-in-out infinite;}
-
-/* Shadow blob */
+@keyframes crewIdle{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+.player-walking #crew-svg{animation:crewBob .38s ease-in-out infinite alternate;}
+@keyframes crewBob{from{transform:translateY(0);}to{transform:translateY(-3px);}}
 #crew-shadow{
-  width:50px;height:10px;
-  margin:-1px auto 0;
-  background:radial-gradient(ellipse,rgba(74,240,255,.2),transparent 70%);
-  animation:shadowBreath 4s ease-in-out infinite;
+  width:52px;height:10px;margin:-2px auto 0;
+  background:radial-gradient(ellipse,rgba(240,201,110,.2) 0%,transparent 70%);
+  animation:shadowPulse 3.4s ease-in-out infinite;
 }
-@keyframes shadowBreath{
-  0%,100%{opacity:.5;transform:scaleX(1);}
-  50%{opacity:1;transform:scaleX(1.1);}
+@keyframes shadowPulse{0%,100%{opacity:.6;transform:scaleX(1);}50%{opacity:1;transform:scaleX(1.08);}}
+
+.player-walking #arm-l{animation:wAL .36s ease-in-out infinite alternate;transform-origin:22px 80px;}
+.player-walking #arm-r{animation:wAR .36s ease-in-out infinite alternate;transform-origin:66px 80px;}
+.player-walking #leg-l{animation:wLL .36s ease-in-out infinite alternate;transform-origin:34px 132px;}
+.player-walking #leg-r{animation:wLR .36s ease-in-out infinite alternate;transform-origin:54px 132px;}
+#player-wrap.sprinting.player-walking #arm-l{animation-duration:.18s;}
+#player-wrap.sprinting.player-walking #arm-r{animation-duration:.18s;}
+#player-wrap.sprinting.player-walking #leg-l{animation-duration:.18s;}
+#player-wrap.sprinting.player-walking #leg-r{animation-duration:.18s;}
+@keyframes wAL{from{transform:rotate(-18deg);}to{transform:rotate(22deg);}}
+@keyframes wAR{from{transform:rotate(18deg);}to{transform:rotate(-22deg);}}
+@keyframes wLL{from{transform:rotate(-20deg);}to{transform:rotate(18deg);}}
+@keyframes wLR{from{transform:rotate(20deg);}to{transform:rotate(-18deg);}}
+@keyframes headTilt{0%,100%{transform:rotate(0);}35%{transform:rotate(.8deg);}75%{transform:rotate(-.6deg);}}
+#head-g{animation:headTilt 4.2s ease-in-out infinite;transform-origin:44px 38px;}
+
+/* ─── SPEECH BUBBLE ─── */
+#speech-bubble{
+  position:fixed;z-index:60;transform:translate(-50%,-100%);pointer-events:none;
+  background:rgba(1,2,12,.94);border:1px solid rgba(240,201,110,.35);border-radius:14px;
+  padding:8px 13px;font-family:var(--font-mono);font-size:9.5px;color:rgba(255,255,255,.88);
+  letter-spacing:.3px;white-space:nowrap;opacity:0;transition:opacity .2s,transform .25s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
 }
+#speech-bubble::after{content:'';position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid rgba(240,201,110,.35);}
+#speech-bubble.on{opacity:1;transform:translate(-50%,-112%);}
 
 /* ═══════════════════════════════════════
    HUD ELEMENTS
 ═══════════════════════════════════════ */
-
-/* Location chip */
 #hud-loc{
   position:fixed;
   top:calc(var(--sat) + 14px);
@@ -890,7 +853,6 @@ body{
   letter-spacing:1.5px;
 }
 
-/* Bottom info HUD */
 #hud-bottom{
   position:fixed;
   bottom:calc(var(--sab) + 16px);
@@ -905,7 +867,6 @@ body{
   color:rgba(255,255,255,.12);
   text-transform:uppercase;
 }
-/* Mini minimap */
 #minimap{
   width:80px;height:14px;
   background:rgba(1,2,10,.7);
@@ -990,8 +951,6 @@ body{
 /* ═══════════════════════════════════════
    VFX
 ═══════════════════════════════════════ */
-
-/* Tap ripple */
 .tap-ring{
   position:fixed;pointer-events:none;z-index:50;
   border-radius:50%;
@@ -1001,8 +960,6 @@ body{
 @keyframes tapExpand{
   to{transform:translate(-50%,-50%) scale(1);opacity:0;}
 }
-
-/* Dust motes on tap */
 .mote{
   position:fixed;pointer-events:none;z-index:49;
   width:3px;height:3px;border-radius:50%;
@@ -1012,8 +969,6 @@ body{
   0%{opacity:.75;transform:translate(0,0) scale(1);}
   100%{opacity:0;transform:translate(var(--mx),var(--my)) scale(0);}
 }
-
-/* Warp flash */
 #warp-veil{
   position:fixed;inset:0;z-index:9997;
   pointer-events:none;opacity:0;
@@ -1024,8 +979,6 @@ body{
       rgba(0,4,8,1) 65%
     );
 }
-
-/* Speed lines during warp */
 #speed-lines{
   position:fixed;inset:0;z-index:9998;
   pointer-events:none;opacity:0;
@@ -1062,7 +1015,6 @@ body{
     <div id="fog-l"></div>
     <div id="fog-r"></div>
 
-    <!-- World container -->
     <div id="world-wrap">
       <div id="world"></div>
     </div>
@@ -1096,6 +1048,8 @@ body{
   </div>
 </div>
 
+<div id="speech-bubble"></div>
+
 <!-- ── DOOR CARD ── -->
 <div id="door-card">
   <div class="dc-icon-wrap">℗</div>
@@ -1106,260 +1060,121 @@ body{
   <div class="dc-cta">Enter →</div>
 </div>
 
-<!-- ── CHARACTER SVG ── -->
+<!-- ── CHARACTER SVG (brown hoodie boy, identical to code 1) ── -->
 <div id="player-wrap">
-  <svg id="crew-svg" viewBox="0 0 88 198" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <svg id="crew-svg" viewBox="0 0 88 192" xmlns="http://www.w3.org/2000/svg" overflow="visible">
     <defs>
-      <radialGradient id="gSkin" cx="40%" cy="28%" r="70%">
-        <stop offset="0%" stop-color="#ffd8b8"/>
-        <stop offset="55%" stop-color="#e8b890"/>
-        <stop offset="100%" stop-color="#c88068"/>
-      </radialGradient>
-      <linearGradient id="gHair" x1="15%" y1="0%" x2="85%" y2="100%">
-        <stop offset="0%" stop-color="#2a2060"/>
-        <stop offset="60%" stop-color="#14123a"/>
-        <stop offset="100%" stop-color="#080618"/>
-      </linearGradient>
-      <linearGradient id="gSuit" x1="10%" y1="0%" x2="90%" y2="100%">
-        <stop offset="0%" stop-color="#e8d8c0"/>
-        <stop offset="45%" stop-color="#6e260e"/>
-        <stop offset="100%" stop-color="#5a1e0a"/>
-      </linearGradient>
-      <linearGradient id="gStripe" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#00d8ec"/>
-        <stop offset="100%" stop-color="#0098b8"/>
-      </linearGradient>
-      <linearGradient id="gRank" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#f0d060"/>
-        <stop offset="100%" stop-color="#c09030"/>
-      </linearGradient>
-      <linearGradient id="gPants" x1="10%" y1="0%" x2="90%" y2="100%">
-        <stop offset="0%" stop-color="#161828"/>
-        <stop offset="100%" stop-color="#080a18"/>
-      </linearGradient>
-      <linearGradient id="gBoot" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#161828"/>
-        <stop offset="100%" stop-color="#060810"/>
-      </linearGradient>
-      <linearGradient id="gTab" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#003848"/>
-        <stop offset="100%" stop-color="#001620"/>
-      </linearGradient>
-      <radialGradient id="gEye" cx="35%" cy="32%" r="65%">
-        <stop offset="0%" stop-color="#60d8e8"/>
-        <stop offset="50%" stop-color="#1888a0"/>
-        <stop offset="100%" stop-color="#084858"/>
-      </radialGradient>
-      <linearGradient id="gVisor" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="rgba(0,210,230,0)"/>
-        <stop offset="40%" stop-color="rgba(0,210,230,.78)"/>
-        <stop offset="100%" stop-color="rgba(0,210,230,0)"/>
-      </linearGradient>
-      <radialGradient id="gBootGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="rgba(74,240,255,.45)"/>
-        <stop offset="100%" stop-color="transparent"/>
-      </radialGradient>
+      <radialGradient id="skinG" cx="40%" cy="28%" r="72%"><stop offset="0%" stop-color="#ffe0c2"/><stop offset="55%" stop-color="#eab98e"/><stop offset="100%" stop-color="#c8946a"/></radialGradient>
+      <linearGradient id="hairG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#6b4226"/><stop offset="55%" stop-color="#4a2c15"/><stop offset="100%" stop-color="#301c0d"/></linearGradient>
+      <linearGradient id="hoodieG" x1="10%" y1="0%" x2="90%" y2="100%"><stop offset="0%" style="stop-color:var(--hg1)"/><stop offset="45%" style="stop-color:var(--hg2)"/><stop offset="100%" style="stop-color:var(--hg3)"/></linearGradient>
+      <linearGradient id="hoodieShade" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--hs1)"/><stop offset="100%" style="stop-color:var(--hs2)"/></linearGradient>
+      <linearGradient id="hoodieLight" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--hl1)"/><stop offset="100%" style="stop-color:var(--hl2)"/></linearGradient>
+      <linearGradient id="ribG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--hr1)"/><stop offset="100%" style="stop-color:var(--hr2)"/></linearGradient>
+      <linearGradient id="pantsG" x1="15%" y1="0%" x2="85%" y2="100%"><stop offset="0%" stop-color="#3c4048"/><stop offset="100%" stop-color="#22252b"/></linearGradient>
+      <linearGradient id="bootG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f4ede2"/><stop offset="100%" stop-color="#d8c9b4"/></linearGradient>
+      <linearGradient id="soleG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6b4226"/><stop offset="100%" stop-color="#4a2c15"/></linearGradient>
+      <radialGradient id="eyeG" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#7a5636"/><stop offset="55%" stop-color="#4a3220"/><stop offset="100%" stop-color="#2a1c12"/></radialGradient>
+      <radialGradient id="cheekG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(230,120,100,.25)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+      <radialGradient id="bootGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(240,201,110,.4)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
     </defs>
-
-    <!-- LEFT ARM + DATAPAD -->
     <g id="arm-l">
-      <path d="M23 80Q10 88 8 106Q7 116 12 121Q16 124 20 122Q24 124 26 120Q29 110 27 94Q26 85 23 80Z"
-        fill="url(#gSuit)" stroke="rgba(0,180,210,.18)" stroke-width=".8"/>
-      <path d="M10 110Q14 120 20 122Q24 124 26 120Q22 116 18 114Q13 112 10 110Z"
-        fill="url(#gStripe)" opacity=".85"/>
-      <ellipse cx="16" cy="128" rx="7" ry="6.5" fill="url(#gSkin)"/>
-      <!-- Tablet -->
-      <rect x="5" y="132" width="22" height="30" rx="3"
-        fill="url(#gTab)" stroke="rgba(0,210,230,.5)" stroke-width="1"/>
-      <rect x="7" y="134" width="18" height="26" rx="2" fill="rgba(0,210,235,.04)"/>
-      <line x1="8" y1="137" x2="24" y2="137" stroke="rgba(0,230,250,.55)" stroke-width=".8" class="tab-pulse"/>
-      <line x1="8" y1="140" x2="21" y2="140" stroke="rgba(0,230,250,.35)" stroke-width=".6"/>
-      <line x1="8" y1="143" x2="23" y2="143" stroke="rgba(0,230,250,.38)" stroke-width=".6"/>
-      <line x1="8" y1="146" x2="20" y2="146" stroke="rgba(0,230,250,.28)" stroke-width=".6"/>
-      <polyline points="8,154 11,150 14,152 17,147 20,149 23,146"
-        fill="none" stroke="rgba(0,245,200,.65)" stroke-width=".9" stroke-linecap="round"/>
-      <rect x="7" y="157" width="4" height="3" rx=".5" fill="rgba(0,210,230,.38)"/>
-      <rect x="13" y="155" width="4" height="5" rx=".5" fill="rgba(0,210,230,.48)"/>
-      <rect x="19" y="156" width="4" height="4" rx=".5" fill="rgba(0,210,230,.42)"/>
-      <path d="M23 134Q28 136 27 141" fill="none" stroke="url(#gSkin)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M24 80Q9 87 7 106Q6 119 11 128Q14 133 19 132Q23 133 25 129Q28 121 26 108Q29 96 27 88Q26 83 24 80Z" fill="url(#hoodieG)" stroke="rgba(40,22,10,.4)" stroke-width=".6"/>
+      <path d="M9 106Q8 119 13 128Q16 132 19 132" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".55"/>
+      <path d="M11 90Q8 100 8 110" fill="none" stroke="rgba(255,220,190,.3)" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+      <path d="M12 122Q19 128 25 124" fill="none" stroke="url(#ribG)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M12 122Q19 128 25 124" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="7" stroke-linecap="round" stroke-dasharray="1.5 1.6"/>
+      <ellipse cx="17" cy="133" rx="6.5" ry="6" fill="url(#skinG)"/>
+      <path d="M12.5 133Q11 138 13.5 141" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+      <path d="M15.5 135.5Q14.5 141.5 16.5 144" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+      <path d="M18.5 136.5Q18.2 143 19.5 145.5" fill="none" stroke="url(#skinG)" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M21.5 135.5Q22 141 21 143.5" fill="none" stroke="url(#skinG)" stroke-width="3.1" stroke-linecap="round"/>
+      <path d="M23.5 132Q25.5 136 24.5 139" fill="none" stroke="url(#skinG)" stroke-width="2.7" stroke-linecap="round"/>
     </g>
-
-    <!-- RIGHT ARM -->
     <g id="arm-r">
-      <path d="M65 80Q78 88 80 106Q81 116 76 121Q72 124 68 122Q64 124 62 120Q59 110 61 94Q62 85 65 80Z"
-        fill="url(#gSuit)" stroke="rgba(0,180,210,.18)" stroke-width=".8"/>
-      <path d="M78 110Q74 120 68 122Q64 124 62 120Q66 116 70 114Q75 112 78 110Z"
-        fill="url(#gStripe)" opacity=".85"/>
-      <ellipse cx="72" cy="128" rx="7" ry="6.5" fill="url(#gSkin)"/>
-      <path d="M66 131Q64 136 66 138" fill="none" stroke="url(#gSkin)" stroke-width="4" stroke-linecap="round"/>
-      <path d="M69 133Q68 139 70 141" fill="none" stroke="url(#gSkin)" stroke-width="4" stroke-linecap="round"/>
-      <path d="M73 134Q73 140 73 142" fill="none" stroke="url(#gSkin)" stroke-width="3.8" stroke-linecap="round"/>
-      <path d="M77 133Q78 138 77 140" fill="none" stroke="url(#gSkin)" stroke-width="3.5" stroke-linecap="round"/>
-      <path d="M80 130Q82 135 80 137" fill="none" stroke="url(#gSkin)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M64 80Q79 87 81 106Q82 119 77 128Q74 133 69 132Q65 133 63 129Q60 121 62 108Q59 96 61 88Q62 83 64 80Z" fill="url(#hoodieLight)" stroke="rgba(40,22,10,.4)" stroke-width=".6"/>
+      <path d="M79 106Q80 119 75 128Q72 132 69 132" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".4"/>
+      <path d="M77 90Q80 100 80 110" fill="none" stroke="rgba(255,220,190,.35)" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+      <path d="M63 124Q69 128 76 122" fill="none" stroke="url(#ribG)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M63 124Q69 128 76 122" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="7" stroke-linecap="round" stroke-dasharray="1.5 1.6"/>
+      <ellipse cx="71" cy="130" rx="6.5" ry="6" fill="url(#skinG)"/>
+      <path d="M66 132Q64.5 137 67 140" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+      <path d="M69.5 134Q68.5 140 71 142.5" fill="none" stroke="url(#skinG)" stroke-width="3.6" stroke-linecap="round"/>
+      <path d="M73 135Q73 141.5 74 144" fill="none" stroke="url(#skinG)" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M76.3 134Q77.5 139.5 76.2 142" fill="none" stroke="url(#skinG)" stroke-width="3.1" stroke-linecap="round"/>
+      <path d="M78.5 130Q81 134 79.5 137" fill="none" stroke="url(#skinG)" stroke-width="2.7" stroke-linecap="round"/>
     </g>
-
-    <!-- BODY -->
-    <path d="M25 80Q22 98 22 113Q22 126 25 134Q30 140 44 140Q58 140 63 134Q66 126 66 113Q66 98 63 80Q57 74 44 72Q31 74 25 80Z"
-      fill="url(#gSuit)"/>
-    <!-- Sheen highlight -->
-    <path d="M27 82Q24 99 25 113" fill="none" stroke="rgba(120,190,255,.12)" stroke-width="2.5"/>
-    <!-- Seam -->
-    <rect x="41.5" y="75" width="5" height="61" rx="1"
-      fill="rgba(255,255,255,.02)" stroke="rgba(0,185,215,.12)" stroke-width=".5"/>
-    <!-- Zipper -->
-    <circle cx="44" cy="79" r="2.5" fill="rgba(12,28,72,.95)" stroke="rgba(0,225,248,.55)" stroke-width=".8"/>
-    <circle cx="44" cy="79" r="1.2" fill="rgba(0,225,248,.75)"/>
-    <!-- Badge card -->
-    <rect x="26" y="83" width="15" height="21" rx="2"
-      fill="rgba(8,16,56,.92)" stroke="rgba(0,205,228,.3)" stroke-width=".8"/>
-    <rect x="27.5" y="84.5" width="8" height="9" rx="1"
-      fill="rgba(255,255,255,.05)" stroke="rgba(0,205,228,.18)" stroke-width=".4"/>
-    <circle cx="31.5" cy="87" r="1.5" fill="rgba(0,205,228,.4)"/>
-    <line x1="31.5" y1="88.5" x2="31.5" y2="92" stroke="rgba(0,205,228,.35)" stroke-width="1"/>
-    <line x1="29.5" y1="90" x2="33.5" y2="90" stroke="rgba(0,205,228,.35)" stroke-width="1"/>
-    <line x1="27.5" y1="96" x2="40" y2="96" stroke="rgba(0,205,228,.38)" stroke-width=".7"/>
-    <line x1="27.5" y1="98.5" x2="36" y2="98.5" stroke="rgba(0,205,228,.23)" stroke-width=".6"/>
-    <line x1="27.5" y1="101" x2="39" y2="101" stroke="rgba(0,205,228,.18)" stroke-width=".6"/>
-    <!-- Badge status gem -->
-    <circle cx="37.5" cy="86" r="2.2"
-      fill="rgba(0,255,180,.88)" class="badge-pulse"
-      stroke="rgba(0,205,155,.38)" stroke-width=".4"/>
-    <!-- Rank panel -->
-    <rect x="49" y="83" width="16" height="10" rx="2"
-      fill="rgba(4,12,42,.95)" stroke="rgba(205,172,78,.43)" stroke-width=".8"/>
-    <rect x="51" y="84.5" width="12" height="1.5" rx=".7" fill="url(#gRank)" class="rank-glow"/>
-    <rect x="51" y="87.5" width="12" height="1.5" rx=".7" fill="url(#gRank)" class="rank-glow" style="animation-delay:.35s"/>
-    <rect x="51" y="90.5" width="8" height="1.5" rx=".7" fill="url(#gRank)" class="rank-glow" style="animation-delay:.7s"/>
-    <!-- Shoulder stripes -->
-    <path d="M25 80Q22 85 22 91Q26 89 30 85Q27 82 25 80Z" fill="url(#gStripe)" opacity=".82"/>
-    <path d="M63 80Q66 85 66 91Q62 89 58 85Q61 82 63 80Z" fill="url(#gStripe)" opacity=".82"/>
-    <!-- Collar -->
-    <path d="M34 73Q44 69 54 73L56 78Q44 75 32 78Z"
-      fill="rgba(4,12,44,.98)" stroke="rgba(0,185,216,.4)" stroke-width=".8"/>
-    <path d="M34 73Q44 69 54 73" fill="none" stroke="url(#gStripe)" stroke-width="1.6"/>
-    <!-- Mission patch -->
-    <circle cx="60.5" cy="97" r="7.5"
-      fill="rgba(2,8,32,.95)" stroke="rgba(0,185,215,.36)" stroke-width=".8"/>
-    <circle cx="60.5" cy="97" r="4.5"
-      fill="rgba(0,28,68,.88)" stroke="rgba(0,145,185,.38)" stroke-width=".4"/>
-    <ellipse cx="60.5" cy="97" rx="6.2" ry="2.2"
-      fill="none" stroke="rgba(0,215,238,.42)" stroke-width=".8"
-      transform="rotate(-18,60.5,97)"/>
-    <circle cx="60.5" cy="97" r="2.8" fill="rgba(0,88,148,.78)"/>
-    <circle cx="59.5" cy="96" r=".9" fill="rgba(185,235,255,.55)"/>
-    <!-- Belt -->
-    <rect x="23" y="128" width="42" height="7" rx="2"
-      fill="rgba(4,10,32,.96)" stroke="rgba(0,165,205,.25)" stroke-width=".8"/>
-    <rect x="39.5" y="129.5" width="9" height="5" rx="1"
-      fill="rgba(2,6,26,.96)" stroke="rgba(0,215,238,.5)" stroke-width=".7"/>
-    <line x1="44" y1="130" x2="44" y2="134" stroke="rgba(0,215,238,.5)" stroke-width=".7"/>
-    <line x1="41" y1="132" x2="47" y2="132" stroke="rgba(0,215,238,.38)" stroke-width=".6"/>
-    <rect x="24.5" y="130" width="9" height="5" rx="1.5"
-      fill="rgba(6,14,44,.9)" stroke="rgba(0,165,205,.2)" stroke-width=".5"/>
-    <rect x="54" y="130" width="9" height="5" rx="1.5"
-      fill="rgba(6,14,44,.9)" stroke="rgba(0,165,205,.2)" stroke-width=".5"/>
-
-    <!-- LEGS -->
+    <path d="M25 84Q21 100 21 114Q21 127 24.5 135Q29.5 142 44 142Q58.5 142 63.5 135Q67 127 67 114Q67 100 63 84Q58 75 44 73Q30 75 25 84Z" fill="url(#hoodieG)"/>
+    <path d="M44 73Q30 75 25 84Q21 100 21 114Q21 127 24.5 135" fill="none" stroke="url(#hoodieLight)" stroke-width="2.5" opacity=".45"/>
+    <path d="M44 73Q58 75 63 84Q67 100 67 114Q67 127 63.5 135" fill="none" stroke="url(#hoodieShade)" stroke-width="3" opacity=".5"/>
+    <path d="M31 86Q26 94 25.5 106" fill="none" stroke="rgba(255,225,195,.28)" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M25 84Q30 79 38 76Q44 74 50 76Q58 79 63 84Q65 90 65 96Q56 88 44 87Q32 88 23 96Q23 90 25 84Z" fill="url(#hoodieShade)"/>
+    <path d="M30 80Q37 76 44 75.5Q51 76 58 80Q60 83.5 60 87Q52.5 82 44 81.5Q35.5 82 28 87Q28 83.5 30 80Z" fill="var(--hdark)"/>
+    <ellipse cx="38.5" cy="83.5" rx="3.4" ry="2.6" fill="url(#hoodieG)" stroke="rgba(0,0,0,.3)" stroke-width=".4"/>
+    <ellipse cx="49.5" cy="83.5" rx="3.4" ry="2.6" fill="url(#hoodieG)" stroke="rgba(0,0,0,.3)" stroke-width=".4"/>
+    <path d="M40.5 85Q39 96 38 108Q37.3 116 38.5 121" fill="none" stroke="url(#ribG)" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M47.5 85Q49 96 50 108Q50.7 116 49.5 121" fill="none" stroke="url(#ribG)" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="38.2" cy="121.5" r="1.6" fill="var(--hr2)"/>
+    <circle cx="49.8" cy="121.5" r="1.6" fill="var(--hr2)"/>
+    <path d="M26 108Q30 116 44 117.5Q58 116 62 108Q63 118 61.5 126Q57 134 44 134.5Q31 134 26.5 126Q25 118 26 108Z" fill="url(#hoodieShade)" opacity=".9"/>
+    <path d="M26 108Q30 116 44 117.5Q58 116 62 108" fill="none" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
+    <path d="M27 111Q31 106 44 105Q57 106 61 111" fill="none" stroke="rgba(255,225,195,.16)" stroke-width="1.4"/>
     <g id="leg-l">
-      <path d="M25 136Q23 152 24 164Q25 174 29 178Q33 180 37 177Q40 174 40 164Q40 148 38 136Z"
-        fill="url(#gPants)" stroke="rgba(0,90,150,.12)" stroke-width=".7"/>
-      <ellipse cx="32" cy="159" rx="7.5" ry="5.5"
-        fill="rgba(0,14,54,.65)" stroke="rgba(0,142,185,.2)" stroke-width=".6"/>
-      <path d="M25 168Q32 165 40 168" fill="none" stroke="rgba(0,142,185,.25)" stroke-width=".8"/>
-      <!-- Boot -->
-      <path d="M22 173Q21 183 23 187Q26 191 32 191Q38 191 40 187Q42 183 41 173Z"
-        fill="url(#gBoot)" stroke="rgba(0,125,185,.28)" stroke-width="1"/>
-      <path d="M22 175Q32 171 41 175" fill="none" stroke="url(#gStripe)" stroke-width="1.3" opacity=".75"/>
-      <ellipse cx="31.5" cy="191" rx="9.5" ry="3.2"
-        fill="rgba(2,2,14,.96)" stroke="rgba(0,82,145,.22)" stroke-width=".6"/>
-      <ellipse cx="31.5" cy="191" rx="7" ry="2.2"
-        fill="url(#gBootGlow)" class="boot-glow"/>
+      <path d="M26 138Q23.5 153 24.5 165Q25.2 174 28.5 178.5Q33 181 37.5 178Q40 174 39.5 165Q39 150 37.5 138Z" fill="url(#pantsG)" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>
+      <path d="M28 141Q26 154 27 166" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M36.5 141Q38.5 154 38 166" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M25 170.5Q32 168 39 170.5" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1"/>
+      <path d="M24.5 174Q23.5 178 25.5 180" fill="none" stroke="#1a1c20" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M22.5 178Q21 187 23.5 190.5Q27 194 33 194Q39 194 41 190.5Q42.5 187 41.5 179Z" fill="url(#bootG)" stroke="rgba(0,0,0,.12)" stroke-width=".8"/>
+      <path d="M22.5 178Q31.5 174.5 41.5 179" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" opacity=".6"/>
+      <path d="M25 187Q32 184.5 40 187" fill="none" stroke="url(#soleG)" stroke-width="1.4" opacity=".65"/>
+      <ellipse cx="32" cy="193.5" rx="10" ry="2.6" fill="url(#soleG)"/>
     </g>
     <g id="leg-r">
-      <path d="M63 136Q65 152 64 164Q63 174 59 178Q55 180 51 177Q48 174 48 164Q48 148 50 136Z"
-        fill="url(#gPants)" stroke="rgba(0,90,150,.12)" stroke-width=".7"/>
-      <ellipse cx="56" cy="159" rx="7.5" ry="5.5"
-        fill="rgba(0,14,54,.65)" stroke="rgba(0,142,185,.2)" stroke-width=".6"/>
-      <path d="M48 168Q56 165 64 168" fill="none" stroke="rgba(0,142,185,.25)" stroke-width=".8"/>
-      <!-- Boot -->
-      <path d="M46 173Q45 183 47 187Q50 191 55 191Q60 191 62 187Q64 183 65 173Z"
-        fill="url(#gBoot)" stroke="rgba(0,125,185,.28)" stroke-width="1"/>
-      <path d="M46 175Q55 171 65 175" fill="none" stroke="url(#gStripe)" stroke-width="1.3" opacity=".75"/>
-      <ellipse cx="55.5" cy="191" rx="9.5" ry="3.2"
-        fill="rgba(2,2,14,.96)" stroke="rgba(0,82,145,.22)" stroke-width=".6"/>
-      <ellipse cx="55.5" cy="191" rx="7" ry="2.2"
-        fill="url(#gBootGlow)" class="boot-glow" style="animation-delay:.45s"/>
+      <path d="M62 138Q64.5 153 63.5 165Q62.8 174 59.5 178.5Q55 181 50.5 178Q48 174 48.5 165Q49 150 50.5 138Z" fill="url(#pantsG)" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>
+      <path d="M60 141Q62 154 61 166" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M51.5 141Q49.5 154 50 166" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M49 170.5Q56 168 63 170.5" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1"/>
+      <path d="M63.5 174Q64.5 178 62.5 180" fill="none" stroke="#1a1c20" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M46.5 179Q45 187 46.5 190.5Q48.5 194 54.5 194Q60.5 194 64 190.5Q65.5 187 65.5 178Z" fill="url(#bootG)" stroke="rgba(0,0,0,.12)" stroke-width=".8"/>
+      <path d="M46.5 179Q55.5 174.5 65.5 178" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" opacity=".6"/>
+      <path d="M48 187Q56 184.5 63 187" fill="none" stroke="url(#soleG)" stroke-width="1.4" opacity=".65"/>
+      <ellipse cx="56" cy="193.5" rx="10" ry="2.6" fill="url(#soleG)"/>
     </g>
-
-    <!-- HEAD -->
     <g id="head-g">
-      <!-- Neck -->
-      <path d="M38 58Q37 65 36 70L52 70Q51 65 50 58Z" fill="url(#gSkin)"/>
-      <!-- Ears -->
-      <ellipse cx="26" cy="38" rx="4.5" ry="5.5" fill="url(#gSkin)" stroke="rgba(175,128,98,.14)" stroke-width=".6"/>
-      <ellipse cx="62" cy="38" rx="4.5" ry="5.5" fill="url(#gSkin)" stroke="rgba(175,128,98,.14)" stroke-width=".6"/>
-      <ellipse cx="26" cy="38" rx="2.5" ry="3.2" fill="rgba(175,118,88,.18)"/>
-      <ellipse cx="62" cy="38" rx="2.5" ry="3.2" fill="rgba(175,118,88,.18)"/>
-      <!-- Face -->
-      <path d="M28 22Q27 18 30 14Q36 8 44 8Q52 8 58 14Q61 18 60 22Q61 30 61 38Q61 50 58 56Q54 62 44 62Q34 62 30 56Q27 50 27 38Q27 30 28 22Z"
-        fill="url(#gSkin)" stroke="rgba(188,138,108,.16)" stroke-width=".7"/>
-      <!-- Forehead gloss -->
-      <ellipse cx="40" cy="17" rx="7.5" ry="5" fill="rgba(255,255,255,.11)" transform="rotate(-10,40,17)"/>
-      <!-- Cheek blush -->
-      <ellipse cx="30" cy="44" rx="5.5" ry="4" fill="rgba(205,118,98,.08)"/>
-      <ellipse cx="58" cy="44" rx="5.5" ry="4" fill="rgba(205,118,98,.08)"/>
-      <!-- Hair -->
-      <path d="M28 22Q28 10 44 8Q60 10 60 22Q56 14 44 13Q32 14 28 22Z" fill="url(#gHair)"/>
-      <path d="M28 20Q33 12 48 11Q38 14 34 20" fill="url(#gHair)"/>
-      <path d="M28 22Q27 28 27 34" fill="none" stroke="#141228" stroke-width="4" stroke-linecap="round"/>
-      <path d="M60 22Q61 28 61 34" fill="none" stroke="#141228" stroke-width="3.5" stroke-linecap="round"/>
-      <path d="M32 11Q44 8 55 11" fill="none" stroke="rgba(100,100,185,.32)" stroke-width="1.8" stroke-linecap="round"/>
-      <!-- Brows -->
-      <path d="M30 24Q36 21 41 22.5" fill="none" stroke="#141228" stroke-width="2.2" stroke-linecap="round"/>
-      <path d="M47 22.5Q52 21 58 24" fill="none" stroke="#141228" stroke-width="2.2" stroke-linecap="round"/>
-      <!-- Left eye -->
-      <path d="M30 33Q35.5 28.5 41 31Q41 37 35 39Q30 36 30 33Z" fill="rgba(255,255,255,.97)"/>
-      <ellipse cx="35.5" cy="34" rx="4.2" ry="4.5" fill="url(#gEye)"/>
-      <ellipse cx="35.5" cy="34.5" rx="2.6" ry="2.8" fill="#040c18"/>
-      <circle cx="34" cy="32.5" r="1.6" fill="rgba(255,255,255,.9)"/>
-      <circle cx="37" cy="35.5" r=".7" fill="rgba(255,255,255,.42)"/>
-      <path d="M30 33Q35.5 28.5 41 31" fill="none" stroke="#0c0a20" stroke-width="1.4"/>
-      <!-- Right eye -->
-      <path d="M47 31Q53 28.5 58 33Q58 36 53 39Q47 37 47 34Z" fill="rgba(255,255,255,.97)"/>
-      <ellipse cx="52.5" cy="34" rx="4.2" ry="4.5" fill="url(#gEye)"/>
-      <ellipse cx="52.5" cy="34.5" rx="2.6" ry="2.8" fill="#040c18"/>
-      <circle cx="51" cy="32.5" r="1.6" fill="rgba(255,255,255,.9)"/>
-      <circle cx="54.5" cy="35.5" r=".7" fill="rgba(255,255,255,.42)"/>
-      <path d="M47 31Q52.5 28.5 58 33" fill="none" stroke="#0c0a20" stroke-width="1.4"/>
-      <!-- Nose -->
-      <path d="M42 42Q41 47 40 50Q42 52 44 52Q46 52 48 50Q47 47 46 42"
-        fill="none" stroke="rgba(158,98,78,.28)" stroke-width="1" stroke-linecap="round"/>
-      <!-- Mouth -->
-      <path d="M38 55Q44 53 50 55Q47 57.5 44 57Q41 57.5 38 55Z" fill="#c86060" opacity=".85"/>
-      <!-- Headset -->
-      <path d="M27 20Q44 12 61 20" fill="none" stroke="#0a1026" stroke-width="3.5" stroke-linecap="round"/>
-      <path d="M27 20Q44 12 61 20" fill="none" stroke="rgba(0,205,228,.55)" stroke-width="1" stroke-linecap="round"/>
-      <!-- Left earpiece -->
-      <rect x="20" y="32" width="9" height="12" rx="3" fill="#081226" stroke="rgba(0,195,228,.55)" stroke-width="1"/>
-      <line x1="22" y1="35" x2="27" y2="35" stroke="rgba(0,225,245,.36)" stroke-width=".6"/>
-      <line x1="22" y1="37.5" x2="27" y2="37.5" stroke="rgba(0,225,245,.32)" stroke-width=".6"/>
-      <line x1="22" y1="40" x2="27" y2="40" stroke="rgba(0,225,245,.28)" stroke-width=".6"/>
-      <circle cx="28.5" cy="33.5" r="1.5" fill="rgba(0,255,185,.9)" class="badge-pulse" style="animation-delay:.4s"/>
-      <!-- Mic -->
-      <path d="M20 41Q15 44 14 50Q14 53 17 54" fill="none" stroke="#0a1226" stroke-width="2" stroke-linecap="round"/>
-      <path d="M20 41Q15 44 14 50Q14 53 17 54" fill="none" stroke="rgba(0,172,215,.43)" stroke-width=".7" stroke-linecap="round"/>
-      <ellipse cx="17" cy="55" rx="3.5" ry="2.5" fill="#081226" stroke="rgba(0,195,228,.55)" stroke-width=".8"/>
-      <ellipse cx="17" cy="55" rx="1.8" ry="1.2" fill="rgba(0,26,68,.9)" stroke="rgba(0,225,245,.35)" stroke-width=".4"/>
-      <!-- HUD visor -->
-      <rect x="46" y="29" width="18" height="6" rx="2"
-        fill="rgba(0,12,36,.82)" stroke="rgba(0,215,238,.42)" stroke-width=".7"/>
-      <rect x="47.5" y="30.5" width="15" height="3" rx="1" fill="url(#gVisor)" class="visor-flick"/>
-      <text x="49" y="33.5" font-family="monospace" font-size="2.2" fill="rgba(0,248,215,.82)">ALT 402km</text>
-      <!-- Right earpiece -->
-      <rect x="59" y="32" width="7" height="9" rx="2.5" fill="#081226" stroke="rgba(0,195,228,.44)" stroke-width=".8"/>
-      <line x1="60.5" y1="35" x2="64.5" y2="35" stroke="rgba(0,225,245,.28)" stroke-width=".5"/>
-      <line x1="60.5" y1="37.5" x2="64.5" y2="37.5" stroke="rgba(0,225,245,.28)" stroke-width=".5"/>
-      <circle cx="64.5" cy="33.5" r="1.2" fill="rgba(0,225,255,.85)" class="rank-glow" style="animation-delay:.85s"/>
+      <path d="M37 58Q36 66 35.5 71.5L52.5 71.5Q52 66 51 58Z" fill="url(#skinG)"/>
+      <path d="M32 66Q44 71 56 66L56 71.5Q44 76 32 71.5Z" fill="url(#hoodieG)"/>
+      <path d="M32 66Q44 71 56 66" fill="none" stroke="url(#hoodieLight)" stroke-width="1.2" opacity=".5"/>
+      <ellipse cx="27" cy="39" rx="4.3" ry="5.3" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".5"/>
+      <ellipse cx="61" cy="39" rx="4.3" ry="5.3" fill="url(#skinG)" stroke="rgba(180,130,100,.15)" stroke-width=".5"/>
+      <path d="M29 23Q27.5 18 31 14Q37 8.5 44 8.5Q51 8.5 57 14Q60.5 18 59 23Q60.5 30 60 39Q59.5 51 56 58Q52 64.5 44 64.5Q36 64.5 32 58Q28.5 51 28 39Q27.5 30 29 23Z" fill="url(#skinG)" stroke="rgba(190,140,110,.16)" stroke-width=".6"/>
+      <path d="M31 46Q28.5 47.5 28 50.5" fill="none" stroke="rgba(200,140,100,.25)" stroke-width="1.1" stroke-linecap="round"/>
+      <path d="M57 46Q59.5 47.5 60 50.5" fill="none" stroke="rgba(200,140,100,.25)" stroke-width="1.1" stroke-linecap="round"/>
+      <ellipse cx="32.5" cy="46" rx="4.3" ry="3.4" fill="url(#cheekG)"/>
+      <ellipse cx="55.5" cy="46" rx="4.3" ry="3.4" fill="url(#cheekG)"/>
+      <path d="M28.5 21Q28 10.5 44 8.5Q60 10.5 59.5 21Q54.5 13.5 44 13Q33.5 13.5 28.5 21Z" fill="url(#hairG)"/>
+      <path d="M29.5 19Q35 12 44 11.5Q34.5 14 31 20" fill="none" stroke="rgba(255,220,180,.22)" stroke-width="1" stroke-linecap="round"/>
+      <path d="M28.5 21Q26.5 13 31 9Q30 15 30.5 21Z" fill="url(#hairG)"/>
+      <path d="M59.5 21Q61.5 13 57 9Q58 15 57.5 21Z" fill="url(#hairG)"/>
+      <path d="M28.5 21Q27.5 27 28 33" fill="none" stroke="url(#hairG)" stroke-width="3.6" stroke-linecap="round"/>
+      <path d="M59.5 21Q60.5 27 60 33" fill="none" stroke="url(#hairG)" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M31 25Q37 22 42 23.5" fill="none" stroke="#3a2313" stroke-width="1.9" stroke-linecap="round"/>
+      <path d="M46.5 23.5Q51.5 22 57 25" fill="none" stroke="#3a2313" stroke-width="1.9" stroke-linecap="round"/>
+      <path d="M31 34Q36 30 41.5 32Q41.5 38 36 40Q31 37 31 34Z" fill="rgba(255,255,255,.96)"/>
+      <ellipse cx="36" cy="35.2" rx="4" ry="4.3" fill="url(#eyeG)"/>
+      <ellipse cx="36" cy="35.7" rx="2.3" ry="2.5" fill="#1a0f08"/>
+      <circle cx="34.6" cy="33.8" r="1.5" fill="rgba(255,255,255,.9)"/>
+      <circle cx="37.3" cy="36.6" r=".6" fill="rgba(255,255,255,.4)"/>
+      <path d="M31 34Q36 30 41.5 32" fill="none" stroke="#241407" stroke-width="1.3"/>
+      <path d="M46.5 32Q52 30 57 34Q57 37 52 40Q46.5 38 46.5 35Z" fill="rgba(255,255,255,.96)"/>
+      <ellipse cx="52" cy="35.2" rx="4" ry="4.3" fill="url(#eyeG)"/>
+      <ellipse cx="52" cy="35.7" rx="2.3" ry="2.5" fill="#1a0f08"/>
+      <circle cx="50.6" cy="33.8" r="1.5" fill="rgba(255,255,255,.9)"/>
+      <circle cx="53.3" cy="36.6" r=".6" fill="rgba(255,255,255,.4)"/>
+      <path d="M46.5 32Q52 30 57 34" fill="none" stroke="#241407" stroke-width="1.3"/>
+      <path d="M43.5 42Q42.7 47 41.8 50Q43.5 51.6 44 51.6Q44.5 51.6 46.2 50Q45.3 47 44.5 42" fill="none" stroke="rgba(170,110,85,.3)" stroke-width=".9" stroke-linecap="round"/>
+      <path d="M38.5 55.5Q44 53.8 49.5 55.5Q46.5 58 44 57.6Q41.5 58 38.5 55.5Z" fill="#c87a63" opacity=".85"/>
+      <path d="M39.5 55.7Q44 57 48.5 55.7" fill="none" stroke="rgba(120,55,45,.3)" stroke-width=".6"/>
+      <path d="M29 58Q34 62 44 62.5Q54 62 59 58" fill="none" stroke="rgba(190,140,110,.22)" stroke-width=".9" stroke-linecap="round"/>
     </g>
   </svg>
   <div id="crew-shadow"></div>
@@ -1394,6 +1209,14 @@ const PORTHOLES = [
 
 const DATA_PANELS_X = [300, 720, 1180, 1620, 2060, 2480, 2950, 3380, 3800, 4250, 4700];
 
+const GREETS = [
+  'Take your time — nothing here is rushed.',
+  'The stars look good from here.',
+  'Tap the door to enter.',
+  'Glad you found the station.',
+  'Double-tap to sprint.'
+];
+
 /* ══════════════════════════════════════════════════════
    STATE
 ══════════════════════════════════════════════════════ */
@@ -1402,12 +1225,14 @@ let camX = 0, camV = 0;
 let facing = 1, moving = false;
 let warping = false;
 let doorNear = false;
+let sprinting = false, sprintTimer = null, lastMoveTapTime = 0;
 let raf = 0, lastT = 0;
 
 const worldEl  = document.getElementById('world');
 const stageEl  = document.getElementById('stage');
 const playerEl = document.getElementById('player-wrap');
 const cardEl   = document.getElementById('door-card');
+const bubbleEl = document.getElementById('speech-bubble');
 
 /* ══════════════════════════════════════════════════════
    CUSTOM CURSOR
@@ -1480,15 +1305,13 @@ function drawFloor() {
 
   floorCtx.clearRect(0, 0, fw, fh);
 
-  const vx = fw / 2, vy = 0;  // vanishing point
+  const vx = fw / 2, vy = 0;
   const COLS = 14;
   const ROWS = 9;
 
-  // Horizontal lines — converging toward top
   for (let r = 0; r <= ROWS; r++) {
     const t = r / ROWS;
     const y = fh * t;
-    // width of this row at this depth
     const lx = vx - (vx + fw * .6) * t;
     const rx = vx + (vx + fw * .6) * t;
     const a = .03 + t * .1;
@@ -1502,7 +1325,6 @@ function drawFloor() {
     floorCtx.stroke();
   }
 
-  // Vertical lines — radiating from vanishing point
   for (let c = 0; c <= COLS; c++) {
     const t = c / COLS;
     const bx = t * fw;
@@ -1515,7 +1337,6 @@ function drawFloor() {
     floorCtx.stroke();
   }
 
-  // Central accent line
   floorCtx.beginPath();
   floorCtx.moveTo(vx, vy);
   floorCtx.lineTo(vx, fh);
@@ -1523,7 +1344,6 @@ function drawFloor() {
   floorCtx.lineWidth = 1;
   floorCtx.stroke();
 
-  // Floor overlay gradient for depth fade
   const grad = floorCtx.createLinearGradient(0, 0, 0, fh);
   grad.addColorStop(0, 'rgba(2,6,24,.0)');
   grad.addColorStop(1, 'rgba(0,1,6,.7)');
@@ -1544,7 +1364,7 @@ function buildCeilGrid() {
   svgEl.setAttribute('height', H);
 
   let lines = '';
-  const vx = W / 2, vy = H;  // vanishing point at bottom center
+  const vx = W / 2, vy = H;
   const COLS = 18;
   for (let c = 0; c <= COLS; c++) {
     const tx = (c / COLS) * W;
@@ -1552,7 +1372,6 @@ function buildCeilGrid() {
     lines += `<line x1="${vx}" y1="${vy}" x2="${tx}" y2="0"
       stroke="rgba(200,106,255,${a})" stroke-width=".4"/>`;
   }
-  // horizontal lines
   const ROWS = 6;
   for (let r = 0; r < ROWS; r++) {
     const t = r / ROWS;
@@ -1578,7 +1397,6 @@ function buildPorthole(p, stageH) {
   wrap.className = 'porthole';
   wrap.style.cssText = `left:${p.wx - S/2}px;bottom:${btm}px;width:${S}px;height:${S}px;`;
 
-  // Porthole starfield
   let stars = '';
   for (let i = 0; i < 22; i++) {
     const sw = Math.random() < .65 ? .8 : 1.4;
@@ -1594,11 +1412,9 @@ function buildPorthole(p, stageH) {
       animation-delay:${(Math.random()*5).toFixed(1)}s;"></div>`;
   }
 
-  // Planet params
   const ps = Math.round(S * .35);
-  const pr = 10, pb = 12;  // % from right/bottom edge
+  const pr = 10, pb = 12;
 
-  // Ring params
   const rw = ps + 22, rh = Math.round(rw * .28);
   const rl = Math.round(S * .5 - rw * .48);
   const rb = Math.round(S * .12 + ps * .28);
@@ -1606,7 +1422,6 @@ function buildPorthole(p, stageH) {
   wrap.innerHTML = `
     <div class="port-inner" style="background:radial-gradient(ellipse at 38% 33%,${p.bg[0]} 0%,${p.bg[1]} 55%,${p.bg[2]} 100%);">
       <div style="position:absolute;inset:0;">${stars}</div>
-      <!-- Planet -->
       <div class="p-planet" style="
         position:absolute;
         width:${ps}px;height:${ps}px;
@@ -1618,17 +1433,13 @@ function buildPorthole(p, stageH) {
         <div style="position:absolute;width:60%;height:18%;top:24%;left:8%;border-radius:100px;background:#fff;opacity:.12;transform:rotate(-6deg);"></div>
         <div style="position:absolute;width:45%;height:15%;top:55%;left:28%;border-radius:100px;background:#fff;opacity:.1;transform:rotate(4deg);"></div>
       </div>
-      <!-- Atmosphere halo -->
       <div style="position:absolute;inset:0;border-radius:50%;
         background:radial-gradient(circle,transparent 48%,${p.atmo} 65%,transparent 78%);
         animation:nebulaShift 5s ease-in-out infinite alternate;"></div>
-      <!-- Ring system -->
       <div style="position:absolute;bottom:${rb}px;left:${rl}px;width:${rw}px;height:${rh}px;pointer-events:none;">
         <div style="position:absolute;inset:0;border-radius:50%;border:2px solid ${p.ring};transform:rotateX(70deg);"></div>
       </div>
-      <!-- Scan sweep -->
       <div class="port-sweep"></div>
-      <!-- Glare -->
       <div class="port-glare"></div>
     </div>
     <div class="port-frame"></div>
@@ -1636,7 +1447,6 @@ function buildPorthole(p, stageH) {
     <div class="port-outer-ring2"></div>
   `;
 
-  // Rivets at 4 cardinal positions
   [45, 135, 225, 315].forEach(ang => {
     const rad = (ang * Math.PI) / 180;
     const rv = S / 2 + 2;
@@ -1702,7 +1512,6 @@ function buildDoor(d, stageH) {
   wrap.id = 'the-door';
   wrap.style.cssText = `left:${d.wx}px;transform:translateX(-50%);`;
 
-  // Particle motes
   let motes = '';
   for (let i = 0; i < 10; i++) {
     const lp = (10 + Math.random() * 80).toFixed(1);
@@ -1756,7 +1565,6 @@ function buildWorld() {
   worldEl.style.width = WW + 'px';
   const sH = stageEl.offsetHeight;
 
-  // Columns
   for (let cx = 160; cx < WW; cx += COL_STEP) {
     const col = document.createElement('div');
     col.className = 'col';
@@ -1772,13 +1580,8 @@ function buildWorld() {
     worldEl.appendChild(col);
   }
 
-  // Portholes
   PORTHOLES.forEach(p => worldEl.appendChild(buildPorthole(p, sH)));
-
-  // Data panels
   DATA_PANELS_X.forEach((x, i) => worldEl.appendChild(buildDataPanel(x, i, sH)));
-
-  // Door
   worldEl.appendChild(buildDoor(DOOR, sH));
 }
 
@@ -1814,27 +1617,35 @@ function frame(ts) {
   lastT = ts;
   if (warping) return;
 
-  // Player movement
+  // Player movement (boy from code 1: walk 6.5 / sprint 10.5)
+  const speedBase = sprinting ? 10.5 : 6.5;
   const dx   = tgX - px;
   const dist = Math.abs(dx);
-  if (dist > 1.5) {
-    const spd = Math.min(7 * (dt / .01667) * Math.min(1, dist / 60), dist - 1.5);
-    px += Math.sign(dx) * spd;
+  if (dist > 2) {
+    const step = Math.sign(dx) * Math.min(speedBase * (dt / .01667) * Math.min(1, dist / 80), dist - 2);
+    px += step;
     px = Math.max(80, Math.min(WW - 80, px));
     facing = Math.sign(dx);
     moving = true;
   } else {
     moving = false;
+    tgX = px;
   }
 
-  // Camera
   updateCam();
 
-  // Render
   worldEl.style.transform = `translateX(${-camX}px)`;
-  playerEl.style.left = (px - camX) + 'px';
-  playerEl.classList.toggle('walking', moving);
-  playerEl.classList.toggle('face-left', facing < 0);
+  const screenX = px - camX;
+  playerEl.style.left = screenX + 'px';
+  playerEl.classList.toggle('sprinting', sprinting);
+  playerEl.classList.toggle('player-walking', moving);
+  if (moving) playerEl.classList.toggle('face-left', facing < 0);
+
+  // Speech bubble follows the boy
+  if (bubbleEl.classList.contains('on')) {
+    bubbleEl.style.left = screenX + 'px';
+    bubbleEl.style.top = (stageEl.getBoundingClientRect().bottom - 200) + 'px';
+  }
 
   // Door proximity
   const doorDist = Math.abs(px - DOOR.wx);
@@ -1845,16 +1656,11 @@ function frame(ts) {
   doorNear = doorDist < 145;
   if (doorNear !== wasNear) cardEl.classList.toggle('show', doorNear);
 
-  // Warp trigger
-  if (doorDist < 26 && !warping) triggerWarp();
+  if (doorDist < 28 && !warping) triggerWarp();
 
-  // HUD coord
   document.getElementById('hud-coord').textContent = `·${Math.floor(px + camX)}·`;
 
-  // Minimap
   updateMinimap();
-
-  // Stars
   drawStars(ts);
 }
 
@@ -1864,6 +1670,7 @@ function frame(ts) {
 function triggerWarp() {
   warping = true;
   cardEl.classList.remove('show');
+  bubbleEl.classList.remove('on');
 
   const veil = document.getElementById('warp-veil');
   const lines = document.getElementById('speed-lines');
@@ -1871,8 +1678,6 @@ function triggerWarp() {
   const W = window.innerWidth, H = window.innerHeight;
   lines.width = W; lines.height = H;
 
-  // Speed line burst
-  let lineAlpha = 0;
   const lineCount = 80;
   function drawSpeedLines(a) {
     lCtx.clearRect(0, 0, W, H);
@@ -1893,7 +1698,6 @@ function triggerWarp() {
     lCtx.globalAlpha = 1;
   }
 
-  // Animate
   let startT = null;
   const DURATION = 700;
   function warpAnim(ts) {
@@ -1919,6 +1723,16 @@ function triggerWarp() {
 }
 
 /* ══════════════════════════════════════════════════════
+   GREET (tap the boy)
+══════════════════════════════════════════════════════ */
+function greetPlayer() {
+  bubbleEl.textContent = GREETS[Math.floor(Math.random() * GREETS.length)];
+  bubbleEl.classList.add('on');
+  clearTimeout(greetPlayer._t);
+  greetPlayer._t = setTimeout(() => bubbleEl.classList.remove('on'), 2200);
+}
+
+/* ══════════════════════════════════════════════════════
    INPUT
 ══════════════════════════════════════════════════════ */
 function spawnTapFX(cx, cy) {
@@ -1941,7 +1755,6 @@ function spawnTapFX(cx, cy) {
     setTimeout(() => ring.remove(), 700);
   });
 
-  // Dust motes
   const dustColors = ['rgba(74,240,255,.7)','rgba(200,106,255,.7)','rgba(232,196,106,.7)','rgba(255,77,138,.6)'];
   for (let i = 0; i < 10; i++) {
     const m = document.createElement('div');
@@ -1963,24 +1776,40 @@ function spawnTapFX(cx, cy) {
 
 function handleNav(cx, cy) {
   if (warping) return;
+
+  // Tap on the boy → greet him (like code 1)
+  const targetEl = document.elementFromPoint(cx, cy);
+  if (targetEl && targetEl.closest('#player-wrap')) {
+    greetPlayer();
+    spawnTapFX(cx, cy);
+    return;
+  }
+
   const wx = cx + camX;
   tgX = Math.abs(wx - DOOR.wx) < 75
     ? DOOR.wx
     : Math.max(80, Math.min(WW - 80, wx));
+
+  // Double-tap to sprint (like code 1)
+  const now = Date.now();
+  sprinting = (now - lastMoveTapTime) < 320;
+  lastMoveTapTime = now;
+  if (sprinting) {
+    clearTimeout(sprintTimer);
+    sprintTimer = setTimeout(() => { sprinting = false; }, 900);
+  }
+
   spawnTapFX(cx, cy);
   cursorEl.classList.add('clicking');
   setTimeout(() => cursorEl.classList.remove('clicking'), 180);
 }
 
-// Touch — prevent all defaults to kill scroll/zoom
 document.addEventListener('touchstart',  e => { e.preventDefault(); handleNav(e.changedTouches[0].clientX, e.changedTouches[0].clientY); }, {passive: false});
 document.addEventListener('touchmove',   e => e.preventDefault(), {passive: false});
 document.addEventListener('touchend',    e => e.preventDefault(), {passive: false});
 document.addEventListener('click',       e => handleNav(e.clientX, e.clientY));
 
-// Keyboard
 document.addEventListener('keydown', e => {
-  const vw = window.innerWidth;
   if (['ArrowRight', 'd', 'D'].includes(e.key)) tgX = Math.min(WW - 80, tgX + 200);
   if (['ArrowLeft',  'a', 'A'].includes(e.key)) tgX = Math.max(80, tgX - 200);
 });
